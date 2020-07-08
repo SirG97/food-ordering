@@ -42,22 +42,23 @@ body {
 }
 
 .navbar-brand{
-    font-style: italic;
+
     font-weight: 500;
-    color: #0098DA !important;
+    color: #ED3237 !important;
 }
 
 .hero{
     height: 100vh;
     margin-top: -20px;
     /*background-image: linear-gradient(145deg,#022B3D 45%, #022B3D 85%);*/
-    background-image: url("../img/del.png");
+    background-image: url("../img/bgash.jpg");
     background-size: cover;
     overflow-x: hidden;
 }
 
-.hero-text-container{
-    max-width: 580px;
+.hero-search{
+ width: 100%;
+ background-color: rgba(0, 0, 0, 0.5);
 }
 
 .hero-h2{
@@ -133,10 +134,11 @@ body {
 }
 
 
-.what-header{
-    font-size: 44px;
+.what-header h3{
+    font-size: 2.5rem;
     line-height: 51px;
     margin-bottom: 20px;
+    color: #4a4a4a;
 }
 
 .what-widget{
@@ -146,7 +148,8 @@ body {
 
 .what-header h3, .what-header h5{
     text-align: center;
-    font-size: 44px;
+    color: #4a4a4a;
+    font-size: 2.5rem;
     line-height: 51px;
     margin-bottom: 25px;
 }
@@ -183,7 +186,7 @@ body {
     justify-content: center;
     align-items: center;
 
-    color:#007bff;
+    color: #ED3237;
     border: 2px solid#fff;
     -webkit-border-radius: 50%;
     border-radius: 50%;
@@ -385,9 +388,11 @@ body {
 
 .navbar-transparent.nav-scrolled{
     /*background: #007bff;*/
-    background-color: whitesmoke;
+    /*background-color: whitesmoke;*/
     color: #494f54 !important;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
+    /*box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);*/
+    background-color: #fff;
+    box-shadow: 0 2px 16px 0 rgba(0,0,0,.08);
 }
 .scroll-item > a{
     color: #494f54 !important;
@@ -431,6 +436,34 @@ body {
 
 .nav_section_content{
 
+}
+
+/*search box css start here*/
+.search-sec{
+    padding: 2rem;
+    width: 100%;
+
+}
+.search-slt{
+
+    display: block;
+    width: 100%;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #55595c;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    height: calc(3rem + 2px) !important;
+
+}
+.wrn-btn{
+    width: 100%;
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: capitalize;
+    height: calc(3rem + 2px) !important;
+    border-radius: 0px 9px 9px 0px;
 }
 
 .prelative{
@@ -951,6 +984,9 @@ header{
 
     .who{
         padding: 100px 30px;
+    }
+    .hero-search{
+        width: 80%;
     }
 }
 
