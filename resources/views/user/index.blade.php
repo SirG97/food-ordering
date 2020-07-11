@@ -52,18 +52,57 @@
 
     </section>
 </div>
-<section class="who">
-    <div class="whotext-container text-black-50">
-        <div class="do-you text-center font-weight-bold">Do you know who we are?</div>
-        <div>Updel Services is a courier company borne out of the need to bridge the growing gap between the need for fast, flexible supply of delivery service and available options. Led by an experienced leadership team and a versatile operational group, we are here to serve as a premier partner to every business that believes that Customer service is important to their business growth.</div>
+<section class="featured">
+    <div class="featured-container text-black-50">
+        <div class="do-you font-weight-normal">Featured</div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 col-xl-3">
+                    <div class="card featured-card" style="">
+                        <img class="card-img-top" src="/img/bg11.jpg" alt="Card image cap">
+                        <div class="card-body px-1 py-2">
+                            <h6 class="card-title">Celebrity Vegan Burger (San Francisco)</h6>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3">
+                    <div class="card featured-card" style="">
+                        <img class="card-img-top" src="/img/bgash2.jpg" alt="Card image cap">
+                        <div class="card-body px-1 py-2">
+                            <h6 class="card-title ">King's Palace Restaurant</h6>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3" style=" height: inherit">
+                    <div class="card featured-card" >
+                        <img class="card-img-top" src="/img/bg2.jpg" alt="Card image cap">
+                        <div class="card-body px-1 py-2">
+                            <h6 class="card-title ">Hong Kong Chinese</h6>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3">
+                    <div class="card featured-card" style="">
+                        <img class="card-img-top" src="/img/bgf2.jpg" alt="Card image cap">
+                        <div class="card-body px-1 py-2">
+                            <h6 class="card-title">Lavazza Espression</h6>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
 
-<!-- start of core services-->
+<!-- start how we operate-->
 <div class="what">
     <div class="what-header">
-        <h3>How</h3>
+        <h3>How it works</h3>
     </div>
     <div class="what-widget">
         <div class="container">
@@ -74,8 +113,8 @@
                         <div class="circle-icon">
                             <i class="fa fa-map-marked"></i>
                         </div>
-                        <h6>Collection Request</h6>
-                        <p>Parcels are picked up on customer's request and held till further instructions. Charges may apply.</p>
+                        <h6>Choose delivery location</h6>
+                        <p>Choose the location where you want us to delivery</p>
 
                     </div>
                 </div>
@@ -84,8 +123,8 @@
                         <div class="circle-icon">
                             <i class="fa fa-hamburger"></i>
                         </div>
-                        <h6>Combo Request</h6>
-                        <p>This is a unique service type where customer request for collection and delivery to address of choice.</p>
+                        <h6>Select the product</h6>
+                        <p>Choose from a variety of dishes available in the region.</p>
 
                     </div>
                 </div>
@@ -94,8 +133,8 @@
                         <div class="circle-icon">
                             <i class="fa fa-shipping-fast"></i>
                         </div>
-                        <h6>Swap Request</h6>
-                        <p>This service type is an exchange. A customer requests for a replacement of items already purchased.</p>
+                        <h6>Recieve at your doorstep</h6>
+                        <p>The food will be delivered to your doorstep.</p>
 
                     </div>
                 </div>
@@ -104,8 +143,33 @@
 
     </div>
 </div>
-<!-- End core services -->
+<!-- End how we operate -->
 
+<section class="services">
+    <div class="container-fluid text-white">
+        <h4 class="text-center text-white text-uppercase">Our services</h4>
+        <div class="row py-5">
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="service">
+                    <img src="/img/breakfast.png" alt="">
+                    <h5>Breakfast deal</h5>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="service">
+                    <img src="/img/lunch.png" alt="">
+                    <h5>Awesome lunch</h5>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="service">
+                    <img src="/img/dinner.png" alt="">
+                    <h5>Special dinners</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 @include('includes\footer')
 
