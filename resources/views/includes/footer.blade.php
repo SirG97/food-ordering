@@ -58,14 +58,6 @@
         </div>
     </div>
 </section>
-{{--footer section end--}}
-<script>
-    $(document).ready(() => {
-        $('nav, .nav-item').toggleClass('nav-scrolled scroll-item', window.pageYOffset > 60);
-        $(window).scroll(() => {
-            $('nav, .nav-item').toggleClass('nav-scrolled scroll-item', $(this).scrollTop() > 60)
-        });
-    });
-</script>
+
 </body>
 </html>

@@ -9,7 +9,11 @@ class IndexController extends BaseController{
         return view('user\index');
     }
 
-    public function about(){
-        return view('user\about');
+    public function restaurants(){
+        return view('user\restaurants');
+    }
+
+    public function restaurant(){
+        return view('user\restaurant');
     }
 }

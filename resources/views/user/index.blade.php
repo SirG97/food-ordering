@@ -1,7 +1,7 @@
 @include('includes\head')
 
 <div>
-    <nav class="navbar navbar-expand-lg navbar-light navbar-transparent fixed-top main-menu custom">
+    <nav class="navbar navbar-expand-lg navbar-light navbar-transparent fixed-top custom">
         <a class="navbar-brand" href="#"><i class="fas fa-hamburger"></i>GFoods</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -13,7 +13,7 @@
                 </li>
 
                 <li class="nav-item px-3">
-                    <a class="nav-link" href="/cart">vendors</a>
+                    <a class="nav-link" href="/cart">Vendors</a>
                 </li>
 
                 <li class="nav-item px-3">
@@ -170,6 +170,13 @@
         </div>
     </div>
 </section>
-
+<script>
+    $(document).ready(() => {
+        $('nav, .nav-item').toggleClass('nav-scrolled scroll-item', window.pageYOffset > 60);
+        $(window).scroll(() => {
+            $('nav, .nav-item').toggleClass('nav-scrolled scroll-item', $(this).scrollTop() > 60)
+        });
+    });
+</script>
 @include('includes\footer')
 

@@ -6,7 +6,8 @@ require_once __DIR__.'/../../vendor/altorouter/altorouter/AltoRouter.php';
 $router = new Altorouter();
 
 $router->map('GET', '/', '\App\Controllers\IndexController@index', 'home');
-$router->map('GET', '/about', '\App\Controllers\IndexController@about', 'about');
+$router->map('GET', '/restaurants', '\App\Controllers\IndexController@restaurants', 'restaurants');
+$router->map('GET', '/restaurant', '\App\Controllers\IndexController@restaurant', 'restaurant');
 $router->map('GET', '/services', '\App\Controllers\IndexController@services', 'services');
 $router->map('GET', '/contact', '\App\Controllers\IndexController@contact', 'contact');
 $router->map('GET', '/track', '\App\Controllers\IndexController@track', 'track');
