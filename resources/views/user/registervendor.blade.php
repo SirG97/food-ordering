@@ -7,9 +7,9 @@
             <div class="col-md-12">
                 <div class="custom-panel card py-2">
                     <div class="font-weight-bold text-secondary mb-1 py-3 px-3">
-                        Vendor personal information
+                        New Vendor
                     </div>
-                    <form action="/customer" method="POST">
+                    <form action="/vendor/register" method="POST">
                         <div class="container">
                             <div class="row cool-border trx-bg-head py-3">
                                 <div class="col-md-8 offset-md-2">
@@ -23,8 +23,8 @@
 
                                         </div>
                                         <div class="col-md-4 mb-3">
-                                            <label for="surname">Surname</label>
-                                            <input type="text" class="form-control" id="surname" name="surname" value="" required>
+                                            <label for="lastname">Lastname</label>
+                                            <input type="text" class="form-control" id="lastname" name="lastname" value="" required>
 
                                         </div>
                                         <div class="col-md-4 mb-3">
@@ -66,7 +66,7 @@
                                     <div class="form-row">
                                         <div class="col-md-12 mb-3">
                                             <label for="description">Description</label>
-                                            <input type="text" class="form-control" name="description" id="description" aria-describedby="inputGroupPrepend3" required>
+                                            <input type="text" class="form-control" name="description" id="description">
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -80,15 +80,15 @@
                                             <input type="text" class="form-control"  name="state" id="state" required>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="address">Address</label>
-                                            <input type="text" class="form-control"  name="address" id="address" required>
+                                            <label for="biz_address">Address</label>
+                                            <input type="text" class="form-control"  name="biz_address" id="biz_address" required>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col-md-6 mb-3">
                                             <label for="tags">Tags</label>
                                             <div class="dropdown bootstrap-select show-tick form-control">
-                                                <select multiple="" class="selectpicker form-control form-control-style" id="number-multiple" data-container="body" data-live-search="true" title="Select a number" data-hide-disabled="true" data-actions-box="true" data-virtual-scroll="true" tabindex="-2">
+                                                <select multiple="" name="tags" class="selectpicker form-control form-control-style" id="tags" data-container="body" data-live-search="true" title="Select a number" data-hide-disabled="true" data-actions-box="true" data-virtual-scroll="true" tabindex="-2">
                                                     <option value="Breakfast">Breakfast</option>
                                                     <option value="Lunch">Lunch</option>
                                                     <option value="Dinner">Dinner</option>
@@ -100,16 +100,79 @@
                                             </div>
                                         </div>
                                         <div class="col-md-3 mb-3">
-                                            <label for="alt_phone">Mobile 1</label>
-                                            <input type="text" class="form-control"  name="city" id="city" required>
+                                            <label for="mobile">Mobile 1</label>
+                                            <input type="text" class="form-control"  name="mobile" id="mobile" required>
                                         </div>
                                         <div class="col-md-3 mb-3">
-                                            <label for="alt_phone">Mobile 2</label>
-                                            <input type="text" class="form-control"  name="state" id="state">
+                                            <label for="alt_mobile">Mobile 2</label>
+                                            <input type="text" class="form-control"  name="alt_mobile" id="alt_mobile">
                                         </div>
 
                                     </div>
                                     <h6 class="text-primary">Availability and delivery hours</h6>
+                                    <div class="form-row">
+                                        <div class="col-md-4 mb-3">
+                                            <label for="opening_time">Opening time</label>
+                                            <input type="time" class="form-control"  name="opening_time" id="opening_time" required>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="closing_time">Closing time</label>
+                                            <input type="time" class="form-control"  name="closing_time" id="closing_time" required>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="sat_opening">Saturday opening</label>
+                                            <input type="time" class="form-control"  name="sat_opening" id="sat_opening">
+                                        </div>
+
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-4 mb-3">
+                                            <label for="sat_close">Saturday closing</label>
+                                            <input type="time" class="form-control"  name="sat_close" id="sat_close">
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="sun_opening">Sunday opening</label>
+                                            <input type="time" class="form-control"  name="sun_opening" id="sun_opening">
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="sun_close">Sunday closing</label>
+                                            <input type="time" class="form-control"  name="sun_close" id="sun_close">
+                                        </div>
+                                    </div>
+                                    <h6 class="text-primary">Minimum order and delivery</h6>
+                                    <div class="form-row">
+                                        <div class="col-md-4 mb-3">
+                                            <label for="min_order">Minimum order</label>
+
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="inputGroupPrepend3">&#8358</span>
+                                                </div>
+                                                <input type="text" class="form-control"  name="min_order" id="min_order">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="min_delivery">Minimum delivery</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="inputGroupPrepend3">&#8358</span>
+                                                </div>
+                                                <input type="text" class="form-control"  name="min_delivery" id="min_delivery">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="container_fee">Container fee</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="inputGroupPrepend3">&#8358</span>
+                                                </div>
+                                                <input type="text" class="form-control"  name="container_fee" id="container_fee">
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

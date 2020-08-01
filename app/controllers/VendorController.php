@@ -10,13 +10,88 @@ use App\Classes\Redirect;
 use App\Classes\Request;
 use App\Classes\Session;
 use App\Classes\Validation;
-use App\Models\District;
+use App\Models\Vendor;
 use App\Models\Route;
 
 class VendorController extends BaseController{
     public function register(){
 
         return view('user.registervendor');
+    }
+
+    public function store(){
+        if(Request::has('post')){
+            $request = Request::get('post');
+            if(CSRFToken::verifyCSRFToken($request->token)){
+                $rules = [
+                    'firstname'  => ['required' => true,'string' => true, 'minLength' => 2, 'maxLength' => 100,],
+                    'lastname' => ['required' => true,'string' => true, 'minLength' => 2, 'maxLength' => 100,],
+                    'email' => ['required' => true,'email' => true],
+                    'phone' => ['required' => true,'number' => true],
+                    'address' => ['mixed' => true],
+                    'biz_name'=> ['required' => true,'mixed' => true],
+                    'subtitle' => ['mixed' => true, 'minLength' => 2, 'maxLength' => 100,],
+                    'description' => ['mixed' => true, 'minLength' => 2, 'maxLength' => 200,],
+                    'city' => ['string' => true, 'maxLength' => 20,],
+                    'state' => ['string' => true,],
+                    'biz_address' => ['mixed' => true, 'required' => true, 'maxLength' => 50],
+                    'tags' => ['mixed' => true, 'required' => true, 'maxLength' => 150],
+                    'mobile' => ['number' => true, 'required' => true, 'maxLength' => 15],
+                    'alt_mobile' => ['number' => true, 'maxLength' => 15],
+                    'opening_time' => ['required' => true, ],
+                    'closing_time' => ['required' => true,],
+//                    'sat_opening'=> [ 'mixed' => true],
+//                    'sat_close'=> [ 'mixed' => true],
+//                    'sun_opening'=> [ 'mixed' => true],
+//                    'sun_close'=> [ 'mixed' => true]
+                ];
+                $validation = new Validation();
+                $validation->validate($_POST, $rules);
+                if($validation->hasError()){
+                    $errors = $validation->getErrorMessages();
+                    dd($errors);
+                    return view('user.registervendor', ['errors' => $errors]);
+                }
+
+                //Add the user
+                $details = [
+                            'vendor_id' => Random::generateId(16),
+                            'firstname'  => $request->firstname,
+                            'lastname'  => $request->lastname,
+                            'email'  => $request->email,
+                            'phone'  => $request->phone,
+                            'address'  => $request->address,
+                            'biz_name'  => $request->biz_name,
+                            'subtitle'  => $request->subtitle,
+                            'description'  => $request->description,
+                            'city'  => $request->city,
+                            'state'  => $request->state,
+                            'biz_address'  => $request->biz_address,
+                            'tags'  => $request->tags,
+                            'mobile'  => $request->mobile,
+                            'alt_mobile'  => $request->alt_mobile,
+                            'opening_time'  => $request->opening_time,
+                            'closing_time'  => $request->closing_time,
+                            'sat_opening'  => $request->sat_opening,
+                            'sat_closing'  => $request->sat_close,
+                            'sun_opening'  => $request->sun_opening,
+                            'sun_closing'  => $request->sun_close,
+                            'min_order'  => $request->min_order,
+                            'min_delivery'  => $request->min_delivery,
+                            'container_fee'  => $request->container_fee
+                    ];
+
+                Vendor::create($details);
+                Request::refresh();
+                Session::add('success', 'Vendor registration successfully');
+                Redirect::to('/vendor/register');
+                exit();
+            }
+
+            Session::add('error', 'Vendor registration failed, please try again');
+            Redirect::to('/vendor/register');
+            exit();
+        }
     }
 
     public function store_district(){

@@ -4,40 +4,40 @@ require_once __DIR__.'/../../vendor/altorouter/altorouter/AltoRouter.php';
 
 
 $router = new Altorouter();
+$_ = '\App\Controllers\\';
 
-$router->map('GET', '/', '\App\Controllers\IndexController@index', 'home');
-$router->map('GET', '/restaurants', '\App\Controllers\IndexController@restaurants', 'restaurants');
-$router->map('GET', '/restaurant', '\App\Controllers\IndexController@restaurant', 'restaurant');
-$router->map('GET', '/revieworder', '\App\Controllers\IndexController@revieworder', 'review_order');
+$router->map('GET', '/', $_ .'IndexController@index', 'home');
+$router->map('GET', '/restaurants', $_ .'IndexController@restaurants', 'restaurants');
+$router->map('GET', '/restaurant', $_ .'IndexController@restaurant', 'restaurant');
+$router->map('GET', '/revieworder', $_ .'IndexController@revieworder', 'review_order');
 
 
 
-$router->map('GET', '/registervendor', '\App\Controllers\VendorController@register', 'registerVendor');
-$router->map('GET', '/track', '\App\Controllers\IndexController@track', 'track');
-$router->map('GET', '/faq', '\App\Controllers\IndexController@faq', 'faq');
+$router->map('GET', '/vendor/register', $_ .'VendorController@register', 'registerVendor');
+$router->map('POST', '/vendor/register', $_ .'VendorController@store', 'storeVendor');
+
 
 
 //Authenticated routes
 
-$router->map('GET', '/register', '\App\Controllers\AuthController@showregister', 'show_register');
-$router->map('POST', '/register', '\App\Controllers\AuthController@register', 'register_user');
+$router->map('GET', '/register', $_ .'AuthController@showregister', 'show_register');
+$router->map('POST', '/register', $_ .'AuthController@register', 'register_user');
 
 // Authentication and login
-$router->map('GET', '/login', '\App\Controllers\AuthController@show', 'login');
-$router->map('POST', '/login', '\App\Controllers\AuthController@login', 'auth');
-$router->map('GET', '/logout', '\App\Controllers\AuthController@logout', 'logout');
+$router->map('GET', '/login', $_ .'AuthController@show', 'login');
+$router->map('POST', '/login', $_ .'AuthController@login', 'auth');
+$router->map('GET', '/logout', $_ .'AuthController@logout', 'logout');
 
 // Dashboard
-$router->map('GET', '/dashboard', '\App\Controllers\DashboardController@show', 'dashboard');
-$router->map('POST', '/dashboard', '\App\Controllers\DashboardController@store', 'dt');
-$router->map('GET', '/dashboard/chart', '\App\Controllers\DashboardController@chart_info', 'chart');
+$router->map('GET', '/dashboard', $_ .'DashboardController@show', 'dashboard');
+$router->map('POST', '/dashboard', $_ .'DashboardController@store', 'dt');
+
 
 // Staff routes
 $router->map('GET', '/profile', '\App\Controllers\UserController@view_profile', 'profile');
 $router->map('GET', '/managers', '\App\Controllers\UserController@get_managers', 'managers');
 $router->map('GET', '/manager/[:staff_id]', '\App\Controllers\UserController@get_staff', 'get_manager');
-$router->map('GET', '/support_staff', '\App\Controllers\UserController@get_support_staff', 'support_staff');
-$router->map('GET', '/support_staff/[:staff_id]', '\App\Controllers\UserController@get_staff', 'get_support_staff');
+
 $router->map('GET', '/riders', '\App\Controllers\UserController@get_riders', 'riders');
 $router->map('GET', '/rider/[:staff_id]', '\App\Controllers\UserController@get_staff', 'get_rider');
 $router->map('GET', '/staff', '\App\Controllers\UserController@new_staff_form', 'new_staff_form');
@@ -68,12 +68,6 @@ $router->map('POST', '/order/[:order_no]/edit', '\App\Controllers\OrderControlle
 $router->map('POST', '/order/[:order_no]/delete', '\App\Controllers\OrderController@delete_order', 'delete_order');
 $router->map('GET', '/pot', '\App\Controllers\OrderController@pot', 'pot');
 $router->map('GET', '/orders/[:terms]/search', '\App\Controllers\OrderController@search_orders', 'search_orders');
-
-
-// Delivery Vendor and authentication
-$router->map('GET', '/authorize', '\App\Controllers\DeliveryController@get_authorization_page', 'authorize');
-$router->map('POST', '/generate_qr_code', '\App\Controllers\DeliveryController@generate_authorization_qr_code', 'generate_qr');
-$router->map('GET', '/get_authorized', '\App\Controllers\DeliveryController@get_authorization_page', 'get_authorize');
 
 
 //$router->map('GET', '/customer/[:contribution_id]', '\App\Controllers\CustomerController@getcontribution', 'get_contribution');
