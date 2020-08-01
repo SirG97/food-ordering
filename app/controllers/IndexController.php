@@ -16,4 +16,8 @@ class IndexController extends BaseController{
     public function restaurant(){
         return view('user\restaurant');
     }
+
+    public function revieworder(){
+        return view('user\revieworder');
+    }
 }

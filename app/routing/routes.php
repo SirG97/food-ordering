@@ -8,8 +8,11 @@ $router = new Altorouter();
 $router->map('GET', '/', '\App\Controllers\IndexController@index', 'home');
 $router->map('GET', '/restaurants', '\App\Controllers\IndexController@restaurants', 'restaurants');
 $router->map('GET', '/restaurant', '\App\Controllers\IndexController@restaurant', 'restaurant');
-$router->map('GET', '/services', '\App\Controllers\IndexController@services', 'services');
-$router->map('GET', '/contact', '\App\Controllers\IndexController@contact', 'contact');
+$router->map('GET', '/revieworder', '\App\Controllers\IndexController@revieworder', 'review_order');
+
+
+
+$router->map('GET', '/registervendor', '\App\Controllers\VendorController@register', 'registerVendor');
 $router->map('GET', '/track', '\App\Controllers\IndexController@track', 'track');
 $router->map('GET', '/faq', '\App\Controllers\IndexController@faq', 'faq');
 
@@ -67,7 +70,7 @@ $router->map('GET', '/pot', '\App\Controllers\OrderController@pot', 'pot');
 $router->map('GET', '/orders/[:terms]/search', '\App\Controllers\OrderController@search_orders', 'search_orders');
 
 
-// Delivery Authorization and authentication
+// Delivery Vendor and authentication
 $router->map('GET', '/authorize', '\App\Controllers\DeliveryController@get_authorization_page', 'authorize');
 $router->map('POST', '/generate_qr_code', '\App\Controllers\DeliveryController@generate_authorization_qr_code', 'generate_qr');
 $router->map('GET', '/get_authorized', '\App\Controllers\DeliveryController@get_authorization_page', 'get_authorize');

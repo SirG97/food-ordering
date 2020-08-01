@@ -399,6 +399,15 @@ body {
     background-color: #e3e8ee;
 }
 
+.form-control-style{
+    color: #495057;
+    background-color: #fff !important;
+    background-clip: padding-box;
+    border: 1px solid #ced4da !important;
+    border-radius: .25rem;
+    transition: border-color .15s
+}
+
 .nav-sidebar {
     position: fixed;
     left: -60px;
@@ -537,6 +546,63 @@ body {
 
 .cart-item{
     box-shadow: inset 0 -1px 0 0 #ffdada;
+}
+
+.order-timeline{
+    margin-top: 60px;
+}
+
+.order-steps{
+    text-align: center;
+    font-size: 1.25rem;
+    list-style-type: none;
+    padding-inline-start: 0;
+
+}
+
+.order-steps li:not(:last-child){
+    min-width: 30%;
+}
+
+.order-steps > li{
+    flex-grow: 0;
+    position: relative;
+}
+
+.order-steps li:not(:last-child){
+    flex-basis: 1rem;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.order-steps-box{
+
+    left: calc(50% - 1.25rem);
+    height: 2.5rem;
+    width: 2.5rem;
+    border: .12em solid #20ac76;
+    align-items: center;
+    display: flex;
+    border-radius: 50%;
+    font-weight: 700;
+    justify-content: center;
+}
+
+.order-steps li:after{
+    left: calc(50% + 1.25rem);
+    right: calc(-50% + 1.25rem);
+    width: 310px;
+    content: " ";
+    display: block;
+    position: absolute;
+}
+
+.order-steps li:not(:last-child):after{
+    top: calc(1.25rem - 0.05em);
+    content: " ";
+    display: block;
+    position: absolute;
+    background-color: #20ac76;
 }
 
 .p-img-outer{

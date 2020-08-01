@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 
-use App\Models\Authorization;
+use App\Models\Vendor;
 use App\Models\Route;
 use App\Models\User;
 use App\Models\Rider;
@@ -28,7 +28,7 @@ class DeliveryController extends BaseController {
 
     public function get_authorization_page(){
         $id = Session::get('SESSION_USER_ID');
-        $qr_code = Authorization::where('user_id', $id)->first();
+        $qr_code = Vendor::where('user_id', $id)->first();
 
         return view('user\authorizedelivery', ['qr_code' => $qr_code]);
     }
@@ -53,7 +53,7 @@ class DeliveryController extends BaseController {
                     file_put_contents($target_path . $img_name, $qr_code_image);
                     // Save to DB
                     $image_path = "img{$ds}qrcode{$ds}" . $img_name;
-                    Authorization::updateOrCreate([
+                    Vendor::updateOrCreate([
                         'user_id' => $request->user_id],[
                         'auth_img' => $image_path,
 

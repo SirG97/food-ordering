@@ -13,11 +13,10 @@ use App\Classes\Validation;
 use App\Models\District;
 use App\Models\Route;
 
-class DistrictController extends BaseController{
-    public function get_district(){
-        $districts = District::all();
-        $routes = Route::all();
-        return view('user\district', ['districts' => $districts, 'routes' => $routes]);
+class VendorController extends BaseController{
+    public function register(){
+
+        return view('user.registervendor');
     }
 
     public function store_district(){

@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Gfood::vendors</title>
+ <link rel="favicon" href="/favicon.ico">
+ <link rel="stylesheet" href="/css/bootstrap.min.css">
+ <link rel="stylesheet" href="/css/all.css">
+ <link rel="stylesheet" href="/css/fontawesome-all.css">
+ <link rel="stylesheet" href="/css/Chart.min.css">
+ <link rel="stylesheet" href="/css/style.css">
+
+ <script src="/js/jquery-3.2.1.min.js"></script>
+ <script src="/js/bootstrap.bundle.min.js"></script>
+ <script src="/js/moment.min.js"></script>
+ <script src="/js/script.js"></script>
+
+</head>
+<body>
+<div>
+ <nav class="navbar navbar-expand-lg navbar-dark bg-white fixed-top main-menu custom">
+ <a class="navbar-brand" href="#"><i class="fas fa-hamburger"></i>GFoods</a>
+ <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+ <span class="navbar-toggler-icon"></span>
+ </button>
+ <div class="collapse navbar-collapse " id="navbarNavDropdown">
+ <ul class="navbar-nav ml-auto">
+ <li class="nav-item active px-3">
+ <a class="nav-link" href="/">Home</a>
+ </li>
+
+ <li class="nav-item px-3">
+ <a class="nav-link" href="/cart">vendors</a>
+ </li>
+
+ <li class="nav-item px-3">
+ <a class="nav-link" href="/cart"><i class="fa fa-shopping-cart"></i>Cart</a>
+ </li>
+ <li class="nav-item px-3 ">
+ <a class="nav-link btn btn-danger btn-sm" href="/authenticate">Login/Signup</a>
+ </li>
+ </ul>
+ </div>
+ </nav>
+</div>
+
+
+<div class="order-timeline d-flex justify-content-center">
+ <ul class="order-steps d-flex justify-content-center">
+ <li><span class="order-steps-box"><i class="fa fa-check"></i></span></li>
+ <li><span class="order-steps-box"><i class="fa fa-check"></i></span></li>
+ <li><span class="order-steps-box"><i class="fa fa-check"></i></span></li>
+ </ul>
+</div>
+
+<?php /*footer*/ ?>
+<?php /*<section id="footer-container">*/ ?>
+<?php /*    <div class="container-fluid">*/ ?>
+<?php /*        <div class="row">*/ ?>
+<?php /*            <div class="col-md-3">*/ ?>
+<?php /*                <h5>About Updel </h5>*/ ?>
+<?php /*                <p>UPdel Services is a courier company borne out of the need to bridge*/ ?>
+<?php /*                    the growing gap between the need for fast,*/ ?>
+<?php /*                    flexible supply of delivery service and available options.</p>*/ ?>
+<?php /*            </div>*/ ?>
+<?php /*            <div class="col-md-3 d-flex flex-column">*/ ?>
+<?php /*                <h5>Our Services</h5>*/ ?>
+<?php /*                <p>Delivery Request</p>*/ ?>
+<?php /*                <p>Collection Request</p>*/ ?>
+<?php /*                <p>Combo Request</p>*/ ?>
+<?php /*                <p>Swap Request</p>*/ ?>
+<?php /*            </div>*/ ?>
+<?php /*            <div class="col-md-3 d-flex flex-column">*/ ?>
+<?php /*                <h5>Sub Services</h5>*/ ?>
+<?php /*                <p>Premium Services</p>*/ ?>
+<?php /*                <p>Precise Delivery Services</p>*/ ?>
+<?php /*                <p>Same Day Delivery</p>*/ ?>
+<?php /*                <p>Two Day Delivery</p>*/ ?>
+<?php /*                <p><a href="/services">See more ...</a></p>*/ ?>
+<?php /*            </div>*/ ?>
+<?php /*            <div class="col-md-3">*/ ?>
+<?php /*                <h5>Contact us</h5>*/ ?>
+<?php /*                <p><i class="fa fa-map-marker-alt"></i> Nationwide</p>*/ ?>
+<?php /*                <div class="d-inline-flex mb-2 justify-content-between">*/ ?>
+<?php /*                    <div class="align-self-start"><i class="fa fa-envelope"></i></div> &nbsp;*/ ?>
+<?php /*                    <div>info@updelservices.com <br>updelservices@gmail.com</div>*/ ?>
+<?php /*                </div>*/ ?>
+<?php /*                <p><i class="fa fa-phone"></i> +2347040463183</p>*/ ?>
+<?php /*            </div>*/ ?>
+<?php /*        </div>*/ ?>
+<?php /*        <div class="row justify-content-center">*/ ?>
+<?php /*            <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12">*/ ?>
+<?php /*                <div class="footer-social">*/ ?>
+<?php /*                    <ul>*/ ?>
+<?php /*                        <li><a href="#"><i class="fab fa-linkedin"></i></a></li>*/ ?>
+<?php /*                        <li><a href="#"><i class="fab fa-facebook"></i></a></li>*/ ?>
+<?php /*                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>*/ ?>
+<?php /*                    </ul>*/ ?>
+<?php /*                </div>*/ ?>
+<?php /*                <div class="footer-nav text-center">*/ ?>
+<?php /*                    <ul>*/ ?>
+<?php /*                        <li><a href="" class="footer-lin">Home</a></li>*/ ?>
+<?php /*                        <li><a href="" class="footer-lin">About</a></li>*/ ?>
+<?php /*                        <li><a href="" class="footer-lin">Services</a></li>*/ ?>
+<?php /*                        <li><a href="" class="footer-lin">FAQ</a></li>*/ ?>
+<?php /*                        <li><a href="" class="footer-lin">Contact us</a></li>*/ ?>
+<?php /*                    </ul>*/ ?>
+<?php /*                </div>*/ ?>
+<?php /*                <div class="copyright text-center">*/ ?>
+<?php /*                    <p>Copyright © 2019 All Rights Reserved</p>*/ ?>
+<?php /*                </div>*/ ?>
+<?php /*            </div>*/ ?>
+<?php /*        </div>*/ ?>
+<?php /*    </div>*/ ?>
+<?php /*</section>*/ ?>
+
+</body>
+</html>
+
+
