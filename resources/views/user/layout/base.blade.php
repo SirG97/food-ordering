@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/all.css">
     <link rel="stylesheet" href="/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/css/croppie.css">
     <link rel="stylesheet" href="/css/style.css">
 
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/bootstrap-select.min.js"></script>
     <script src="/js/moment.min.js"></script>
+    <script src="/js/croppie.min.js"></script>
     <script src="/js/script.js"></script>
 </head>
 <body>
@@ -53,7 +55,7 @@
                     </a>
                 </div>
                 <div class="nav_item prelative">
-                    <a href="/registervendor" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/registervendor')}}">
+                    <a href="/vendor/register" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/vendor/register')}}">
                            <span class="nav_link_icon">
                             <i class="fas fa-fw fa-user"></i>
                            </span>
@@ -134,7 +136,7 @@
 
     <div class="header-nav">
             <span class="header-nav-item">
-                <img class="avatar rounded-circle img-thumbnail img-fluid" src="/{{\App\Classes\Session::get('pics')}}" alt="profile pics">
+                <img class="avatar rounded-circle img-thumbnail img-fluid" src="{{\App\Classes\Session::get('pics')}}" alt="profile pics">
 {{--            <p class="avatar">Hi! Noble</p>--}}
             </span>
         <div class="nav-dropdown">

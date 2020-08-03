@@ -431,67 +431,62 @@ document.addEventListener('DOMContentLoaded', (event) => {
         $("#assignedRouteDeleteForm").submit();
     });
 
-    $("#request_type").on('change', () => {
-        let request = $("#request_type").val();
-        if(request === 'collection'){
-            $("#delivery_address, #delivery_landmark").prop('readonly', true).val('').css('cursor', 'not-allowed');
-            // $("").prop('readonly', true);
-            $("#pick_up_address, #pick_up_landmark").prop('readonly', false).css('cursor', 'text');
-            // $("").prop('readonly', false);
-        }else if(request === 'delivery'){
-            $("#pick_up_address, #pick_up_landmark").prop('readonly', true).val('').css('cursor', 'not-allowed');
-            // $("").prop('readonly', true);
-            $("#delivery_address, #delivery_landmark").prop('readonly', false).css('cursor', 'text');
-            // $("").prop('disabled', false);
-        }else if(request === 'combo' || request === 'swap'){
-            $("#pick_up_address,#pick_up_landmark").prop('readonly', false).css('cursor', 'text');
-            // $("").prop('disabled', false);
-            $("#delivery_address, #delivery_landmark").prop('readonly', false).css('cursor', 'text');
-            // $("").prop('disabled', false);
-        }
-    });
-
-    $('#district').on('change', ()=>{
-        // let district = $("#district" + " option:selected").val();
-        let district = $("#district").val();
-        const data = {
-            district: district
-        };
-        $.ajax({
-            url: `/routes/${district}`,
-            type: 'GET',
-            data: data,
-            beforeSend: function(){
-                $('#route').html('`<option value="">loading</option>`');
-            },
-            success: function (response) {
-                $('#route').html(``);
-                let routes = JSON.parse(response);
-                console.log(JSON.parse(response));
-                if(routes.length){
-                    $.each(routes, (key, value)=>{
-                        $("#route").append(`<option value="${value.route_id}">${value.name}</option>`);
-                    })
-                }else{
-                    $("#route").append(`<option value="">No routes for district</option>`);
-                }
-
-            },
-            error: function(request, error){
-                let errors = JSON.parse(request.responseText);
-                console.log(errors);
-                let ul = '';
-                $.each(errors, (key, value) => {
-                    $.each(value, (index, item)=>{
-                        console.log(item);
-                        ul += `${item} <br>`;
-                    });
-                });
-
-            }
-        });
-
-    });
+    // // Croppie image upload
+    // $image_crop = $('#upload-demo').croppie({
+    //     // enableExif: true,
+    //     viewport: {
+    //         width: 280,
+    //         height: 280,
+    //         type: 'square'
+    //     },
+    //     boundary: {
+    //         width: 300,
+    //         height: 300
+    //     }
+    // });
+    //
+    // $('#food-img').on('change', function () {
+    //     let reader = new FileReader();
+    //     reader.onload = function (e) {
+    //         $image_crop.croppie('bind', {
+    //             url: e.target.result
+    //         }).then(function(){
+    //             console.log('jQuery bind complete');
+    //         });
+    //     }
+    //     reader.readAsDataURL(this.files[0]);
+    // });
+    //
+    // $('#save-food').on('click', function (ev) {
+    //         ev.preventDefault();
+    //     $image_crop.croppie('result', {
+    //         type: 'canvas',
+    //         size: 'viewport',
+    //         format: 'png'
+    //     }).then(function (img) {
+    //         let data = {
+    //             "food_category": $("#food_category"),
+    //             "name": $("#name"),
+    //             "unit_price": $("#unit_price"),
+    //             "description": $("#description"),
+    //             "food-img": img
+    //         };
+    //         $.ajax({
+    //             url: "/food/create",
+    //             type: "POST",
+    //             data: data,
+    //             beforeSend: function(){
+    //                 $('#save-food').html('<i class="fa fa-spinner fa-spin"></i> Please wait...');
+    //             },
+    //             success: function (response) {
+    //                 let data = JSON.parse(response);
+    //                 console.log(JSON.parse(response));
+    //                 let message = data.success;
+    //
+    //             },
+    //         });
+    //     });
+    // });
 
     function alertMessage(status, message){
         return `<div class="alert alert-${status} m-t-20 alert-dismissible fade show" role="alert">

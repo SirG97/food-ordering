@@ -12,7 +12,7 @@ class Rider extends Model{
     protected $fillable = ['rider_id','user_id','district_id', 'assigned_by', 'assignee_status'];
 
     public function districts(){
-        return $this->hasMany(District::class, 'district_id', 'district_id');
+        return $this->hasMany(FoodCategory::class, 'district_id', 'district_id');
     }
 
     public function user(){

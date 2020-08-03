@@ -26,7 +26,7 @@ class Order extends Model{
 
 
     public function route(){
-        return $this->hasOne(Route::class, 'route_id', 'route_id');
+        return $this->hasOne(Food::class, 'route_id', 'route_id');
     }
 
 

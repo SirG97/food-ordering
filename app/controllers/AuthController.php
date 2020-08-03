@@ -49,28 +49,23 @@ class AuthController{
 
                      if(!password_verify($request->password, $user->password)){
                         Session::add('error', 'incorrect password');
-                        return view('user\login');
+                        return view('user.login');
                      }else{
                          Session::add('SESSION_USER_ID', $user->user_id);
                          Session::add('SESSION_USERNAME', $user->firstname);
-                         Session::add('priviledge', $user->admin_right);
-                         if($user->image !== ''){
-                             Session::add('pics', $user->image);
-                         }else{
-                             Session::add('pics', "/img/avatar-1.jpg");
-                         }
+                         Session::add('priviledge', 'Admin');
 
-
+                         Session::add('pics', "/img/avatar-1.jpg");
                          Redirect::to('/dashboard');
                      }
                  }else{
                      Session::add('error', 'Invalid credentials');
-                     return view('user\login');
+                     return view('user.login');
                  }
 
 //                Session::add('success', 'user created successfully');
                 Session::add('error', 'An error occured');
-                return view('user\login');
+                return view('user.login');
 
             }
 

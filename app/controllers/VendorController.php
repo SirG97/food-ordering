@@ -3,6 +3,9 @@
 
 namespace App\controllers;
 
+use App\Classes\Resize;
+use App\Classes\Upload;
+use App\Models\FoodCategory;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use App\Classes\CSRFToken;
 use App\Classes\Random;
@@ -11,7 +14,7 @@ use App\Classes\Request;
 use App\Classes\Session;
 use App\Classes\Validation;
 use App\Models\Vendor;
-use App\Models\Route;
+use App\Models\Food;
 
 class VendorController extends BaseController{
     public function register(){
@@ -94,38 +97,59 @@ class VendorController extends BaseController{
         }
     }
 
-    public function store_district(){
+    public function vendor($id){
+        $foodCategory = FoodCategory::where('vendor_id', 'IW98KEPR2N')->with(['food'])->get();
+
+        return view('user.vendor', ['category' => $foodCategory]);
+    }
+
+    public function uploadFoodImage($image){
+        $ds = DIRECTORY_SEPARATOR;
+        $target_path = BASE_PATH."{$ds}public{$ds}img{$ds}food{$ds}";
+        $img_data = str_replace('data:image/png;base64,', '', $image);
+        $img_data = str_replace(' ', '+', $img_data);
+        $data = base64_decode($img_data);
+
+        $img_name = $data->order_no . uniqid()  . '.png';
+        $success = file_put_contents($target_path . $img_name, $img_data);
+        return $success ? $target_path . $img_name : false;
+    }
+
+    public function storeFoodCategory(){
         if(Request::has('post')){
             $request = Request::get('post');
             if(CSRFToken::verifyCSRFToken($request->token)){
                 $rules = [
-                    'name' => ['required' => true,'string' => true, 'minLength' => 2, 'maxLength' => 100,'unique' =>'districts'],
+                    'vendor_id' => ['required' => true,'mixed' => true],
+                    'name' => ['required' => true,'string' => true, 'minLength' => 2, 'maxLength' => 100],
                 ];
                 $validation = new Validation();
                 $validation->validate($_POST, $rules);
                 if($validation->hasError()){
                     $errors = $validation->getErrorMessages();
-                    return view('user\district', ['errors' => $errors]);
+                    return view('user.vendor', ['errors' => $errors]);
                 }
 
                 //Add the user
                 $details = [
-                    'district_id' => Random::generateId(16),
-                    'name' => $request->name,
-                    'created_by' => Session::get('SESSION_USERNAME'),
+                    'food_category_id' => Random::generateId(16),
+                    'food_category_name' => $request->name,
+                    'vendor_id' => $request->vendor_id,
                 ];
-                District::create($details);
+                FoodCategory::create($details);
                 Request::refresh();
-                Session::add('success', 'New district created successfully');
-                Redirect::to('/district_routes');
+                Session::add('success', 'New food category created successfully');
+                Redirect::back();
                 exit();
             }
 
-            Session::add('error', 'District creation failed, try again');
-            Redirect::to('/district_routes');
+            Session::add('error', 'Food Category creation failed, try again');
+            Redirect::back();
             exit();
         }
     }
+
+
 
     public function store_route(){
         if(Request::has('post')){
@@ -154,14 +178,14 @@ class VendorController extends BaseController{
                     'name' => $request->name,
                     'created_by' => Session::get('SESSION_USERNAME'),
                 ];
-                Route::create($details);
+                Food::create($details);
                 Request::refresh();
                 Session::add('success', 'New route created successfully');
                 Redirect::to('/district_routes');
                 exit();
             }
 
-            Session::add('error', 'Route creation failed, try again');
+            Session::add('error', 'Food creation failed, try again');
             Redirect::to('/district_routes');
             exit();
         }
@@ -193,12 +217,12 @@ class VendorController extends BaseController{
                     'name' => $request->name,
                 ];
                 try{
-                    Route::where('route_id', $route_id)->update($details);
-                    echo json_encode(['success' => 'Route updated successfully']);
+                    Food::where('route_id', $route_id)->update($details);
+                    echo json_encode(['success' => 'Food updated successfully']);
                     exit();
                 }catch (\Exception $e){
                     header('HTTP 1.1 500 Server Error', true, 500);
-                    echo json_encode(['error' => 'Route updated failed ' . $e]);
+                    echo json_encode(['error' => 'Food updated failed ' . $e]);
                     exit();
                 }
 
@@ -219,9 +243,9 @@ class VendorController extends BaseController{
 
             if(CSRFToken::verifyCSRFToken($request->token)){
 
-                $route = Route::where('route_id', '=', $route_id)->first();
+                $route = Food::where('route_id', '=', $route_id)->first();
                 $route->delete();
-                Session::add('success', 'Route deleted successfully');
+                Session::add('success', 'Food deleted successfully');
                 Redirect::to('/district_routes');
             }
 //            Session::add('error', 'Customer deletion failed');

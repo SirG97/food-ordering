@@ -5,8 +5,8 @@ namespace App\Controllers;
 
 
 
-use App\Models\District;
-use App\Models\Route;
+use App\Models\FoodCategory;
+use App\Models\Food;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use App\Classes\CSRFToken;
 use App\Classes\Random;
@@ -39,7 +39,7 @@ class OrderController extends BaseController{
 //    }
 
     public function show_orders(){
-        $districts = District::all();
+        $districts = FoodCategory::all();
         $orders = Order::orderBy('id', 'desc')->get();
         return view('user\orders', [ 'orders' => $orders,'districts' => $districts,]);
     }
@@ -53,13 +53,13 @@ class OrderController extends BaseController{
 
     public function get_routes($id){
         $id = $id['district_id'];
-        $routes = Route::where('district_id', $id)->orderBy('id','desc')->get();
+        $routes = Food::where('district_id', $id)->orderBy('id','desc')->get();
         echo json_encode($routes);
         exit;
     }
 
     public function get_order_form(){
-        $districts = District::all();
+        $districts = FoodCategory::all();
 
         return view('user\order_form', ['districts' => $districts]);
     }
@@ -89,7 +89,7 @@ class OrderController extends BaseController{
                 $validation = new Validation();
                 $validation->validate($_POST, $rules);
                 if($validation->hasError()){
-                    $districts = District::all();
+                    $districts = FoodCategory::all();
                     $errors = $validation->getErrorMessages();
                     return view('user\order_form', ['errors' => $errors,'districts' => $districts]);
                 }

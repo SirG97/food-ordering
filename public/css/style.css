@@ -462,6 +462,18 @@ body {
     background: linear-gradient(rgba(255,255,255,0.89), rgba(255,255,255,0.89));
 }
 
+.restaurant-banner{
+    background-size: cover;
+    background-position: 50%;
+    height: 256px;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+}
+
+.restaurant-banner-border{
+    border-width: 0 !important;
+}
+
 .banner-header nav > .breadcrumb{
     background-color: transparent;
     margin-left: -16px;
@@ -971,9 +983,7 @@ header{
     border-bottom: 1px solid #e3e8ee !important;
 }
 
-.order-details-container{
-    background-color: #f7fafc;
-}
+
 
 .contribution-overview{
     background-color: #007bff;
@@ -1133,25 +1143,26 @@ header{
     display: inline;
 }
 
-.order-details{
-    padding-left: 10px;
-    padding-right: 10px;
-}
 
-.order-detail{
-    box-shadow: inset  -1px 0 #e3e8ee;
+
+.vendor-name{
     font-weight: 500;
-    font-size: 14px;
+    font-size: 20px;
+}
+
+.vendor-subtitle{
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.vendor-details-container{
+    background-color: #f7fafc;
+    font-weight: 500;
+    font-size: 20px;
 }
 
 
-.order-detail-title{
-    color: #697386;
-}
 
-.order-detail:last-child{
-    box-shadow: none;
-}
 
 .full-details{
     font-weight: 500;
