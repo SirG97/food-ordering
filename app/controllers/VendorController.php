@@ -56,7 +56,7 @@ class VendorController extends BaseController{
                 }
 
 //                $tags = explode(',', $request->tags);
-                $tags = implode(', ', $request->tags);
+                $tags = implode(',', $request->tags);
 
 
                 //Add the user
@@ -79,9 +79,9 @@ class VendorController extends BaseController{
                             'opening_time'  => $request->opening_time,
                             'closing_time'  => $request->closing_time,
                             'sat_opening'  => $request->sat_opening,
-                            'sat_closing'  => $request->sat_close,
+                            'sat_closing'  => $request->sat_closing,
                             'sun_opening'  => $request->sun_opening,
-                            'sun_closing'  => $request->sun_close,
+                            'sun_closing'  => $request->sun_closing,
                             'min_order'  => $request->min_order,
                             'min_delivery'  => $request->min_delivery,
                             'container_fee'  => $request->container_fee
@@ -106,17 +106,96 @@ class VendorController extends BaseController{
     }
 
     public function show($id){
-        $id = $id['id'];
+        $id = $id['uid'];
         $vendor = Vendor::where('vendor_id', $id)->with('foodCategories.food')->first();
         return view('user.vendor', ['vendor' => $vendor]);
     }
 
     public function edit($id){
+        $uid = $id['uid'];
+        $vendor = Vendor::where('vendor_id', $uid)->first();
 
+        return view('user.editvendor', ['vendor' => $vendor]);
     }
 
     public function update($id){
+        $vendor_id = $id['uid'];
 
+        if(Request::has('post')){
+            $request = Request::get('post');
+            if(CSRFToken::verifyCSRFToken($request->token)){
+                $rules = [
+                    'firstname'  => ['required' => true,'string' => true, 'minLength' => 2, 'maxLength' => 100,],
+                    'lastname' => ['required' => true,'string' => true, 'minLength' => 2, 'maxLength' => 100,],
+                    'email' => ['required' => true,'email' => true, 'unique_edit' => 'vendors|' . $vendor_id .'|vendor_id'],
+                    'phone' => ['required' => true,'number' => true, 'unique_edit' => 'vendors|' . $vendor_id .'|vendor_id'],
+                    'address' => ['mixed' => true],
+                    'biz_name'=> ['required' => true,'mixed' => true],
+                    'subtitle' => ['mixed' => true, 'minLength' => 2, 'maxLength' => 100,],
+                    'description' => ['mixed' => true, 'minLength' => 2, 'maxLength' => 200,],
+                    'city' => ['string' => true, 'maxLength' => 20,],
+                    'state' => ['string' => true,],
+                    'biz_address' => ['mixed' => true, 'required' => true, 'maxLength' => 50],
+
+                    'mobile' => ['number' => true, 'required' => true, 'maxLength' => 15],
+                    'alt_mobile' => ['number' => true, 'maxLength' => 15],
+                    'opening_time' => ['required' => true, ],
+                    'closing_time' => ['required' => true,],
+//                    'sat_opening'=> [ 'mixed' => true],
+//                    'sat_close'=> [ 'mixed' => true],
+//                    'sun_opening'=> [ 'mixed' => true],
+//                    'sun_close'=> [ 'mixed' => true]
+                ];
+                $validation = new Validation();
+                $validation->validate($_POST, $rules);
+                if($validation->hasError()){
+                    $errors = $validation->getErrorMessages();
+
+                    return view('user.editvendor', ['errors' => $errors]);
+                }
+
+                $tags = implode(',', $request->tags);
+
+                $vendor = Vendor::findOrFail($vendor_id);
+
+                //Add the user
+
+                $vendor->firstname  = $request->firstname;
+                $vendor->lastname  = $request->lastname;
+                $vendor->email = $request->email;
+                $vendor->phone = $request->phone;
+                $vendor->address = $request->address;
+                $vendor->biz_name = $request->biz_name;
+                $vendor->subtitle = $request->subtitle;
+                $vendor->description = $request->description;
+                $vendor->city = $request->city;
+                $vendor->state = $request->state;
+                $vendor->biz_address = $request->biz_address;
+                $vendor->tags = $tags;
+                $vendor->mobile = $request->mobile;
+                $vendor->alt_mobile = $request->alt_mobile;
+                $vendor->opening_time = $request->opening_time;
+                $vendor->closing_time = $request->closing_time;
+                $vendor->sat_opening = $request->sat_opening;
+                $vendor->sat_closing = $request->sat_closing;
+                $vendor->sun_opening = $request->sun_opening;
+                $vendor->sun_closing = $request->sun_closing;
+                $vendor->min_order = $request->min_order;
+                $vendor->min_delivery = $request->min_delivery;
+                $vendor->container_fee = $request->container_fee;
+
+
+                $vendor->save();
+                Request::refresh();
+                Session::add('success', 'Vendor details updated successfully');
+                Redirect::back();
+                exit();
+            }
+
+            Session::add('error', 'Vendor details update failed, please try again');
+            Redirect::back();
+            exit();
+        }
     }
 
     public function storeFoodCategory(){

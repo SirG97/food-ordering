@@ -8,7 +8,8 @@ use Carbon\Carbon;
 
 class Vendor extends Model{
     public $timestamps = true;
-    protected $primaryKey = 'user_id';
+    protected $primaryKey = 'vendor_id';
+    public $incrementing = false;
     protected $dates = ['deleted_at'];
     protected $fillable = ['vendor_id','firstname', 'lastname', 'email', 'phone', 'address', 'biz_name', 'subtitle',
                             'description', 'city', 'state', 'biz_address', 'tags', 'mobile','alt_mobile', 'opening_time',

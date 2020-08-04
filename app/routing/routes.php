@@ -16,9 +16,9 @@ $router->map('GET', '/revieworder', $_ .'IndexController@revieworder', 'review_o
 $router->map('GET', '/vendor/register', $_ .'VendorController@create', 'createVendor');
 $router->map('POST', '/vendor/register', $_ .'VendorController@store', 'storeVendor');
 $router->map('GET', '/vendors', $_ .'VendorController@index', 'allVendors');
-$router->map('GET', '/vendor/[:id]', $_ .'VendorController@show', 'showVendor');
-$router->map('GET', '/vendor/[:id]/edit', $_ .'VendorController@edit', 'editVendor');
-$router->map('POST', '/vendor/[:id]/update', $_ .'VendorController@update', 'updateVendor');
+$router->map('GET', '/vendor/[:uid]', $_ .'VendorController@show', 'showVendor');
+$router->map('GET', '/vendor/[:uid]/edit', $_ .'VendorController@edit', 'editVendor');
+$router->map('POST', '/vendor/[:uid]/update', $_ .'VendorController@update', 'updateVendor');
 
 
 $router->map('POST', '/foodcategory/create', $_ .'CategoryController@store', 'storeFoodCategory');

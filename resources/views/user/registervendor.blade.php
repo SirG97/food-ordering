@@ -128,7 +128,7 @@
                                     <div class="form-row">
                                         <div class="col-md-4 mb-3">
                                             <label for="sat_close">Saturday closing</label>
-                                            <input type="time" class="form-control"  name="sat_close" id="sat_close">
+                                            <input type="time" class="form-control"  name="sat_closing" id="sat_close">
                                         </div>
                                         <div class="col-md-4 mb-3">
                                             <label for="sun_opening">Sunday opening</label>
@@ -136,7 +136,7 @@
                                         </div>
                                         <div class="col-md-4 mb-3">
                                             <label for="sun_close">Sunday closing</label>
-                                            <input type="time" class="form-control"  name="sun_close" id="sun_close">
+                                            <input type="time" class="form-control"  name="sun_closing" id="sun_close">
                                         </div>
                                     </div>
                                     <h6 class="text-primary">Minimum order and delivery</h6>
