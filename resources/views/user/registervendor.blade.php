@@ -88,7 +88,7 @@
                                         <div class="col-md-6 mb-3">
                                             <label for="tags">Tags</label>
                                             <div class="dropdown bootstrap-select show-tick form-control">
-                                                <select multiple="" name="tags" class="selectpicker form-control form-control-style" id="tags" data-container="body" data-live-search="true" title="Select a number" data-hide-disabled="true" data-actions-box="true" data-virtual-scroll="true" tabindex="-2">
+                                                <select multiple name="tags[]" class="selectpicker form-control form-control-style" id="tags" data-container="body" data-live-search="true" title="Select a number" data-hide-disabled="true" data-actions-box="true" data-virtual-scroll="true" tabindex="-2">
                                                     <option value="Breakfast">Breakfast</option>
                                                     <option value="Lunch">Lunch</option>
                                                     <option value="Dinner">Dinner</option>

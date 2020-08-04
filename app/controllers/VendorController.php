@@ -17,8 +17,7 @@ use App\Models\Vendor;
 use App\Models\Food;
 
 class VendorController extends BaseController{
-    public function register(){
-
+    public function create(){
         return view('user.registervendor');
     }
 
@@ -38,7 +37,7 @@ class VendorController extends BaseController{
                     'city' => ['string' => true, 'maxLength' => 20,],
                     'state' => ['string' => true,],
                     'biz_address' => ['mixed' => true, 'required' => true, 'maxLength' => 50],
-                    'tags' => ['mixed' => true, 'required' => true, 'maxLength' => 150],
+
                     'mobile' => ['number' => true, 'required' => true, 'maxLength' => 15],
                     'alt_mobile' => ['number' => true, 'maxLength' => 15],
                     'opening_time' => ['required' => true, ],
@@ -56,6 +55,10 @@ class VendorController extends BaseController{
                     return view('user.registervendor', ['errors' => $errors]);
                 }
 
+//                $tags = explode(',', $request->tags);
+                $tags = implode(', ', $request->tags);
+
+
                 //Add the user
                 $details = [
                             'vendor_id' => Random::generateId(16),
@@ -70,7 +73,7 @@ class VendorController extends BaseController{
                             'city'  => $request->city,
                             'state'  => $request->state,
                             'biz_address'  => $request->biz_address,
-                            'tags'  => $request->tags,
+                            'tags'  => $tags,
                             'mobile'  => $request->mobile,
                             'alt_mobile'  => $request->alt_mobile,
                             'opening_time'  => $request->opening_time,
@@ -97,56 +100,27 @@ class VendorController extends BaseController{
         }
     }
 
-    public function vendor($id){
-        $foodCategory = FoodCategory::where('vendor_id', 'IW98KEPR2N')->with(['food'])->get();
-
-        return view('user.vendor', ['category' => $foodCategory]);
+    public function index(){
+        $vendors = Vendor::all();
+        return view('user.vendors', ['vendors' => $vendors]);
     }
 
-    public function uploadFoodImage($image){
-        $ds = DIRECTORY_SEPARATOR;
-        $target_path = BASE_PATH."{$ds}public{$ds}img{$ds}food{$ds}";
-        $img_data = str_replace('data:image/png;base64,', '', $image);
-        $img_data = str_replace(' ', '+', $img_data);
-        $data = base64_decode($img_data);
+    public function show($id){
+        $id = $id['id'];
+        $vendor = Vendor::where('vendor_id', $id)->with('foodCategories.food')->first();
+        return view('user.vendor', ['vendor' => $vendor]);
+    }
 
-        $img_name = $data->order_no . uniqid()  . '.png';
-        $success = file_put_contents($target_path . $img_name, $img_data);
-        return $success ? $target_path . $img_name : false;
+    public function edit($id){
+
+    }
+
+    public function update($id){
+
     }
 
     public function storeFoodCategory(){
-        if(Request::has('post')){
-            $request = Request::get('post');
-            if(CSRFToken::verifyCSRFToken($request->token)){
-                $rules = [
-                    'vendor_id' => ['required' => true,'mixed' => true],
-                    'name' => ['required' => true,'string' => true, 'minLength' => 2, 'maxLength' => 100],
-                ];
-                $validation = new Validation();
-                $validation->validate($_POST, $rules);
-                if($validation->hasError()){
-                    $errors = $validation->getErrorMessages();
-                    return view('user.vendor', ['errors' => $errors]);
-                }
 
-                //Add the user
-                $details = [
-                    'food_category_id' => Random::generateId(16),
-                    'food_category_name' => $request->name,
-                    'vendor_id' => $request->vendor_id,
-                ];
-                FoodCategory::create($details);
-                Request::refresh();
-                Session::add('success', 'New food category created successfully');
-                Redirect::back();
-                exit();
-            }
-
-            Session::add('error', 'Food Category creation failed, try again');
-            Redirect::back();
-            exit();
-        }
     }
 
 

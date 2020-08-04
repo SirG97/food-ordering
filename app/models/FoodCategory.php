@@ -15,7 +15,7 @@ class FoodCategory extends Model
     protected $primaryKey = 'food_category_id';
     //Tell laravel that the primary key is not an integer
     public $incrementing = false;
-    protected $fillable = ['vendor_id', 'category_id', 'food_category_name'];
+    protected $fillable = ['vendor_id', 'category_id', 'category_name'];
 
     public function food(){
         return $this->hasMany(Food::class, 'category_id', 'category_id');

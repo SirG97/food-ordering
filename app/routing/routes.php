@@ -13,11 +13,17 @@ $router->map('GET', '/revieworder', $_ .'IndexController@revieworder', 'review_o
 
 
 
-$router->map('GET', '/vendor/register', $_ .'VendorController@register', 'registerVendor');
+$router->map('GET', '/vendor/register', $_ .'VendorController@create', 'createVendor');
 $router->map('POST', '/vendor/register', $_ .'VendorController@store', 'storeVendor');
-$router->map('GET', '/vendor/[:id]', $_ .'VendorController@vendor', 'vendor');
-$router->map('POST', '/foodcategory/create', $_ .'VendorController@storeFoodCategory', 'storeFoodCategory');
-$router->map('POST', '/food/create', $_ .'FoodController@storeFood', 'storeFood');
+$router->map('GET', '/vendors', $_ .'VendorController@index', 'allVendors');
+$router->map('GET', '/vendor/[:id]', $_ .'VendorController@show', 'showVendor');
+$router->map('GET', '/vendor/[:id]/edit', $_ .'VendorController@edit', 'editVendor');
+$router->map('POST', '/vendor/[:id]/update', $_ .'VendorController@update', 'updateVendor');
+
+
+$router->map('POST', '/foodcategory/create', $_ .'CategoryController@store', 'storeFoodCategory');
+$router->map('POST', '/foodcategory/[:id]/edit', $_ .'CategoryController@edit', 'editFoodCategory');
+$router->map('POST', '/food/create', $_ .'FoodController@store', 'storeFood');
 
 
 

@@ -29,7 +29,7 @@ class FoodController extends BaseController {
     }
 
 
-    public function storeFood(){
+    public function store(){
         if(Request::has('post')){
             $request = Request::get('post');
 
@@ -73,7 +73,7 @@ class FoodController extends BaseController {
                 $details = [
                     'vendor_id' => $request->vendor_id,
                     'food_id' => Random::generateId(16),
-                    'food_category_id' => $request->food_category,
+                    'category_id' => $request->food_category,
                     'name' => $request->name,
                     'unit_price' => $request->unit_price,
                     'description' => $request->description,

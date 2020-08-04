@@ -14,10 +14,10 @@
                     <div class="order-details-container cool-border-top">
                         <div class="vendor-details d-flex flex-column py-1 pt-3">
                             <div class="vendor-name px-2 px-sm-3">
-                                Tasty Pot
+                                {{$vendor->biz_name}}
                             </div>
                             <div class="vendor-subtitle px-2 px-sm-3">
-                                Fries, breakfast, Burger, Drinks
+                                {{$vendor->tags}}
                             </div>
 
                         </div>
@@ -64,9 +64,9 @@
                                 <div class="form-row">
                                     <div class="col-md-12 mb-3">
                                         <select class="custom-select" name="food_category" id="food_category" required>
-                                            @if(!empty($category) && count($category) > 0)
-                                                @foreach($category as $c)
-                                                    <option value={{$c->food_category_id}}> {{$c->food_category_name}}</option>
+                                            @if(!empty($vendor->foodCategories) && count($vendor->foodCategories) > 0)
+                                                @foreach($vendor->foodCategories as $c)
+                                                    <option value={{$c->category_id}}> {{$c->category_name}}</option>
                                                 @endforeach
                                             @else
                                                 <option value="" disabled selected>Create a Food category first</option>
@@ -121,11 +121,11 @@
                                 </thead>
                                 <tbody class="table-style">
 
-                                @if(!empty($category) && count($category) > 0)
-                                    @foreach($category as $c)
+                                @if(!empty($vendor->foodCategories) && count($vendor->foodCategories) > 0)
+                                    @foreach($vendor->foodCategories as $c)
                                         @foreach($c->food as $food)
                                             <tr class="align-middle">
-                                                <td scope="row"><img src="/{{$food['image']}}" alt="Food image" style="width:100px"></td>
+                                                <td scope="row"><img src="/{{$food['image']}}" alt="Food image" style="width:80px"></td>
                                                 <td >{{ $food['name'] }}</td>
                                                 <td>{{ $c['category_name'] }}</td>
                                                 <td>{{ $food['unit_price'] }}</td>
@@ -227,7 +227,7 @@
                                 @else
                                     <tr>
                                         <td colspan="7">
-                                            <div class="d-flex justify-content-center">No routes created</div>
+                                            <div class="d-flex justify-content-center">Vendor has no food yet</div>
                                         </td>
                                     </tr>
                                 @endif
@@ -235,7 +235,7 @@
                             </table>
                         </div>
                         <div class="panel-footer py-1 mt-0 mr-3 d-flex justify-content-end">
-                            {!! $links !!}
+
                         </div>
 
                     </div>

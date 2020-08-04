@@ -9,7 +9,7 @@ class Food extends Model{
 
     public $timestamps = true;
     protected $dates = ['deleted_at'];
-    protected $fillable = ['vendor_id','food_category_id','food_id', 'name', 'image', 'description', 'unit_price'];
+    protected $fillable = ['vendor_id','category_id','food_id', 'name', 'image', 'description', 'unit_price'];
 
     public function foodCategory(){
         return $this->belongsTo(FoodCategory::class, 'category_id', 'category_id');
