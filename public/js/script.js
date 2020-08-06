@@ -131,48 +131,56 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 
     // Show the edit modal and populate the fields for customer edit
-    $('#editModal').on('show.bs.modal', function (event) {
+    $('#editFood').on('show.bs.modal', function (event) {
         let button = $(event.relatedTarget); // Button that triggered the modal
-        let route_id = button.data('route_id'); // Extract info from data-* attributes
-        let district = button.data('district'); // Extract info from data-* attributes
-        let district_id = button.data('district_id'); // Extract info from data-* attributes
-
+        let food_id = button.data('food_id'); // Extract info from data-* attributes
+        let category_id = button.data('category_id'); // Extract info from data-* attributes
         let name = button.data('name'); // Extract info from data-* attributes
+        let unit_price = button.data('unit_price'); // Extract info from data-* attributes
+        let description = button.data('description'); // Extract info from data-* attributes
 
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         let modal = $(this);
 
-        modal.find('#route_id').val(route_id);
-        modal.find('#district').val(district);
-        modal.find('#district_id').val(district_id);
+        modal.find('#food_id').val(food_id);
+
+        modal.find(`#category_id option[value=${category_id}]`).prop('selected', true);
         modal.find('#name').val(name);
+        modal.find('#unit_price').val(unit_price);
+        modal.find('#description').val(description);
 
     });
 
-    $('#editBtn').on('click', (e)=>{
+    $('#editFoodBtn').on('click', (e)=>{
         e.preventDefault();
-        let route_id = $('#route_id').val();
-        const url = `/route/${route_id}/edit`;
-        const data = {
-            token : $('#token').val(),
-            district : $('#district').val(),
-            district_id : $('#district_id').val(),
-            name : $('#name').val(),
-        };
+        let food_id = $('#food_id').val();
+        const url = `/food/${food_id}/edit`;
+        let d = new FormData();
+        console.log($('#food_id').val());
+        d.append('token', $('#token').val());
+        d.append('food_category', $('#category_id').val());
+        d.append('name', $('#name').val());
+        d.append('unit_price', $('#unit_price').val());
+        d.append('description', $('#description').val());
+        d.append('food_img', $("#food_img").prop("files")[0]);
+
         $.ajax({
             url: url,
             type: 'POST',
-            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            data: d,
             beforeSend: function(){
-                $('#editBtn').html('<i class="fa fa-spinner fa-spin"></i> Please wait...');
+                $('#editFoodBtn').html('<i class="fa fa-spinner fa-spin"></i> Please wait...');
             },
             success: function (response) {
                 let data = JSON.parse(response);
                 console.log(JSON.parse(response));
                 let message = data.success;
                 msg.innerHTML = alertMessage('success', message);
-                $('#editBtn').html('Save');
+                $('#editFoodBtn').html('Save');
                 //interval(5000);
                 window.location.reload()
             },
@@ -180,17 +188,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
                 let errors = JSON.parse(request.responseText);
                 console.log(errors);
-                let ul = '';
-                $.each(errors, (key, value) => {
-                    $.each(value, (index, item)=>{
-                        console.log(item);
-                        ul += `${item} <br>`;
-                    });
 
-                });
-
-                msg.innerHTML = alertMessage('danger', ul);
-                $('#editBtn').html('Save');
+                msg.innerHTML = alertMessage('danger', errors.error);
+                $('#editFoodBtn').html('Save');
                 interval(5000);
             }
         });

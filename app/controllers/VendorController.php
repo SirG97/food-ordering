@@ -58,7 +58,6 @@ class VendorController extends BaseController{
 //                $tags = explode(',', $request->tags);
                 $tags = implode(',', $request->tags);
 
-
                 //Add the user
                 $details = [
                             'vendor_id' => Random::generateId(16),
