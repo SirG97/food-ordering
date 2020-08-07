@@ -144,7 +144,7 @@
                                                     <i class="fas fa-fw fa-trash text-danger"
                                                        title="Delete customer details"
                                                        data-toggle="modal"
-                                                       data-target="#deleteModal"
+                                                       data-target="#deleteFoodModal"
                                                        data-food_id="{{ $food['food_id'] }}"></i>
                                                 </td>
                                             </tr>
@@ -217,26 +217,26 @@
                                     </div>
 
                                     {{-- Delete Modal--}}
-                                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="deleteFoodModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Delete route</h5>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Delete food</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form id="routeDeleteForm" action="" method="POST">
+                                                    <form id="foodDeleteForm" action="" method="POST">
                                                         <div class="col-md-12">
-                                                            Delete route?
+                                                            Are you sure you want to delete food?
                                                             <input type="hidden" id="token" name="token" value="{{\App\Classes\CSRFToken::_token()}}">
                                                         </div>
                                                     </form>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-danger" id="deleteRouteBtn">Delete</button>
+                                                    <button type="button" class="btn btn-danger" id="deleteFoodBtn">Delete</button>
                                                 </div>
                                             </div>
                                         </div>

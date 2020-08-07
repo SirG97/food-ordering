@@ -25,7 +25,7 @@ $router->map('POST', '/foodcategory/create', $_ .'CategoryController@store', 'st
 $router->map('POST', '/foodcategory/[:id]/edit', $_ .'CategoryController@edit', 'editFoodCategory');
 $router->map('POST', '/food/create', $_ .'FoodController@store', 'storeFood');
 $router->map('POST', '/food/[:food_id]/edit', $_ .'FoodController@update', 'updateFood');
-$router->map('POST', '/food/[:food_id]/delete', $_ .'FoodController@store', 'deleteFood');
+$router->map('POST', '/food/[:food_id]/delete', $_ .'FoodController@delete', 'deleteFood');
 
 
 

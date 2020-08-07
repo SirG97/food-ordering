@@ -188,8 +188,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
                 let errors = JSON.parse(request.responseText);
                 console.log(errors);
+                if(errors.error == undefined){
+                    let ul = '';
+                    $.each(errors, (key, value) => {
+                        $.each(value, (index, item)=>{
+                            console.log(item);
+                            ul += `${item} <br>`;
+                        });
 
-                msg.innerHTML = alertMessage('danger', errors.error);
+                    });
+
+                    msg.innerHTML = alertMessage('danger', ul);
+                }else{
+                    msg.innerHTML = alertMessage('danger', errors.error);
+                }
+
                 $('#editFoodBtn').html('Save');
                 interval(5000);
             }
@@ -197,18 +210,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     // show the delete confirmation modal
-    $('#deleteModal').on('show.bs.modal', function (event) {
+    $('#deleteFoodModal').on('show.bs.modal', function (event) {
         let button = $(event.relatedTarget); // Button that triggered the modal
-        let route_id = button.data('route_id'); // Extract info from data-* attributes
-        let form_action = `/route/${route_id}/delete`;
+        let food_id = button.data('food_id'); // Extract info from data-* attributes
+        let form_action = `/food/${food_id}/delete`;
 
         let modal = $(this);
-        modal.find('#routeDeleteForm').attr("action", form_action);
+        modal.find('#foodDeleteForm').attr("action", form_action);
     });
 
-    $('#deleteRouteBtn').on('click', (e)=>{
+    $('#deleteFoodBtn').on('click', (e)=>{
         e.preventDefault();
-        $("#routeDeleteForm").submit();
+        $("#foodDeleteForm").submit();
     });
 
     // Edit order modal

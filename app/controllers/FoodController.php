@@ -199,7 +199,7 @@ class FoodController extends BaseController {
 
             }
         }else{
-            Session::add('error', 'Staff deletion failed');
+            Session::add('error', 'Food deletion failed');
             Redirect::back();
         }
     }
