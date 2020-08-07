@@ -224,6 +224,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
         $("#foodDeleteForm").submit();
     });
 
+    // show the delete confirmation modal
+    $('#deleteVendorModal').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget); // Button that triggered the modal
+        let vendor_id = button.data('vendor_id'); // Extract info from data-* attributes
+        let form_action = `/vendor/${vendor_id}/delete`;
+
+        let modal = $(this);
+
+        modal.find('#vendorDeleteForm').attr("action", form_action);
+    });
+
+    $('#deleteVendorBtn').on('click', (e)=>{
+        e.preventDefault();
+        $("#vendorDeleteForm").submit();
+    });
+
     // Edit order modal
     $('#editOrderModal').on('show.bs.modal', function (event) {
         let button = $(event.relatedTarget); // Button that triggered the modal

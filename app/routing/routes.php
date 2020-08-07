@@ -19,6 +19,7 @@ $router->map('GET', '/vendors', $_ .'VendorController@index', 'allVendors');
 $router->map('GET', '/vendor/[:uid]', $_ .'VendorController@show', 'showVendor');
 $router->map('GET', '/vendor/[:uid]/edit', $_ .'VendorController@edit', 'editVendor');
 $router->map('POST', '/vendor/[:uid]/update', $_ .'VendorController@update', 'updateVendor');
+$router->map('POST', '/vendor/[:uid]/delete', $_ .'VendorController@delete', 'deleteVendor');
 
 
 $router->map('POST', '/foodcategory/create', $_ .'CategoryController@store', 'storeFoodCategory');
