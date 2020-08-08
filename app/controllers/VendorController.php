@@ -107,7 +107,8 @@ class VendorController extends BaseController{
     public function show($id){
         $id = $id['uid'];
         $vendor = Vendor::where('vendor_id', $id)->with('foodCategories.food')->first();
-        return view('user.vendor', ['vendor' => $vendor]);
+
+        return view('user.vendor', ['vendor' => $vendor,]);
     }
 
     public function edit($id){
@@ -119,7 +120,6 @@ class VendorController extends BaseController{
 
     public function update($id){
         $vendor_id = $id['uid'];
-
         if(Request::has('post')){
             $request = Request::get('post');
             if(CSRFToken::verifyCSRFToken($request->token)){
@@ -224,4 +224,65 @@ class VendorController extends BaseController{
             Redirect::back();
         }
     }
+
+    public function upload($id){
+
+        $vendor_id = $id['uid'];
+        if(Request::has('post')){
+            $request = Request::get('post');
+            if(CSRFToken::verifyCSRFToken($request->token, false)){
+
+                $validation = new Validation();
+                //Handle file upload
+                $file = Request::get('file');
+                $filename = isset($file->banner->name) ? $filename = $file->banner->name: $filename = '';
+                $file_error = [];
+                if(isset($file->banner->name) && !Upload::is_image($filename)){
+                    $file_error['food_img'] = ['Image is not a valid image'];
+                }
+                if($validation->hasError()){
+                    $errors = $validation->getErrorMessages();
+
+                    header('HTTP 1.1 422 Unprocessable Entity', true, 422);
+                    echo json_encode($errors);
+                    exit();
+                }
+
+                $vendor = Vendor::where('vendor_id', $vendor_id)->first();
+
+                // Deal with the upload first
+                if($filename){
+                    $ds = DIRECTORY_SEPARATOR;
+                    //get the old image for deletion
+                    $old_image = BASE_PATH ."{$ds}public{$ds}$vendor->banner";
+                    $temp_file = $file->banner->tmp_name;
+                    // Upload image
+                    $image_path = Upload::move($temp_file, "img{$ds}restaurants", $filename)->path();
+                    // Resize image
+
+                    unlink($old_image);
+                    $vendor->banner = $image_path;
+                }
+
+                try{
+                    $vendor->save();
+                    echo json_encode(['success' => 'Banner updated successfully']);
+                    exit();
+                }catch (\Exception $e){
+                    header('HTTP 1.1 500 Server Error', true, 500);
+                    echo json_encode(['error' => 'Banner update failed', 'e' => $e->getMessage()]);
+                    exit();
+                }
+            }else{
+                header('HTTP 1.1 400 Token Error', true, 400);
+                echo json_encode(['error' => 'Token error Banner update failed']);
+                exit();
+            }
+
+            //Redirect::to('/customer');
+        }else{
+            echo 'request error';
+        }
+    }
+
 }

@@ -6,10 +6,22 @@
         <div class="row ">
             <div class="col-md-12">
                 <div class="custom-panel card restaurant-banner-border">
-                    <!--suppress CssUnknownTarget -->
+
                     <div class="d-flex justify-content-end restaurant-banner"
-                         style="background-image: url('/img/restaurants/banner.png');">
-                        <button class="btn btn-sm btn-danger align-self-end mb-1 mr-1" ><i class="fa fa-edit"></i></button>
+
+                         style="background-image: url('/{{$vendor->banner == false ? '/img/placeholder-vendor-desktop.svg' :str_replace("\\", "/", $vendor->banner)}}');">
+{{--                        {{$vendor->banner == false ? : $vendor->banner }}--}}
+                        <form id="banner-form" class="align-self-end" action="#">
+                            <input type="hidden" id="banner_token" name="token" value="{{\App\Classes\CSRFToken::_token()}}">
+                            <input type="hidden" id="banner_vendor_id" name="vendor_id" value="{{$vendor->vendor_id}}">
+
+                            <div class=" btn image-upload  mb-1 mr-2">
+                                <label for="file-input" id="file-icon">
+                                    <i class="fa fa-edit text-danger"></i>
+                                </label>
+                                <input id="file-input" type="file"/>
+                            </div>
+                        </form>
                     </div>
                     <div class="order-details-container cool-border-top">
                         <div class="vendor-details d-flex flex-column py-1 pt-3">

@@ -22,7 +22,7 @@ class Upload{
         $name = strtolower(str_replace(['-',' '], '_', $name));
         $hash = md5(microtime());
         $ext = $this->fileExtension($file);
-        $this->filename = "{$name}-{$hash}.{$ext}";
+        $this->filename = "{$name}_{$hash}.{$ext}";
     }
 
     protected function fileExtension($file){

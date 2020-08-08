@@ -240,6 +240,64 @@ document.addEventListener('DOMContentLoaded', (event) => {
         $("#vendorDeleteForm").submit();
     });
 
+    // Upload banner
+    $("#file-input").on("change", (e)=> {
+       bannerUpload();
+    });
+
+    function bannerUpload(){
+        let vendor_id = $('#banner_vendor_id').val();
+        let d = new FormData();
+        d.append('token', $('#banner_token').val());
+        d.append('banner', $("#file-input").prop("files")[0]);
+        const url = `/vendor/${vendor_id}/upload`;
+        console.log(vendor_id);
+        $.ajax({
+            url: url,
+            type: 'POST',
+            processData: false,
+            contentType: false,
+            cache: false,
+            data: d,
+            beforeSend: function(){
+                $('#file-icon').html('<i class="fa fa-spinner fa-spin"></i> ');
+            },
+            success: function (response) {
+                let data = JSON.parse(response);
+                console.log(JSON.parse(response));
+                // let message = data.success;
+                // msg.innerHTML = alertMessage('success', message);
+                // $('#editFoodBtn').html('Save');
+                // //interval(5000);
+                window.location.reload()
+            },
+            error: function(request, error){
+
+                let errors = JSON.parse(request.responseText);
+                console.log(errors);
+                if(errors.error == undefined){
+                    let ul = '';
+                    $.each(errors, (key, value) => {
+                        $.each(value, (index, item)=>{
+                            console.log(item);
+                            ul += `${item} <br>`;
+                        });
+
+                    });
+
+
+                    $('#file-icon').html(`<i class="alert alert-danger">${ul}</i>`);
+                }else{
+
+                    $('#file-icon').html(`<i class="alert alert-danger">${errors.error}</i>`);
+                }
+
+                $('#editFoodBtn').html('Save');
+                interval(5000);
+            }
+        });
+    }
+
     // Edit order modal
     $('#editOrderModal').on('show.bs.modal', function (event) {
         let button = $(event.relatedTarget); // Button that triggered the modal

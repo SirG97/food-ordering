@@ -104,7 +104,6 @@ class FoodController extends BaseController {
 
     public function update($id){
         $food_id = $id['food_id'];
-//            dd(Request::all());
         if(Request::has('post')){
             $request = Request::get('post');
             if(CSRFToken::verifyCSRFToken($request->token, false)){
