@@ -968,6 +968,27 @@ header{
     font-size: 35px;
 }
 
+.skewed-section{
+
+}
+
+.skewed-box{
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    right: 0;
+    left: 0;
+    width: 50%;
+    height: 50%;
+    background: #2c3e50;
+    z-index: 0;
+    transform: skewY(-14deg);
+    transform-origin: top left;
+    border-radius: 15px;
+}
+
+/* Login style stops*/
+
 #searchbox{
     box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12);;
     border-radius: 5px;

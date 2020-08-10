@@ -1,4 +1,4 @@
-@include('includes\head')
+@include('includes.head')
 
 <div>
     <nav class="navbar navbar-expand-lg navbar-light navbar-transparent fixed-top custom">
@@ -20,7 +20,7 @@
                     <a class="nav-link" href="/cart"><i class="fa fa-shopping-cart"></i>Cart</a>
                 </li>
                 <li class="nav-item px-3 ">
-                    <a class="nav-link btn btn-danger btn-sm" href="/authenticate">Login/Signup</a>
+                    <a class="nav-link btn btn-danger btn-sm" href="/customer/login">Login/Signup</a>
                 </li>
             </ul>
         </div>
@@ -178,5 +178,5 @@
         });
     });
 </script>
-@include('includes\footer')
+@include('includes.footer')
 
