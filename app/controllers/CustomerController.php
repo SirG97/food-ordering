@@ -11,6 +11,7 @@ use App\Classes\Resize;
 use App\Classes\Session;
 use App\Classes\Validation;
 use App\Models\Customer;
+use App\Models\Order;
 
 class CustomerController extends BaseController{
     public function getLogin(){
@@ -66,7 +67,6 @@ class CustomerController extends BaseController{
     public function getRegister(){
 
         return view('customer.register', ['success' => '','errors' => []]);
-
     }
 
     public function register(){
@@ -110,5 +110,8 @@ class CustomerController extends BaseController{
 
     }
 
-
+    public function showOrders(){
+        $orders = Order::where('user_id', Session::get('user_id'))->get();
+        return view('customer.orders', ['orders' => $orders]);
+    }
 }
