@@ -8,10 +8,11 @@ $_ = '\App\Controllers\\';
 
 $router->map('GET', '/', $_ .'IndexController@index', 'home');
 $router->map('GET', '/restaurants', $_ .'IndexController@restaurants', 'restaurants');
-$router->map('GET', '/restaurant', $_ .'IndexController@restaurant', 'restaurant');
+$router->map('GET', '/restaurant/[:uid]', $_ .'IndexController@restaurant', 'restaurant');
 $router->map('GET', '/revieworder', $_ .'IndexController@revieworder', 'review_order');
 
-
+//Vue Restaurant route
+$router->map('GET', '/menu/[:uid]', $_ .'IndexController@getMenu', 'getmenu');
 
 $router->map('GET', '/vendor/register', $_ .'VendorController@create', 'createVendor');
 $router->map('POST', '/vendor/register', $_ .'VendorController@store', 'storeVendor');

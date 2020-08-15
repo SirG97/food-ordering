@@ -87,119 +87,22 @@
         <div class="do-you font-weight-normal">Vendors</div>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6 col-xl-3">
-                    <div class="card featured-card" style="">
-                        <img class="card-img-top" src="/img/bg11.jpg" alt="Card image cap">
-                        <div class="card-body px-1 py-2">
-                            <h6 class="card-title">Celebrity Vegan Burger (San Francisco)</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                @foreach($vendors as $vendor)
+                    <div class="col-md-6 col-xl-3">
+                        <a href="/restaurant/{{$vendor['vendor_id']}}">
+                            <div class="card featured-card" style="">
+                            <img class="card-img-top" src="{{$vendor['banner']}}" alt="Card image cap" style="height: 180px">
+                            <div class="card-body px-1 py-2">
+                                <h6 class="card-title">{{$vendor['biz_name']}}</h6>
+                                <p class="card-text"> {{$vendor['description']}}</p>
+                            </div>
                         </div>
+                        </a>
                     </div>
-                </div>
-                <div class="col-md-6 col-xl-3">
-                    <div class="card featured-card" style="">
-                        <img class="card-img-top" src="/img/bgash2.jpg" alt="Card image cap">
-                        <div class="card-body px-1 py-2">
-                            <h6 class="card-title ">King's Palace Restaurant</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-3" style=" height: inherit">
-                    <div class="card featured-card" >
-                        <img class="card-img-top" src="/img/bg2.jpg" alt="Card image cap">
-                        <div class="card-body px-1 py-2">
-                            <h6 class="card-title ">Hong Kong Chinese</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-3">
-                    <div class="card featured-card" style="">
-                        <img class="card-img-top" src="/img/bgf2.jpg" alt="Card image cap">
-                        <div class="card-body px-1 py-2">
-                            <h6 class="card-title">Lavazza Espression</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+
             </div>
-            <div class="row">
-                <div class="col-md-6 col-xl-3">
-                    <div class="card featured-card" style="">
-                        <img class="card-img-top" src="/img/bg11.jpg" alt="Card image cap">
-                        <div class="card-body px-1 py-2">
-                            <h6 class="card-title">Celebrity Vegan Burger (San Francisco)</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-3">
-                    <div class="card featured-card" style="">
-                        <img class="card-img-top" src="/img/bgash2.jpg" alt="Card image cap">
-                        <div class="card-body px-1 py-2">
-                            <h6 class="card-title ">King's Palace Restaurant</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-3" style=" height: inherit">
-                    <div class="card featured-card" >
-                        <img class="card-img-top" src="/img/bg2.jpg" alt="Card image cap">
-                        <div class="card-body px-1 py-2">
-                            <h6 class="card-title ">Hong Kong Chinese</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-3">
-                    <div class="card featured-card" style="">
-                        <img class="card-img-top" src="/img/bgf2.jpg" alt="Card image cap">
-                        <div class="card-body px-1 py-2">
-                            <h6 class="card-title">Lavazza Espression</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 col-xl-3">
-                    <div class="card featured-card" style="">
-                        <img class="card-img-top" src="/img/bg11.jpg" alt="Card image cap">
-                        <div class="card-body px-1 py-2">
-                            <h6 class="card-title">Celebrity Vegan Burger (San Francisco)</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-3">
-                    <div class="card featured-card" style="">
-                        <img class="card-img-top" src="/img/bgash2.jpg" alt="Card image cap">
-                        <div class="card-body px-1 py-2">
-                            <h6 class="card-title ">King's Palace Restaurant</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-3" style=" height: inherit">
-                    <div class="card featured-card" >
-                        <img class="card-img-top" src="/img/bg2.jpg" alt="Card image cap">
-                        <div class="card-body px-1 py-2">
-                            <h6 class="card-title ">Hong Kong Chinese</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-3">
-                    <div class="card featured-card" style="">
-                        <img class="card-img-top" src="/img/bgf2.jpg" alt="Card image cap">
-                        <div class="card-body px-1 py-2">
-                            <h6 class="card-title">Lavazza Espression</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 </section>

@@ -15,7 +15,10 @@
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/moment.min.js"></script>
+    <script src="/js/vue.js"></script>
+    <script src="/js/axios.min.js"></script>
     <script src="/js/script.js"></script>
+    <script src="/js/cart.js"></script>
 
 </head>
 <body>
@@ -39,23 +42,23 @@
                     <a class="nav-link" href="/cart"><i class="fa fa-shopping-cart"></i>Cart</a>
                 </li>
                 <li class="nav-item px-3 ">
-                    <a class="nav-link btn btn-danger btn-sm" href="/authenticate">Login/Signup</a>
+                    <a class="nav-link btn btn-danger btn-sm" href="/login">Login/Signup</a>
                 </li>
             </ul>
         </div>
     </nav>
 </div>
-<div class="banner d-flex justify-content-center" style="background-image: url('img/bgash2.jpg'); width: 100vw">
+<div class="banner restaurant-main-banner d-flex justify-content-center" style="background-image: url('/{{$vendor->banner == false ? '/img/placeholder-vendor-desktop.svg' :str_replace("\\", "/", $vendor->banner)}}'); width: 100vw">
     <div class="banner-header align-self-end">
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Library</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Data</li>
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/vendors">Vendors</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{$vendor->biz_name}}</li>
                 </ol>
             </nav>
-            <h3>Burger King</h3>
+            <h3>{{$vendor->biz_name}}</h3>
             <div class="more-info d-inline-flex">
                 <span>
                     <i class="fa fa-star"></i>
@@ -64,9 +67,9 @@
                     <i class="fa fa-star-half-alt"></i>
                     <i class="far fa-star-o"></i>
                 </span>
-                <span class="seperator">Min. Order</span>
-                <span class="seperator">Min. Delivery fee</span>
-                <span class="seperator">Delivery time</span>
+                <span class="seperator">Min. Order - &#8358;{{$vendor->min_order}}</span>
+                <span class="seperator">Min. Delivery fee - &#8358;{{$vendor->min_delivery}}</span>
+                <span class="seperator">Delivery time - </span>
                 <span class="seperator">More info</span>
             </div>
         </div>
@@ -78,11 +81,11 @@
 <div class="restaurant-nav my-1">
     <div class="container">
         <nav class="d-inline-flex flex-nowrap">
-            <a class="" href="#">Rice</a>
-            <a class="" href="#">Salad</a>
-            <a class="" href="#">Fries</a>
-            <a class="" href="#">Chicken</a>
-            <a class="" href="#">Drinks</a>
+            @if(!empty($vendor->foodCategories) && count($vendor->foodCategories) > 0)
+                @foreach($vendor->foodCategories as $c)
+                    <a class="" href="#{{$c->category_name}}">{{$c->category_name}}</a>
+                @endforeach
+            @endif
         </nav>
     </div>
 
@@ -91,261 +94,52 @@
 
 {{--product listing--}}
 
-<div class="product-container">
+<div class="product-container" id="root" data-id="{{$vendor->vendor_id}}">
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <nav class="nav nav-tabs customer-nav mr-2" id="myTab" role="tablist">
-                    <a aria-controls="general" aria-selected="true" class="nav-link active" data-toggle="tab" href="#general"
-                       id="general-tab" role="tab">Rice</a>
-                </nav>
-                <div class="product-group">
-                    <div class="product-card py-1" style="">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-4 col-sm-2 p-img-outer px-1 px-sm-2">
-                                    <div class="card-img-container py-1">
-                                        <img class="card-img align-self-center" src="/img/burger.png" alt="Burger">
-                                    </div>
-                                </div>
-                                <div class="col-8 col-sm-10 border-danger p-card-outer pl-1 pl-sm-2">
-                                    <div class="product-description p-0 d-flex flex-column justify-content-between">
-                                        <h5 class="card-title mb-0">Suresh Dasari</h5>
-                                        <p class="card-text">Suresh Dasari is a founder and technical lead developer in tutlane.</p>
-                                        <div class="d-flex justify-content-end">
-                                            <span class="font-weight-bold product-price">#1250</span>
-                                            <button type="button" class="btn btn-outline-danger btn-sm p-0 px-1"><i class="fa fa-plus"></i> </button>
+                <div v-cloak v-for="menu in menus">
+                    <div v-if="menu.food.length !== 0">
+                        <nav class="nav nav-tabs customer-nav mr-2" id="myTab" role="tablist">
+                            <a aria-controls="general" aria-selected="true" class="nav-link active" data-toggle="tab" href="'#' + menu.category_name"
+                               id="general-tab" role="tab">@{{menu.category_name}}</a>
+                        </nav>
+                        <div class="product-group">
+    {{--                            @foreach($c->food as $food)--}}
+                                    <div class="product-card py-1" v-for="food in menu.food" style="">
+                                        <div class="container-fluid">
+                                            <div class="row">
+
+                                                <div class="col-4 col-sm-2 p-img-outer px-1 px-sm-2">
+                                                    <div class="card-img-container py-1">
+                                                        <img class="card-img align-self-center" :src="'/' + food.image" alt="food.name + 'picture'">
+                                                    </div>
+                                                </div>
+                                                <div class="col-8 col-sm-10 border-danger p-card-outer pl-1 pl-sm-2">
+                                                    <div class="product-description p-0 d-flex flex-column justify-content-between">
+                                                        <h5 class="card-title mb-0">@{{ food.name }}</h5>
+                                                        <p class="card-text">@{{ food.description }}</p>
+                                                        <div class="d-flex justify-content-end">
+                                                            <span class="font-weight-bold product-price">@{{ food.unit_price }}</span>
+                                                            <button type="button" class="btn btn-outline-danger btn-sm p-0 px-1" @click.prevent="addToCart(food.food_id)"><i class="fa fa-plus"></i> </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+    {{--                            @endforeach--}}
                             </div>
-                        </div>
-
                     </div>
-                    <div class="product-card py-1" style="">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-4 col-sm-2 p-img-outer px-1 px-sm-2">
-                                    <div class="card-img-container py-1">
-                                        <img class="card-img align-self-center" src="/img/tuna.jpg" alt="Burger">
-                                    </div>
-                                </div>
-                                <div class="col-8 col-sm-10 border-danger p-card-outer pl-1 pl-sm-2">
-                                    <div class="product-description p-0">
-                                        <h5 class="card-title mb-0">Suresh Dasari</h5>
-                                        <p class="card-text">Suresh Dasari is a founder and technical lead developer in tutlane.</p>
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="product-card py-1" style="">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-4 col-sm-2 p-img-outer px-1 px-sm-2">
-                                    <div class="card-img-container py-1">
-                                        <img class="card-img align-self-center" src="/img/fries.jpg" alt="Burger">
-                                    </div>
-                                </div>
-                                <div class="col-8 col-sm-10 border-danger p-card-outer pl-1 pl-sm-2">
-                                    <div class="product-description p-0">
-                                        <h5 class="card-title mb-0">Suresh Dasari</h5>
-                                        <p class="card-text">Suresh Dasari is a founder and technical lead developer in tutlane.</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="product-card py-1" style="">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-4 col-sm-2 p-img-outer px-1 px-sm-2">
-                                    <div class="card-img-container py-1">
-                                        <img class="card-img align-self-center" src="/img/bgash.jpg" alt="Burger">
-                                    </div>
-                                </div>
-                                <div class="col-8 col-sm-10 border-danger p-card-outer pl-1 pl-sm-2">
-                                    <div class="product-description p-0">
-                                        <h5 class="card-title mb-0">Suresh Dasari</h5>
-                                        <p class="card-text">Suresh Dasari is a founder and technical lead developer in tutlane.</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
-
-                <nav class="nav nav-tabs customer-nav mr-2" id="myTab" role="">
-                    <a aria-controls="general" aria-selected="true" class="nav-link active" data-toggle="tab" href="#general"
-                       id="general-tab" role="tab">Rice</a>
-                </nav>
-                <div class="product-group">
-                    <div class="product-card py-1" style="">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-4 col-sm-2 p-img-outer px-1 px-sm-2">
-                                    <div class="card-img-container py-1">
-                                        <img class="card-img align-self-center" src="/img/burger.png" alt="Burger">
-                                    </div>
-                                </div>
-                                <div class="col-8 col-sm-10 border-danger p-card-outer pl-1 pl-sm-2">
-                                    <div class="product-description p-0">
-                                        <h5 class="card-title mb-0">Suresh Dasari</h5>
-                                        <p class="card-text">Suresh Dasari is a founder and technical lead developer in tutlane.</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="product-card py-1" style="">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-4 col-sm-2 p-img-outer px-1 px-sm-2">
-                                    <div class="card-img-container py-1">
-                                        <img class="card-img align-self-center" src="/img/tuna.jpg" alt="Burger">
-                                    </div>
-                                </div>
-                                <div class="col-8 col-sm-10 border-danger p-card-outer pl-1 pl-sm-2">
-                                    <div class="product-description p-0">
-                                        <h5 class="card-title mb-0">Suresh Dasari</h5>
-                                        <p class="card-text">Suresh Dasari is a founder and technical lead developer in tutlane.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="product-card py-1" style="">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-4 col-sm-2 p-img-outer px-1 px-sm-2">
-                                    <div class="card-img-container py-1">
-                                        <img class="card-img align-self-center" src="/img/fries.jpg" alt="Burger">
-                                    </div>
-                                </div>
-                                <div class="col-8 col-sm-10 border-danger p-card-outer pl-1 pl-sm-2">
-                                    <div class="product-description p-0">
-                                        <h5 class="card-title mb-0">Suresh Dasari</h5>
-                                        <p class="card-text">Suresh Dasari is a founder and technical lead developer in tutlane.</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="product-card py-1" style="">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-4 col-sm-2 p-img-outer px-1 px-sm-2">
-                                    <div class="card-img-container py-1">
-                                        <img class="card-img align-self-center" src="/img/bgash.jpg" alt="Burger">
-                                    </div>
-                                </div>
-                                <div class="col-8 col-sm-10 border-danger p-card-outer pl-1 pl-sm-2">
-                                    <div class="product-description p-0">
-                                        <h5 class="card-title mb-0">Suresh Dasari</h5>
-                                        <p class="card-text">Suresh Dasari is a founder and technical lead developer in tutlane.</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <nav class="nav nav-tabs customer-nav mr-2" id="myTab" role="">
-                    <a aria-controls="general" aria-selected="true" class="nav-link active" data-toggle="tab" href="#general"
-                       id="general-tab" role="tab">Burger</a>
-                </nav>
-                <div class="product-group">
-                    <div class="product-card py-1" style="">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-4 col-sm-2 p-img-outer px-1 px-sm-2">
-                                    <div class="card-img-container py-1">
-                                        <img class="card-img align-self-center" src="/img/burger.png" alt="Burger">
-                                    </div>
-                                </div>
-                                <div class="col-8 col-sm-10 border-danger p-card-outer pl-1 pl-sm-2">
-                                    <div class="product-description p-0">
-                                        <h5 class="card-title mb-0">Suresh Dasari</h5>
-                                        <p class="card-text">Suresh Dasari is a founder and technical lead developer in tutlane.</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="product-card py-1" style="">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-4 col-sm-2 p-img-outer px-1 px-sm-2">
-                                    <div class="card-img-container py-1">
-                                        <img class="card-img align-self-center" src="/img/tuna.jpg" alt="Burger">
-                                    </div>
-                                </div>
-                                <div class="col-8 col-sm-10 border-danger p-card-outer pl-1 pl-sm-2">
-                                    <div class="product-description p-0">
-                                        <h5 class="card-title mb-0">Suresh Dasari</h5>
-                                        <p class="card-text">Suresh Dasari is a founder and technical lead developer in tutlane.</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="product-card py-1" style="">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-4 col-sm-2 p-img-outer px-1 px-sm-2">
-                                    <div class="card-img-container py-1">
-                                        <img class="card-img align-self-center" src="/img/fries.jpg" alt="Burger">
-                                    </div>
-                                </div>
-                                <div class="col-8 col-sm-10 border-danger p-card-outer pl-1 pl-sm-2">
-                                    <div class="product-description p-0">
-                                        <h5 class="card-title mb-0">Suresh Dasari</h5>
-                                        <p class="card-text">Suresh Dasari is a founder and technical lead developer in tutlane.</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="product-card py-1" style="">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-4 col-sm-2 p-img-outer px-1 px-sm-2">
-                                    <div class="card-img-container py-1">
-                                        <img class="card-img align-self-center" src="/img/bgash.jpg" alt="Burger">
-                                    </div>
-                                </div>
-                                <div class="col-8 col-sm-10 border-danger p-card-outer pl-1 pl-sm-2">
-                                    <div class="product-description p-0">
-                                        <h5 class="card-title mb-0">Suresh Dasari</h5>
-                                        <p class="card-text">Suresh Dasari is a founder and technical lead developer in tutlane.</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                <div class="text-center">
+                    <i v-show="loading" class="fa fa-spinner fa-spin" style="font-size: 3rem; padding-bottom: 3rem; position:fixed;
+                   top:50%; bottom: 50%" ></i>
                 </div>
             </div>
+{{--            Cart--}}
             <div class="col-md-4">
                 <div class="cart-container">
                     <section class="curved">
@@ -437,69 +231,9 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
 
-{{--product listing ends--}}
-
-{{--footer--}}
-{{--<section id="footer-container">--}}
-{{--    <div class="container-fluid">--}}
-{{--        <div class="row">--}}
-{{--            <div class="col-md-3">--}}
-{{--                <h5>About Updel </h5>--}}
-{{--                <p>UPdel Services is a courier company borne out of the need to bridge--}}
-{{--                    the growing gap between the need for fast,--}}
-{{--                    flexible supply of delivery service and available options.</p>--}}
-{{--            </div>--}}
-{{--            <div class="col-md-3 d-flex flex-column">--}}
-{{--                <h5>Our Services</h5>--}}
-{{--                <p>Delivery Request</p>--}}
-{{--                <p>Collection Request</p>--}}
-{{--                <p>Combo Request</p>--}}
-{{--                <p>Swap Request</p>--}}
-{{--            </div>--}}
-{{--            <div class="col-md-3 d-flex flex-column">--}}
-{{--                <h5>Sub Services</h5>--}}
-{{--                <p>Premium Services</p>--}}
-{{--                <p>Precise Delivery Services</p>--}}
-{{--                <p>Same Day Delivery</p>--}}
-{{--                <p>Two Day Delivery</p>--}}
-{{--                <p><a href="/services">See more ...</a></p>--}}
-{{--            </div>--}}
-{{--            <div class="col-md-3">--}}
-{{--                <h5>Contact us</h5>--}}
-{{--                <p><i class="fa fa-map-marker-alt"></i> Nationwide</p>--}}
-{{--                <div class="d-inline-flex mb-2 justify-content-between">--}}
-{{--                    <div class="align-self-start"><i class="fa fa-envelope"></i></div> &nbsp;--}}
-{{--                    <div>info@updelservices.com <br>updelservices@gmail.com</div>--}}
-{{--                </div>--}}
-{{--                <p><i class="fa fa-phone"></i> +2347040463183</p>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        <div class="row justify-content-center">--}}
-{{--            <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12">--}}
-{{--                <div class="footer-social">--}}
-{{--                    <ul>--}}
-{{--                        <li><a href="#"><i class="fab fa-linkedin"></i></a></li>--}}
-{{--                        <li><a href="#"><i class="fab fa-facebook"></i></a></li>--}}
-{{--                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--                <div class="footer-nav text-center">--}}
-{{--                    <ul>--}}
-{{--                        <li><a href="" class="footer-lin">Home</a></li>--}}
-{{--                        <li><a href="" class="footer-lin">About</a></li>--}}
-{{--                        <li><a href="" class="footer-lin">Services</a></li>--}}
-{{--                        <li><a href="" class="footer-lin">FAQ</a></li>--}}
-{{--                        <li><a href="" class="footer-lin">Contact us</a></li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--                <div class="copyright text-center">--}}
-{{--                    <p>Copyright © 2019 All Rights Reserved</p>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</section>--}}
+    </script>
 
 </body>
 </html>

@@ -111,6 +111,8 @@ class VendorController extends BaseController{
         return view('user.vendor', ['vendor' => $vendor,]);
     }
 
+
+
     public function edit($id){
         $uid = $id['uid'];
         $vendor = Vendor::where('vendor_id', $uid)->first();

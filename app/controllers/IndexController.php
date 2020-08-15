@@ -3,21 +3,35 @@
 namespace App\Controllers;
 use App\Classes\Mail;
 use App\Classes\Redirect;
+use App\Models\Vendor;
 
 class IndexController extends BaseController{
     public function index(){
-        return view('user\index');
+
+        return view('user.index');
     }
 
     public function restaurants(){
-        return view('user\restaurants');
+        $vendors = Vendor::all();
+        return view('user.restaurants', ['vendors' => $vendors]);
+
     }
 
-    public function restaurant(){
-        return view('user\restaurant');
+    public function restaurant($id){
+        $vendor_id = $id['uid'];
+        $vendor = Vendor::where('vendor_id', $vendor_id)->first();
+        return view('user.restaurant', ['vendor' => $vendor]);
+    }
+
+    public function getMenu($id){
+        $vendor_id = $id['uid'];
+//        $vendor = Vendor::where('vendor_id', $vendor_id)->first();
+        $vendor = Vendor::where('vendor_id', $id)->with('foodCategories.food')->first();
+        echo json_encode(['status' => 'success', 'vendor' => $vendor]);
+        exit();
     }
 
     public function revieworder(){
-        return view('user\revieworder');
+        return view('user.revieworder');
     }
 }
