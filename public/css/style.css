@@ -1231,6 +1231,13 @@ header{
     display: none;
 }
 
+#toast{
+    position: fixed;
+    top: 10%;
+    right: 1rem;
+    display: none;
+}
+
 
 @media screen and (min-width: 768px){
     .main{

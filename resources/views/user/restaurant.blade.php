@@ -94,7 +94,7 @@
 
 {{--product listing--}}
 
-<div class="product-container" id="root" data-id="{{$vendor->vendor_id}}">
+<div class="product-container" id="root" data-id="{{$vendor->vendor_id}}" data-token="{{$token}}">
     <div class="container">
         <div class="row">
             <div class="col-md-8">
@@ -231,9 +231,9 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-
-    </script>
+<div class="alert alert-success" id="toast" role="alert">
+    This is a success alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+</div>
 
 </body>
 </html>

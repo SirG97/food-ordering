@@ -14,6 +14,12 @@ $router->map('GET', '/revieworder', $_ .'IndexController@revieworder', 'review_o
 //Vue Restaurant route
 $router->map('GET', '/menu/[:uid]', $_ .'IndexController@getMenu', 'getmenu');
 
+// Cart Route
+$router->map('POST', '/cart', $_ .'CartController@addItem', 'addToCart');
+
+
+
+
 $router->map('GET', '/vendor/register', $_ .'VendorController@create', 'createVendor');
 $router->map('POST', '/vendor/register', $_ .'VendorController@store', 'storeVendor');
 $router->map('GET', '/vendors', $_ .'VendorController@index', 'allVendors');

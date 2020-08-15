@@ -18,7 +18,18 @@ let app = new Vue({
                 });
             },
             addToCart: function(id){
-                alert(`Food with id ${id} has been added to cart`)
+                let token = $('.product-container').data('token');
+                let postData = $.param({food_id: id, token: token});
+                axios.post('/cart', postData).then((response) => {
+                    $("#toast").css("display", "block").html(response.data.success);
+                    setTimeout((e)=>{
+                        $("#toast").css("display", "none")
+                    }, 2500);
+                    console.log(response.data.success);
+                }).catch((e) => {
+                    $("#toast").removeClass('alert-success').addClass('alert-danger').css("display", "block").html(e);
+                });
+                // alert(`Food with id ${id} and ${token} has been added to cart`)
             }
         },
         beforeMount(){

@@ -3,24 +3,15 @@
 
 namespace App\Controllers;
 
-
-
-use App\Models\FoodCategory;
-use App\Models\Food;
-use Illuminate\Database\Capsule\Manager as Capsule;
 use App\Classes\CSRFToken;
-use App\Classes\Random;
-use App\Classes\Redirect;
+use App\Classes\Cart;
 use App\Classes\Request;
-use App\Classes\Session;
-use App\Classes\Validation;
-use App\Models\Order;
-use Carbon\Carbon;
+
 
 
 class CartController extends BaseController{
 
-    public function addItem($id){
+    public function addItem(){
 
         if(Request::has('post')){
             $request = Request::get('post');
