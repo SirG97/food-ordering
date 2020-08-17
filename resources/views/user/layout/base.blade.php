@@ -6,7 +6,7 @@
     <title>Admin :: @yield('title')</title>
     <link rel="favicon" href="/favicon.ico">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/all.css">
+{{--    <link rel="stylesheet" href="/css/all.css">--}}
     <link rel="stylesheet" href="/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="/css/croppie.css">
     <link rel="stylesheet" href="/css/style.css">

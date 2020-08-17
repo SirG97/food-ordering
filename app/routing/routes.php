@@ -16,6 +16,7 @@ $router->map('GET', '/menu/[:uid]', $_ .'IndexController@getMenu', 'getmenu');
 
 // Cart Route
 $router->map('POST', '/cart', $_ .'CartController@addItem', 'addToCart');
+$router->map('GET', '/items', $_ .'CartController@getCartItems', 'getCartItem');
 
 
 
