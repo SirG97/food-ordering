@@ -7,16 +7,17 @@ let app = new Vue({
             loading: false,
             cartLoading: false,
             failed: false,
+            cartTotal: 0,
             message: '',
-            vendorId: $("#root").data('id')
+            vendorId: $("#vid").data('id')
         },
         methods:{
-            getMenu: () =>{
+            getMenu: (vendorId) =>{
                 // this.loading = true;
-                axios.get(`/menu/${this.vendorId}`).then((response)=>{
-                    console.log(`/menu/${this.vendorId}`);
+                axios.get(`/menu/${vendorId}`).then((response)=>{
+                    console.log(`/menu/${vendorId}`);
                     app.menus = response.data.vendor.food_categories;
-                    this.loading = false;
+                    app.loading = false;
                 }).catch((e) =>{
                     console.log(e);
                 });
@@ -27,7 +28,6 @@ let app = new Vue({
 
                 axios.post('/cart', postData).then((response) => {
 
-                    console.log(postData);
                     $("#toast").css("display", "block").html(response.data.success);
                     setTimeout((e)=>{
                         $("#toast").css("display", "none")
@@ -47,19 +47,57 @@ let app = new Vue({
                             // It means cart is empty
                             app.cartLoading = false;
                             app.message = response.data.error;
+                        }else if(response.data.items !== undefined){
+                            app.items = response.data.items;
+                            app.cartTotal = response.data.cartTotal;
+                            console.log(response.data.items);
+                            app.cartLoading = false;
                         }else{
-                            app.items = response.data.items
+
+                            app.cartLoading = false;
                         }
                     })
                 },2000);
             },
-            updateQuantity: (foodId, operator) =>{
+            updateCartView: () =>{
+                app.cartLoading = true;
+                setTimeout(function(){
+                    axios.get('/items').then((response)=>{
+                        if(response.data.error){
+                            // It means cart is empty
+                            app.cartLoading = false;
+                            app.message = response.data.error;
+                        }else if(response.data.items !== undefined){
+                            app.items = response.data.items;
+                            app.cartTotal = response.data.cartTotal;
+                            console.log(response.data.items);
+                            app.cartLoading = false;
+                        }else{
 
+                            app.cartLoading = false;
+                        }
+                    })
+                },200);
+            },
+            updateQuantity: (foodId, operator) =>{
+                console.log(foodId, operator);
+                let postData = $.param({food_id: foodId, operator: operator});
+                axios.post('/cart/update', postData).then((response) => {
+                  
+                    app.updateCartView();
+
+                }).catch((e) => {
+                    console.log(e);
+                    $("#toast").removeClass('alert-success').addClass('alert-danger').css("display", "block").html(e);
+                });
             }
         },
-        created: () =>{
+        beforeMount(){
+            let v = $("#vid").data('id');
             this.loading = true;
-            this.getMenu()
+            this.cartLoading = true;
+            this.getMenu(v);
+            this.displayCartItems();
         }
     });
 });

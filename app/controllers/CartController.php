@@ -47,7 +47,7 @@ class CartController extends BaseController{
                 $item = Food::where('food_id', $food_id)->first();
                 if(!$item){ continue; }
 
-                $totalPrice = $item->price * $quantity;
+                $totalPrice = (int)$item->unit_price * $quantity;
                 $cartTotal = $totalPrice + $cartTotal;
                 $totalPrice = number_format($totalPrice, 2);
 
@@ -69,6 +69,61 @@ class CartController extends BaseController{
             exit();
         }catch (\Exception $e){
             echo json_encode(['error' => 'operation failed', 'message' => $e]);
+        }
+    }
+
+    public function updateQuantity(){
+        if(Request::has('post')){
+            $request = Request::get('post');
+            if(!$request->food_id){
+                throw new \Exception('Malicious Activity');
+            }
+
+            $index = 0;
+            $quantity = '';
+            foreach($_SESSION['user_cart'] as $cart_item){
+                $index++;
+                foreach($cart_item as $key => $value){
+                    if($key == 'food_id' and $value == $request->food_id){
+                        switch ($request->operator){
+                            case '+':
+                                $quantity = $cart_item['quantity'] + 1;
+                                break;
+                            case '-':
+                                $quantity = $cart_item['quantity'] - 1;
+                                if($quantity < 1){
+                                    $quantity = 1;
+                                }
+                                break;
+                        }
+
+                        array_splice($_SESSION['user_cart'], $index -1, 1, array(
+                            [
+                                'food_id' => $request->food_id,
+                                'quantity' => $quantity
+                            ]
+                        ));
+                    }
+                }
+            }
+
+        }else{
+            echo 'request error';
+        }
+    }
+
+    public function removeItem(){
+        if(Request::has('post')){
+            $request = Request::get('post');
+            if(CSRFToken::verifyCSRFToken($request->token, false)){
+                if(!$request->item_index){
+                    throw new \Exception('Malicious Activity');
+                }
+                Cart::removeItem($request->item_index);
+            }
+
+        }else{
+            echo 'request error';
         }
     }
 
