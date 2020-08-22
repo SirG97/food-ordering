@@ -22,6 +22,7 @@ class IndexController extends BaseController{
         $vendor_id = $id['uid'];
         $token = CSRFToken::_token();
         $vendor = Vendor::where('vendor_id', $vendor_id)->first();
+
         return view('user.restaurant', ['vendor' => $vendor, 'token' => $token]);
     }
 

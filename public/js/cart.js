@@ -9,7 +9,8 @@ let app = new Vue({
             failed: false,
             cartTotal: 0,
             message: '',
-            vendorId: $("#vid").data('id')
+            vendorId: $("#vid").data('id'),
+            disableCheckoutBtn: true
         },
         methods:{
             getMenu: (vendorId) =>{
@@ -27,7 +28,7 @@ let app = new Vue({
                 let postData = $.param({food_id: id, token: token});
 
                 axios.post('/cart', postData).then((response) => {
-
+                    app.updateCartView();
                     $("#toast").css("display", "block").html(response.data.success);
                     setTimeout((e)=>{
                         $("#toast").css("display", "none")
@@ -52,6 +53,7 @@ let app = new Vue({
                             app.cartTotal = response.data.cartTotal;
                             console.log(response.data.items);
                             app.cartLoading = false;
+                            app.disableCheckoutBtn = false;
                         }else{
 
                             app.cartLoading = false;
@@ -66,19 +68,23 @@ let app = new Vue({
                         if(response.data.error){
                             // It means cart is empty
                             app.cartLoading = false;
+                            app.items = [];
+                            app.disableCheckoutBtn = true;
                             app.message = response.data.error;
                         }else if(response.data.items !== undefined){
                             app.items = response.data.items;
                             app.cartTotal = response.data.cartTotal;
                             console.log(response.data.items);
                             app.cartLoading = false;
+                            app.disableCheckoutBtn = false;
                         }else{
-
+                            app.disableCheckoutBtn = true;
                             app.cartLoading = false;
                         }
                     })
                 },200);
             },
+
             updateQuantity: (foodId, operator) =>{
                 console.log(foodId, operator);
                 let postData = $.param({food_id: foodId, operator: operator});
@@ -90,6 +96,15 @@ let app = new Vue({
                     console.log(e);
                     $("#toast").removeClass('alert-success').addClass('alert-danger').css("display", "block").html(e);
                 });
+            },
+
+            removeItem: (index) => {
+                let postData = $.param({item_index: index});
+                axios.post('/cart/remove', postData).then((response) => {
+                    console.log(response.data);
+                    $("#toast").css("display", "block").html(response.data.success);
+                    app.updateCartView();
+                })
             }
         },
         beforeMount(){

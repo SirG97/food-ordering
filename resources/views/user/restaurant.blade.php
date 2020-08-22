@@ -159,7 +159,7 @@
                                     <div class="">@{{ item.total }}</div>
                                 </div>
                                 <div class="d-flex justify-content-between">
-                                    <span>remove <i class="fa fa-times"></i></span>
+                                    <span @click="removeItem(item.index)">remove <i class="fa fa-times"></i></span>
                                     <div class="d-flex ">
                                         <button type="button" class="btn btn-outline-danger btn-sm p-0 px-1" @click="updateQuantity(item.food_id, '-')"><i class="fa fa-minus"></i> </button>
                                         <span class="font-weight-bold product-price">@{{ item.unit_price }}</span>
@@ -176,14 +176,14 @@
                             </div>
                             <div class="del-container d-flex justify-content-between">
                                 <div >Delivery fee</div>
-                                <div id="delivery">#600</div>
+                                <div id="delivery">{{$vendor->min_delivery}}</div>
                             </div>
                             <div class="del-container d-flex justify-content-between">
                                 <div class="font-weight-bold">Grand total</div>
                                 <div id="grand" class="font-weight-bold">@{{ cartTotal }}</div>
                             </div>
                         </div>
-                        <button class="btn btn-block btn-danger text-uppercase">checkout</button>
+                        <button class="btn btn-block btn-danger text-uppercase" :disabled="disableCheckoutBtn">checkout</button>
                         <div class="text-center">
                             <i v-show="cartLoading" class="fa fa-spinner fa-spin" style="font-size: 3rem; padding-bottom: 3rem; position:absolute;
                    top:50%; bottom: 50%" ></i>

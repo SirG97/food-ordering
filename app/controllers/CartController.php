@@ -36,7 +36,7 @@ class CartController extends BaseController{
             $result = array();
             $cartTotal = 0;
             if(!Session::has('user_cart') || count(Session::get('user_cart')) < 1){
-                echo json_encode(['fail' => 'Cart is empty']);
+                echo json_encode(['error' => 'Cart is empty']);
                 exit();
             }
 
@@ -115,13 +115,12 @@ class CartController extends BaseController{
     public function removeItem(){
         if(Request::has('post')){
             $request = Request::get('post');
-            if(CSRFToken::verifyCSRFToken($request->token, false)){
-                if(!$request->item_index){
-                    throw new \Exception('Malicious Activity');
-                }
-                Cart::removeItem($request->item_index);
+            if($request->item_index === ''){
+                throw new \Exception('Malicious Activity');
             }
-
+            Cart::removeItem($request->item_index);
+            echo json_encode(['success' => "Item removed from cart successfully"]);
+            exit;
         }else{
             echo 'request error';
         }

@@ -8,8 +8,11 @@ class Cart{
     protected static $isItemInCart = false;
 
     public static function add($request){
+//        unset($_SESSION['user_cart']);
+//        dd($_SESSION['user_cart']);
         try{
             $index = 0;
+//            dd(Session::get('user_cart'));
             // Check if cart is empty
             if(!Session::has('user_cart') || count(Session::get('user_cart')) < 1){
                 Session::add('user_cart', [
@@ -38,10 +41,26 @@ class Cart{
                 }
 
             }
+//            dd(Session::get('user_cart'));
+
         }catch (\Exception $e){
             echo $e->getMessage();
         }
     }
 
+    public static function  removeItem($index){
+        if(count(Session::get('user_cart')) <= 1){
+             // Empty cart
+            unset($_SESSION['user_cart']);
+        }else{
+            // Empty particular item
+            unset($_SESSION['user_cart'][$index]);
+            sort($_SESSION['user_cart']);
+        }
+    }
+
+    public static function clear(){
+        Session::remove('user_cart');
+    }
 
 }
