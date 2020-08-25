@@ -185,7 +185,7 @@
  <div id="grand" class="font-weight-bold">{{ cartTotal }}</div>
  </div>
  </div>
- <button class="btn btn-block btn-danger text-uppercase" :disabled="disableCheckoutBtn">checkout</button>
+ <a href="/revieworder" class="btn btn-block btn-danger text-uppercase" :disabled="disableCheckoutBtn">checkout</a>
  <div class="text-center">
  <i v-show="cartLoading" class="fa fa-spinner fa-spin" style="font-size: 3rem; padding-bottom: 3rem; position:absolute;
  top:50%; bottom: 50%" ></i>

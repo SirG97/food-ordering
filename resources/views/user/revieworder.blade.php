@@ -14,8 +14,10 @@
 
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/moment.min.js"></script>
+    <script src="/js/vue.js"></script>
+    <script src="/js/axios.min.js"></script>
     <script src="/js/script.js"></script>
+    <script src="/js/revieworder.js"></script>
 
 </head>
 <body>
@@ -54,7 +56,7 @@
 {{--        <li><span class="order-steps-box"><i class="fa fa-check"></i></span></li>--}}
 {{--    </ul>--}}
 {{--</div>--}}
-<div class="container-fluid">
+<div class="container" id="root">
 
     <div class="row">
         <div class="col-md-12">
@@ -71,79 +73,32 @@
                     <table class="table table-hover ">
                         <thead class="trx-bg-head text-secondary py-3 px-3">
                         <tr>
+                            <th scope="col">Image</th>
                             <th scope="col">Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Phone</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">City</th>
-                            <th scope="col">Actions</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Action</th>
                         </tr>
                         </thead>
                         <tbody class="table-style">
+                            <tr v-for="item in items">
 
-                        @if(!empty($vendors) && count($vendors) > 0)
-                            @foreach($vendors as $vendor)<tr>
-
-                                <td>{{ $vendor['biz_name'] }}</td>
-                                <td>{{ $vendor['email'] }}</td>
-                                <td>{{ $vendor['phone'] }}</td>
-                                <td>{{ $vendor['biz_address'] }}</td>
-                                <td>{{ $vendor['city'] }}</td>
-                                <td class="table-action d-flex flex-nowrap">
-                                    <a href="/vendor/{{ $vendor['vendor_id'] }}">
-                                        <i class="fas fa-fw fa-eye text-success" title="View vendor details"></i>
-                                    </a> &nbsp; &nbsp;
-                                    <a href="/vendor/{{ $vendor['vendor_id'] }}/edit">
-                                        <i class="fas fa-fw fa-edit text-primary"></i>
-                                    </a>&nbsp; &nbsp;
-                                    <i class="fas fa-fw fa-trash text-danger"
-                                       title="Delete vendor details"
-                                       data-toggle="modal"
-                                       data-target="#deleteVendorModal"
-                                       data-vendor_id="{{ $vendor['vendor_id'] }}"></i>
-                                </td>
+                                <td><img :src="item.image" alt="" style="border-radius: 50%; height: 50px"> </td>
+                                <td>@{{ item.name}}</td>
+                                <td>@{{ item.unit_price }}</td>
+                                <td>@{{ item.quantity }}</td>
+                                <td><span @click="removeItem(item.index)">remove <i class="fa fa-times"></i></span></td>
 
                             </tr>
-                            @endforeach
 
+{{--                            <tr>--}}
+{{--                                <td colspan="7">--}}
+{{--                                    <div class="d-flex justify-content-center">No vendors yet</div>--}}
+{{--                                </td>--}}
+{{--                            </tr>--}}
 
-                            {{-- Delete Modal--}}
-                            <div class="modal fade" id="deleteVendorModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Delete vendor</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form id="vendorDeleteForm" action="" method="POST">
-                                                <div class="col-md-12">
-                                                    Delete vendor?
-                                                    <input type="hidden" id="token" name="token" value="{{\App\Classes\CSRFToken::_token()}}">
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-danger" id="deleteVendorBtn">Delete</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @else
-                            <tr>
-                                <td colspan="7">
-                                    <div class="d-flex justify-content-center">No vendors yet</div>
-                                </td>
-                            </tr>
-                        @endif
                         </tbody>
                     </table>
-                </div>
-                <div class="panel-footer py-1 mt-0 mr-3 d-flex justify-content-end">
-                    {{--                        {!! $links !!}--}}
                 </div>
 
             </div>
