@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
             cartLoading: false,
             failed: false,
             cartTotal: 0,
+            grandTotal: 0,
+            delivery_fee: 0,
             message: '',
             vendorId: $("#vid").data('id'),
             disableCheckoutBtn: true
@@ -51,7 +53,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         }else if(response.data.items !== undefined){
                             app.items = response.data.items;
                             app.cartTotal = response.data.cartTotal;
-                            console.log(response.data.items);
+                            app.grandTotal = response.data.grandTotal;
+                            app.delivery_fee = response.data.delivery_fee;
                             app.cartLoading = false;
                             app.disableCheckoutBtn = false;
                         }else{
@@ -74,6 +77,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         }else if(response.data.items !== undefined){
                             app.items = response.data.items;
                             app.cartTotal = response.data.cartTotal;
+                            app.grandTotal = response.data.grandTotal;
+                            app.delivery_fee = response.data.delivery_fee;
                             console.log(response.data.items);
                             app.cartLoading = false;
                             app.disableCheckoutBtn = false;

@@ -8,6 +8,7 @@ use App\Classes\Cart;
 use App\Classes\Request;
 use App\Classes\Session;
 use App\Models\Food;
+use App\Models\Vendor;
 
 
 class CartController extends BaseController{
@@ -41,6 +42,7 @@ class CartController extends BaseController{
             }
 
             $index = 0;
+            $vendor_id = '';
             foreach($_SESSION['user_cart'] as $cartItem){
                 $food_id = $cartItem['food_id'];
                 $quantity = $cartItem['quantity'];
@@ -48,6 +50,7 @@ class CartController extends BaseController{
                 if(!$item){ continue; }
 
                 $totalPrice = (int)$item->unit_price * $quantity;
+                $vendor_id = $item->vendor_id;
                 $cartTotal = $totalPrice + $cartTotal;
                 $totalPrice = number_format($totalPrice, 2);
 
@@ -62,10 +65,11 @@ class CartController extends BaseController{
                 ]);
                 $index++;
             }
-
+            $rawTotal = $cartTotal;
             $cartTotal = number_format($cartTotal, 2);
-
-            echo json_encode(['items' => $result, 'cartTotal' => $cartTotal]);
+            $delivery_fee = Vendor::where('vendor_id', $vendor_id)->first()->min_delivery;
+            $grandTotal = number_format(((int)$rawTotal + (int)$delivery_fee), 2);
+            echo json_encode(['items' => $result, 'grandTotal' => $grandTotal, 'cartTotal' => $cartTotal, 'delivery_fee' => $delivery_fee]);
             exit();
         }catch (\Exception $e){
             echo json_encode(['error' => 'operation failed', 'message' => $e]);

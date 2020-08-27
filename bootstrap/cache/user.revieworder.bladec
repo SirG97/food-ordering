@@ -56,7 +56,7 @@
 <?php /*        <li><span class="order-steps-box"><i class="fa fa-check"></i></span></li>*/ ?>
 <?php /*    </ul>*/ ?>
 <?php /*</div>*/ ?>
-<div class="container" id="root">
+<div class="container" id="root" style="margin-top: 80px;">
 
  <div class="row">
  <div class="col-md-12">
@@ -81,29 +81,86 @@
  </tr>
  </thead>
  <tbody class="table-style">
+ <tr v-if="!items.length">
+ <td colspan="5">
+ <div class="d-flex justify-content-center">
+ <i class="fa fa-shopping-cart fa-2x"></i>
+ Cart is empty
+ </div>
+ </td>
+ </tr>
  <tr v-for="item in items">
-
  <td><img :src="item.image" alt="" style="border-radius: 50%; height: 50px"> </td>
  <td>{{ item.name}}</td>
  <td>{{ item.unit_price }}</td>
- <td>{{ item.quantity }}</td>
+ <td> <button type="button" class="btn btn-outline-danger btn-sm p-0 px-1" @click="updateQuantity(item.food_id, '-')"><i class="fa fa-minus"></i> </button>
+ <span class="font-weight-bold product-price">{{ item.quantity }}</span>
+ <button type="button" class="btn btn-outline-success btn-sm p-0 px-1"  @click="updateQuantity(item.food_id, '+')"><i class="fa fa-plus"></i> </button></td>
  <td><span @click="removeItem(item.index)">remove <i class="fa fa-times"></i></span></td>
 
  </tr>
 
-<?php /*                            <tr>*/ ?>
-<?php /*                                <td colspan="7">*/ ?>
-<?php /*                                    <div class="d-flex justify-content-center">No vendors yet</div>*/ ?>
-<?php /*                                </td>*/ ?>
-<?php /*                            </tr>*/ ?>
+
+ <div class="text-center">
+ <i v-show="cartLoading" class="fa fa-spinner fa-spin" style="font-size: 3rem; padding-bottom: 3rem; position:absolute;
+ top:50%; bottom: 50%" ></i>
+ </div>
 
  </tbody>
  </table>
  </div>
-
+ <div class="row mx-1">
+ <div class="col-md-12 ">
+ <div class="form-group">
+ <label for="address">Address</label>
+ <select class="form-control" id="address">
+ <option>No 10 Obanye Street Onitsha</option>
+ </select>
  </div>
  </div>
 
+ </div>
+ <div class="row">
+ <div class="col-md-6">
+
+ </div>
+ <div class="col-md-6">
+ <div class="m-3 cart-font">
+ <div class="d-flex justify-content-between">
+ <div >Subtotal</div>
+ <div id="subtotal">{{ cartTotal }}</div>
+ </div>
+ <div class="d-flex justify-content-between">
+ <div >Delivery fee</div>
+ <div id="delivery">{{ delivery_fee }}</div>
+ </div>
+ <div class="d-flex justify-content-between">
+ <div class="font-weight-bold">Grand total</div>
+ <div id="grand" class="font-weight-bold">{{ grandTotal }}</div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="row mx-1">
+ <div class="col-md-12">
+ <button class="btn btn-success btn-block">Checkout</button>
+ </div>
+ 
+ </div>
+ 
+ </div>
+ </div>
+ <div class="col-md-12">
+ 
+ </div>
+
+ </div>
+ <div class="row">
+ <div class="col-md-12">
+ <div class="custom-panel py-2">
+ 
+ </div>
+ </div>
  </div>
 </div>
 
@@ -119,10 +176,10 @@
  </div>
  <div class="col-md-3 d-flex flex-column">
  <h5>Our Services</h5>
- <p>Delivery Request</p>
- <p>Collection Request</p>
- <p>Combo Request</p>
- <p>Swap Request</p>
+ <p>Breakfast</p>
+ <p>Dinner</p>
+ <p>Lunch</p>
+ <p>Parties</p>
  </div>
  <div class="col-md-3 d-flex flex-column">
  <h5>Sub Services</h5>
