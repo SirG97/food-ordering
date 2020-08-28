@@ -57,10 +57,13 @@ $router->map('POST', '/dashboard', $_ .'DashboardController@store', 'dt');
 
 
 $router->map('GET', '/customer/orders', $_ .'CustomerController@showOrders', 'customerOrders');
-$router->map('GET', '/customer/vendors', $_ .'CustomerController@show', 'customerVendors');
-$router->map('GET', '/customer/reviews', $_ .'CustomerController@show', 'customerReviews');
-$router->map('GET', '/customer/settings', $_ .'CustomerController@show', 'customerSettings');
-$router->map('GET', '/customer', $_ .'CustomerController@show', 'customer');
+$router->map('GET', '/customer/vendors', $_ .'CustomerController@showVendors', 'customerVendors');
+$router->map('GET', '/customer/address', $_ .'CustomerController@showAddress', 'customerAddress');
+$router->map('GET', '/customer/reviews', $_ .'CustomerController@showReviews', 'customerReviews');
+$router->map('GET', '/customer/settings', $_ .'CustomerController@showSettings', 'customerSettings');
+$router->map('GET', '/customer/resetpassword', $_ .'CustomerController@showResetPassword', 'customerResetPassword');
+
+$router->map('GET', '/customer', $_ .'CustomerController@showProfile', 'customer');
 $router->map('GET', '/customer/login', $_ .'CustomerController@getLogin', 'getLogin');
 $router->map('POST', '/customer/login', $_ .'CustomerController@login', 'customerLogin');
 $router->map('GET', '/customer/register', $_ .'CustomerController@getRegister', 'getRegister');

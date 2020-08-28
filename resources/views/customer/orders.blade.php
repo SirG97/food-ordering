@@ -1,5 +1,5 @@
 @extends('customer.layout.base')
-@section('title', 'Dashboard')
+@section('title', 'Orders')
 @section('icon', 'fa-tachometer-alt')
 @section('content')
     <div class="container-fluid">
@@ -16,11 +16,10 @@
                             <tr>
                                 <th scope="col">Status</th>
                                 <th scope="col">Order ID</th>
-                                <th scope="col">Parcel name</th>
-                                <th scope="col">Owner</th>
-                                <th scope="col">Request Type</th>
-                                <th scope="col">Phone</th>
-                                <th scope="col">Actions</th>
+                                <th scope="col">Restaurant</th>
+                                <th scope="col">Contact</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Action</th>
                             </tr>
                             </thead>
                             <tbody class="table-style">

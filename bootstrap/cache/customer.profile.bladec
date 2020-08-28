@@ -1,0 +1,10 @@
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('title', 'Profile'); ?>
+<?php $this->startSection('icon', 'fa-tachometer-alt'); ?>
+<?php $this->startSection('content'); ?>
+ <div class="container-fluid">
+
+ </div>
+
+<?php $this->stopSection(); ?>
+<?php if (@$_shouldextend[1]) { echo $this->runChild('customer.layout.base'); } ?>

@@ -114,4 +114,34 @@ class CustomerController extends BaseController{
         $orders = Order::where('user_id', Session::get('user_id'))->get();
         return view('customer.orders', ['orders' => $orders]);
     }
+
+    public function showProfile(){
+        $orders = Order::where('user_id', Session::get('user_id'))->get();
+        return view('customer.profile', ['orders' => $orders]);
+    }
+
+    public function showVendors(){
+        $orders = Order::where('user_id', Session::get('user_id'))->get();
+        return view('customer.recentvendors', ['orders' => $orders]);
+    }
+
+    public function showReviews(){
+        $orders = Order::where('user_id', Session::get('user_id'))->get();
+        return view('customer.review', ['orders' => $orders]);
+    }
+
+    public function showAddress(){
+        $orders = Order::where('user_id', Session::get('user_id'))->get();
+        return view('customer.address', ['orders' => $orders]);
+    }
+
+    public function showSettings(){
+        $orders = Order::where('user_id', Session::get('user_id'))->get();
+        return view('customer.settings', ['orders' => $orders]);
+    }
+
+    public function showResetPassword(){
+        $orders = Order::where('user_id', Session::get('user_id'))->get();
+        return view('customer.password', ['orders' => $orders]);
+    }
 }

@@ -47,73 +47,64 @@
         <div class="nav_section margin-fix scroll-menu">
             <div class="nav_section_content">
                 <div class="nav_item prelative">
-                    <a href="/dashboard" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/dashboard')}}">
+                    <a href="/customer" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/dashboard')}}">
                            <span class="nav_link_icon">
                             <i class="fas fa-fw fa-tachometer-alt"></i>
                            </span>
-                        <span class="nav_link_text">Dashboard</span>
+                        <span class="nav_link_text">Profile</span>
                     </a>
                 </div>
                 <div class="nav_item prelative">
-                    <a href="/vendor/register" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/vendor/register')}}">
+                    <a href="/customer/orders" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/dashboard')}}">
                            <span class="nav_link_icon">
-                            <i class="fas fa-fw fa-user"></i>
+                            <i class="fas fa-fw fa-tachometer-alt"></i>
                            </span>
-                        <span class="nav_link_text">Register Vendor</span>
-                    </a>
-                </div>
-                <div class="nav_item prelative">
-                    <a href="/vendors" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/vendors')}}">
-                            <span class="nav_link_icon">
-                             <i class="fas fa-fw fa-qrcode"></i>
-                            </span>
-                        <span class="nav_link_text">Vendors</span>
-                    </a>
-                </div>
-                <div class="nav_item prelative">
-                    <a href="/customers" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/customers')}}">
-                            <span class="nav_link_icon">
-                             <i class="fas fa-fw fa-user-shield"></i>
-                            </span>
-                        <span class="nav_link_text">Customers</span>
-                    </a>
-                </div>
-
-                <div class="nav_item prelative">
-                    <a href="/staff" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/staff')}}">
-                            <span class="nav_link_icon">
-                             <i class="fas fa-fw fa-user-plus"></i>
-                            </span>
-                        <span class="nav_link_text">New staff</span>
-                    </a>
-                </div>
-
-                <div class="nav_item prelative">
-                    <a href="/orders" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/orders')}}">
-                         <span class="nav_link_icon">
-                          <i class="fas fa-fw fa-truck"></i>
-                         </span>
                         <span class="nav_link_text">Orders</span>
                     </a>
                 </div>
-
                 <div class="nav_item prelative">
-                    <a href="/create_order" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/create_order')}}">
+                    <a href="/customer/vendors" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/vendor/register')}}">
+                           <span class="nav_link_icon">
+                            <i class="fas fa-fw fa-user"></i>
+                           </span>
+                        <span class="nav_link_text">Recent Vendors</span>
+                    </a>
+                </div>
+                <div class="nav_item prelative">
+                    <a href="/customer/reviews" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/vendors')}}">
                             <span class="nav_link_icon">
-                             <i class="fas fa-fw fa-shipping-fast"></i>
+                             <i class="fas fa-fw fa-qrcode"></i>
                             </span>
-                        <span class="nav_link_text">New Order</span>
+                        <span class="nav_link_text">Reviews</span>
+                    </a>
+                </div>
+                <div class="nav_item prelative">
+                    <a href="/customer/address" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/customers')}}">
+                            <span class="nav_link_icon">
+                             <i class="fas fa-fw fa-user-shield"></i>
+                            </span>
+                        <span class="nav_link_text">Address</span>
                     </a>
                 </div>
 
                 <div class="nav_item prelative">
-                    <a href="/settings" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/settings')}}">
+                    <a href="/customer/settings" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/staff')}}">
                             <span class="nav_link_icon">
-                             <i class="fas fa-fw fa-cogs"></i>
+                             <i class="fas fa-fw fa-user-plus"></i>
                             </span>
                         <span class="nav_link_text">Settings</span>
                     </a>
                 </div>
+
+                <div class="nav_item prelative">
+                    <a href="/customer/resetpassword" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/orders')}}">
+                         <span class="nav_link_icon">
+                          <i class="fas fa-fw fa-truck"></i>
+                         </span>
+                        <span class="nav_link_text">Reset password</span>
+                    </a>
+                </div>
+    
                 <div class="nav_item prelative">
                     <a href="/logout" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/logout')}}">
                          <span class="nav_link_icon">
@@ -148,7 +139,7 @@
                 </a>
             </div>
             <div class="nav-dropdown-item">
-                <a href="/settings">
+                <a href="/customer/settings">
                     <div class="nav-dropdown-item-link">
                         Settings
                     </div>
