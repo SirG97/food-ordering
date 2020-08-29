@@ -25,6 +25,14 @@ body {
     color: white;
 }
 
+.black-nav > .nav-item{
+    color: black;
+}
+
+.black-nav > .nav-item.active{
+    color: black;
+}
+
 .navbar-light .navbar-nav > .nav-item > a{
     color: white;
 }
@@ -33,6 +41,13 @@ body {
     border-bottom: 2px solid #ED3237;
     color: white;
 }
+
+.navbar-dark .black-nav .nav-link {
+    color: rgba(43, 43, 43, 0.788) !important;
+}
+
+
+
 
 .navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
     border-bottom: 2px solid #ED3237;
@@ -440,6 +455,10 @@ body {
 }
 .scroll-item > a{
     color: #494f54 !important;
+}
+
+.unscroll-item > a{
+
 }
 
 .main-menu{

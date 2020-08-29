@@ -6,23 +6,29 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const profile = document.querySelector('.header-nav-item');
     const ndropdown = document.querySelector('.nav-dropdown');
 
+    if(hamburger !== null){
+        hamburger.addEventListener('click', () =>{
+            sidebar.classList.toggle('nav-sidebar-open');
+        });
+    }
 
-    hamburger.addEventListener('click', () =>{
-        sidebar.classList.toggle('nav-sidebar-open');
-    });
+    if(profile !== null){
+        profile.addEventListener('click', () => {
+            ndropdown.classList.toggle('active');
+        });
+    }
 
-    profile.addEventListener('click', () => {
-        ndropdown.classList.toggle('active');
-    });
-    main.addEventListener('click', () =>{
-        // if(sidebar.classList.contains('nav-sidebar-open')){
-            sidebar.classList.remove('nav-sidebar-open');
-        
-    });
+    if(main !== null){
+        main.addEventListener('click', () =>{
+            // if(sidebar.classList.contains('nav-sidebar-open')){
+                sidebar.classList.remove('nav-sidebar-open');
+            
+        });
+    }
+
 
     $('#myTab a').on('click', function (e) {
-        e.preventDefault()
-        console.log('hie');
+        e.preventDefault();
         $(this).tab('show')
     })
 
@@ -518,62 +524,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         $("#assignedRouteDeleteForm").submit();
     });
 
-    // // Croppie image upload
-    // $image_crop = $('#upload-demo').croppie({
-    //     // enableExif: true,
-    //     viewport: {
-    //         width: 280,
-    //         height: 280,
-    //         type: 'square'
-    //     },
-    //     boundary: {
-    //         width: 300,
-    //         height: 300
-    //     }
-    // });
-    //
-    // $('#food-img').on('change', function () {
-    //     let reader = new FileReader();
-    //     reader.onload = function (e) {
-    //         $image_crop.croppie('bind', {
-    //             url: e.target.result
-    //         }).then(function(){
-    //             console.log('jQuery bind complete');
-    //         });
-    //     }
-    //     reader.readAsDataURL(this.files[0]);
-    // });
-    //
-    // $('#save-food').on('click', function (ev) {
-    //         ev.preventDefault();
-    //     $image_crop.croppie('result', {
-    //         type: 'canvas',
-    //         size: 'viewport',
-    //         format: 'png'
-    //     }).then(function (img) {
-    //         let data = {
-    //             "food_category": $("#food_category"),
-    //             "name": $("#name"),
-    //             "unit_price": $("#unit_price"),
-    //             "description": $("#description"),
-    //             "food-img": img
-    //         };
-    //         $.ajax({
-    //             url: "/food/create",
-    //             type: "POST",
-    //             data: data,
-    //             beforeSend: function(){
-    //                 $('#save-food').html('<i class="fa fa-spinner fa-spin"></i> Please wait...');
-    //             },
-    //             success: function (response) {
-    //                 let data = JSON.parse(response);
-    //                 console.log(JSON.parse(response));
-    //                 let message = data.success;
-    //
-    //             },
-    //         });
-    //     });
-    // });
 
     function alertMessage(status, message){
         return `<div class="alert alert-${status} m-t-20 alert-dismissible fade show" role="alert">

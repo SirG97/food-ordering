@@ -24,21 +24,32 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse " id="navbarNavDropdown">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav black-nav ml-auto">
                 <li class="nav-item active px-3">
                     <a class="nav-link" href="/">Home</a>
                 </li>
 
-                <li class="nav-item px-3">
-                    <a class="nav-link" href="/cart">vendors</a>
-                </li>
 
                 <li class="nav-item px-3">
                     <a class="nav-link" href="/cart"><i class="fa fa-shopping-cart"></i>Cart</a>
                 </li>
-                <li class="nav-item px-3 ">
-                    <a class="nav-link btn btn-danger btn-sm" href="/authenticate">Login/Signup</a>
-                </li>
+                @if(isAuthenticated)
+                <div class="dropdown">
+                    <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ user()->id }}
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/customer/orders">Recent orders</a>
+                        <a class="dropdown-item" href="/customer">Profile</a>
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                    </div>
+                    </div>
+                @else
+                    <li class="nav-item px-3 ">
+                        <a class="nav-link btn btn-danger btn-sm" href="/authenticate">Login/Signup</a>
+                    </li>
+                @endif
+                
             </ul>
         </div>
     </nav>
@@ -168,7 +179,14 @@
         </div>
     </div>
 </section>
-
+<script>
+    // $(document).ready(() => {
+    //     $('nav, .nav-item').toggleClass('nav-scrolled scroll-item', window.pageYOffset > 60);
+    //     $(window).scroll(() => {
+    //         $('nav, .nav-item').toggleClass('nav-scrolled scroll-item', $(this).scrollTop() > 60)
+    //     });
+    // });
+</script>
 </body>
 </html>
 
