@@ -20,7 +20,7 @@
                 @if(isAuthenticated)
                 <div class="dropdown">
                     <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ user()->id }}
+                        {{ user()->firstname }}
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="/customer/orders">Recent orders</a>
