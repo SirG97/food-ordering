@@ -47,8 +47,8 @@ $router->map('GET', '/register', $_ .'AuthController@showregister', 'show_regist
 $router->map('POST', '/register', $_ .'AuthController@register', 'register_user');
 
 // Authentication and login for admin
-$router->map('GET', '/admin/login', $_ .'AuthController@show', 'login');
-$router->map('POST', '/admin/login', $_ .'AuthController@login', 'auth');
+$router->map('GET', '/admin/login', $_ .'AuthController@show', 'a_login');
+$router->map('POST', '/admin/login', $_ .'AuthController@login', 'a_auth');
 $router->map('GET', '/logout', $_ .'AuthController@logout', 'logout');
 
 // Dashboard
@@ -65,6 +65,7 @@ $router->map('GET', '/customer/resetpassword', $_ .'CustomerController@showReset
 
 $router->map('GET', '/customer', $_ .'CustomerController@showProfile', 'customer');
 $router->map('GET', '/customer/login', $_ .'CustomerController@getLogin', 'getLogin');
+$router->map('GET', '/login', $_ .'CustomerController@getLogin', 'Login');
 $router->map('POST', '/customer/login', $_ .'CustomerController@login', 'customerLogin');
 $router->map('GET', '/customer/register', $_ .'CustomerController@getRegister', 'getRegister');
 $router->map('POST', '/customer/register', $_ .'CustomerController@register', 'CustomerRegister');

@@ -17,7 +17,7 @@
                 <li class="nav-item px-3">
                     <a class="nav-link" href="/cart"><i class="fa fa-shopping-cart"></i>Cart</a>
                 </li>
-                @if(isAuthenticated)
+                @if(isAuthenticated())
                 <div class="dropdown">
                     <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ user()->firstname }}
@@ -30,7 +30,7 @@
                     </div>
                 @else
                     <li class="nav-item px-3 ">
-                        <a class="nav-link btn btn-danger btn-sm" href="/authenticate">Login/Signup</a>
+                        <a class="nav-link btn btn-danger btn-sm" href="/login">Login/Signup</a>
                     </li>
                 @endif
             </ul>

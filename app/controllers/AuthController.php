@@ -126,8 +126,12 @@ class AuthController{
         if(isAuthenticated()){
             Session::remove('SESSION_USER_ID');
             Session::remove('SESSION_USERNAME');
-            session_destroy();
-            session_regenerate_id(true);
+
+            if(!Session::has('user_cart')){
+                session_destroy();
+                session_regenerate_id(true);
+            }
+            
         }
         Redirect::to('login');
     }

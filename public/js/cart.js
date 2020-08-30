@@ -10,7 +10,8 @@ let app = new Vue({
             cartTotal: 0,
             message: '',
             vendorId: $("#vid").data('id'),
-            disableCheckoutBtn: true
+            disableCheckoutBtn: true,
+            authenticated: false,
         },
         methods:{
             getMenu: (vendorId) =>{
@@ -51,9 +52,10 @@ let app = new Vue({
                         }else if(response.data.items !== undefined){
                             app.items = response.data.items;
                             app.cartTotal = response.data.cartTotal;
-                            console.log(response.data.items);
                             app.cartLoading = false;
                             app.disableCheckoutBtn = false;
+                            app.authenticated = response.data.authenticated;
+                        
                         }else{
 
                             app.cartLoading = false;
@@ -111,6 +113,7 @@ let app = new Vue({
             let v = $("#vid").data('id');
             this.loading = true;
             this.cartLoading = true;
+            console.log(this.authenticated);
             this.getMenu(v);
             this.displayCartItems();
         }

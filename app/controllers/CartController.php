@@ -69,7 +69,12 @@ class CartController extends BaseController{
             $cartTotal = number_format($cartTotal, 2);
             $delivery_fee = Vendor::where('vendor_id', $vendor_id)->first()->min_delivery;
             $grandTotal = number_format(((int)$rawTotal + (int)$delivery_fee), 2);
-            echo json_encode(['items' => $result, 'grandTotal' => $grandTotal, 'cartTotal' => $cartTotal, 'delivery_fee' => $delivery_fee]);
+
+            echo json_encode(['items' => $result,
+                              'grandTotal' => $grandTotal, 
+                              'cartTotal' => $cartTotal, 
+                              'delivery_fee' => $delivery_fee,
+                              'authenticated' => isAuthenticated()]);
             exit();
         }catch (\Exception $e){
             echo json_encode(['error' => 'operation failed', 'message' => $e]);

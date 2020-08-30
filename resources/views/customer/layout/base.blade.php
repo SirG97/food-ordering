@@ -127,8 +127,9 @@
 
     <div class="header-nav">
             <span class="header-nav-item">
-                <img class="avatar rounded-circle img-thumbnail img-fluid" src="{{\App\Classes\Session::get('pics')}}" alt="profile pics">
-{{--            <p class="avatar">Hi! Noble</p>--}}
+                <!-- <img class="avatar rounded-circle img-thumbnail img-fluid" src="" alt="profile pics"> -->
+                <i class="fa fa-user"></i> &nbsp; Hi! Noble
+
             </span>
         <div class="nav-dropdown">
             <div class="nav-dropdown-item">
