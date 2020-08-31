@@ -14,6 +14,7 @@
 
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
     <script src="/js/script.js"></script>
@@ -143,8 +144,14 @@
                     </div>
                 </div>
                 <div class="row mx-1">
+                    <span id="properties"
+                            data-customer-email="{{ user()->email }}"
+                            data-public-key="{{ \App\Classes\Session::get('public_key') }}"
+
+                            >
+                    </span>
                     <div class="col-md-12">
-                        <button class="btn btn-success btn-block">Checkout</button>
+                        <button @click.prevent="checkout" class="btn btn-success btn-block">Checkout</button>
                     </div>
                     
                 </div>

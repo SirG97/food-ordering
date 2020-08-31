@@ -6,3 +6,7 @@ require_once __DIR__.'/../../vendor/autoload.php';
 
 $dotEnv =  Dotenv\Dotenv::createImmutable(BASE_PATH);
 $dotEnv->load();
+
+//Add flutterwave initialization
+
+require_once __DIR__ . '/_flutterwave.php'; 

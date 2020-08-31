@@ -8,11 +8,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
             cartLoading: false,
             failed: false,
             cartTotal: 0,
+            rawTotal: 0,
             grandTotal: 0,
             delivery_fee: 0,
             message: '',
             vendorId: $("#vid").data('id'),
-            disableCheckoutBtn: true
+            disableCheckoutBtn: true,
+            authenticated: false,
         },
         methods:{
             getMenu: (vendorId) =>{
@@ -54,6 +56,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             app.items = response.data.items;
                             app.cartTotal = response.data.cartTotal;
                             app.grandTotal = response.data.grandTotal;
+                            app.rawTotal = response.data.rawTotal;
                             app.delivery_fee = response.data.delivery_fee;
                             app.cartLoading = false;
                             app.disableCheckoutBtn = false;
@@ -110,7 +113,31 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     $("#toast").css("display", "block").html(response.data.success);
                     app.updateCartView();
                 })
-            }
+            },
+
+            checkout: () => {
+                console.log(app.rawTotal);
+                FlutterwaveCheckout({
+                    public_key: $("#properties").data('public-key'),
+                    tx_ref: "hooli-tx-1920bbtyt",
+                    amount: app.rawTotal,
+                    currency: "NGN",
+                    payment_options: "card,mobilemoney,ussd",
+                    redirect_url: 'http://localhost:4000/verifytransaction',
+                    customer: {
+                      email: $("#properties").data('customer-email'),
+                      
+                    },
+                    callback: function (data) { // specified callback function
+                      console.log(data);
+                    },
+                    customizations: {
+                      title: "My store",
+                      description: "Payment for items in cart",
+                      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTe--nxBU_W6hXIUKat2oX2hiAkvJffzIGoUg&usqp=CAU",
+                    },
+                  });
+            },
         },
         beforeMount(){
             let v = $("#vid").data('id');

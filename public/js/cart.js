@@ -55,6 +55,7 @@ let app = new Vue({
                             app.cartLoading = false;
                             app.disableCheckoutBtn = false;
                             app.authenticated = response.data.authenticated;
+                            console.log(app.authenticated);
                         
                         }else{
 
