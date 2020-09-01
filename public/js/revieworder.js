@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             vendorId: $("#vid").data('id'),
             disableCheckoutBtn: true,
             authenticated: false,
+            txref: '',
         },
         methods:{
             getMenu: (vendorId) =>{
@@ -115,15 +116,30 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 })
             },
 
+            generateTxRef:  (length) => {
+                if (!length) {
+                    length = 16
+                }
+                var str = ''
+                for (var i = 1; i < length + 1; i = i + 8) {
+                    str += Math.random().toString(36).substr(2, 10)
+                }
+                return (str).substr(0, length)
+            },
+
             checkout: () => {
                 console.log(app.rawTotal);
+
+                app.txref = app.generateTxRef();
+                console.log(app.txref);
+                console.log($("#properties").data('customer-email'));
+                console.log($("#properties").data('public-key'));
                 FlutterwaveCheckout({
                     public_key: $("#properties").data('public-key'),
-                    tx_ref: "hooli-tx-1920bbtyt",
+                    tx_ref: app.txref,
                     amount: app.rawTotal,
                     currency: "NGN",
-                    payment_options: "card,mobilemoney,ussd",
-                    redirect_url: 'http://localhost:4000/verifytransaction',
+                    redirect_url: `http://localhost:4000/verifytransaction/${app.txref}`,
                     customer: {
                       email: $("#properties").data('customer-email'),
                       
@@ -138,6 +154,36 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     },
                   });
             },
+
+            
+
+            payWithRave: () => {
+                const API_publicKey = $("#properties").data('public-key');
+                app.txref = app.generateTxRef();
+                var x = getpaidSetup({
+                    PBFPubKey: API_publicKey,
+                    customer_email: $("#properties").data('customer-email'),
+                    amount: app.rawTotal,
+                    customer_phone: "07033194937",
+                    currency: "NGN",
+                    txref: app.txref,
+                    onclose: function() {},
+                    callback: function(response) {
+                        var txref = response.data.txRef; // collect txRef returned and pass to a                    server page to complete status check.
+                        console.log("This is the response returned after a charge", response);
+                        if (
+                            response.data.chargeResponseCode == "00" ||
+                            response.data.chargeResponseCode == "0"
+                        ) {
+                            // redirect to a success page
+                        } else {
+                            // redirect to a failure page.
+                        }
+        
+                        x.close(); // use this to close the modal immediately after payment.
+                    }
+                });
+            }
         },
         beforeMount(){
             let v = $("#vid").data('id');
