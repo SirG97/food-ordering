@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     let app = new Vue({
         el: "#root",
+        components:{
+            'Rave': VueRavePayment.default
+          },
         data: {
             menus: [],
             items:[],
@@ -16,6 +19,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
             disableCheckoutBtn: true,
             authenticated: false,
             txref: '',
+            raveKey: $("#properties").data('public-key'),
+            email: $("#properties").data('customer-email'),
+            amount: 90000
+        },
+        computed: {
+            reference(){
+              let text = "";
+              let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+              for( let i=0; i < 10; i++ )
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+              return text;
+            }
         },
         methods:{
             getMenu: (vendorId) =>{
@@ -139,7 +156,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     tx_ref: app.txref,
                     amount: app.rawTotal,
                     currency: "NGN",
-                    redirect_url: `http://localhost:4000/verifytransaction/${app.txref}`,
+                    // redirect_url: `http://localhost:4000/verifytransaction`,
                     customer: {
                       email: $("#properties").data('customer-email'),
                       
@@ -154,8 +171,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     },
                   });
             },
-
-            
 
             payWithRave: () => {
                 const API_publicKey = $("#properties").data('public-key');
@@ -183,7 +198,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         x.close(); // use this to close the modal immediately after payment.
                     }
                 });
-            }
+            },
+
+            callback: function(response){
+                console.log(response)
+              },
+            close: function(){
+                console.log("Payment closed")
+              }
         },
         beforeMount(){
             let v = $("#vid").data('id');

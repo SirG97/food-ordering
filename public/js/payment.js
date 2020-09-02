@@ -49,8 +49,43 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     }
 
-    $("#checkout").on('click', (e) => {
-        e.preventDefault();
-        checkout();
-    })
+    // document.getElementById('checkout').addEventListener("click", (e) => {
+    //         e.preventDefault();
+    //         console.log('dude!');
+    //         const PBFKey = $("#properties").data('public-key'); // paste in the public key from your dashboard here
+    //         const txRef = ''+Math.floor((Math.random() * 1000000000) + 1); //Generate a random id for the transaction reference
+    //         const email = $("#properties").data('customer-email');
+    //         const phone = '07033194937';
+    //         const amount = rawTotal;
+        
+           
+
+    //     // getpaidSetup is Rave's inline script function. it holds the payment data to pass to Rave.
+    //     getpaidSetup({
+    //         PBFPubKey: PBFKey,
+    //         customer_email: email,
+    //         amount: amount,
+    //         customer_phone: phone,
+    //         currency: "NGN",  // Select the currency. leavig it empty defaults to NGN
+    //         txref: txRef, // Pass your UNIQUE TRANSACTION REFERENCE HERE.
+        
+    //         onclose: function() {},
+    //         callback: function(response) {
+    //             // collect flwRef returned and pass to a server page to complete status check.
+    //             txref = response.data.txRef
+                
+    //             if(response.tx.chargeResponseCode =='00' || response.tx.chargeResponseCode == '0') {
+    //                 // redirect to a success page
+    //                 //window.location = "https://fltwvapp.herokuapp.com/status.php?txref="+txref; //Add your success page here
+    //               window.location = "https://fltwvapp.herokuapp.com/success.php";
+    //               console.log("success", response);
+    //             } else {
+    //                 // redirect to a failure page.
+    //                 //window.location = "https://fltwvapp.herokuapp.com/status.php?txref="+txref;
+    //                window.location = "https://fltwvapp.herokuapp.com/error.php";
+    //                console.log("error", response);
+    //             }
+    //         }
+    //       });
+    // });
 });
