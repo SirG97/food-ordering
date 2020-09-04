@@ -60,7 +60,7 @@
 {{--        <li><span class="order-steps-box"><i class="fa fa-check"></i></span></li>--}}
 {{--    </ul>--}}
 {{--</div>--}}
-<div class="container" id="root" style="margin-top: 80px;">
+<div class="container" id="root" style="margin-top: 80px;" data-token="{{$token}}">
 
     <div class="row">
         <div class="col-md-12">
@@ -158,7 +158,7 @@
                             <input type="hidden" name="token" value="{{\App\Classes\CSRFToken::_token()}}">
                             <button type="submit"  id="checkout" class="btn btn-success btn-block">Checkout</button>
                         </form> -->
-                        <button type="submit"  @click.prevent="checkout" class="btn btn-success btn-block">Checkout</button>
+                        <button type="submit" :disabled="disableCheckoutBtn"  @click.prevent="checkout" class="btn btn-success btn-block">Checkout</button>
                     </div>
                     
                 </div>

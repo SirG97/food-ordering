@@ -10,10 +10,13 @@ use App\Classes\Request;
 use App\Classes\Resize;
 use App\Classes\Session;
 use App\Classes\Validation;
+use App\Classes\Cart;
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Food;
 use App\Models\Vendor;
+use App\Models\Payment;
 
 class CustomerController extends BaseController{
     public function getLogin(){
@@ -55,9 +58,9 @@ class CustomerController extends BaseController{
                     return view('customer.authenticate');
                 }
 
-//                Session::add('success', 'user created successfully');
-                Session::add('error', 'An error occurred');
-                return view('customer.authenticate');
+            //  Session::add('success', 'user created successfully');
+            Session::add('error', 'An error occurred');
+            return view('customer.authenticate');
 
             }
 
@@ -176,86 +179,150 @@ class CustomerController extends BaseController{
             $delivery_fee = Vendor::where('vendor_id', $vendor_id)->first()->min_delivery;
             $rawTotal = (int)$rawTotal + (int)$delivery_fee;
 
-            $curl = curl_init();
 
-            $customer_email = user()->email;
-            $amount = $rawTotal;  
-            $currency = "NGN";
-            $txref = Random::generateId(16); // ensure you generate unique references per transaction.
-            $PBFPubKey = 'FLWPUBK_TEST-3a80be255ed958c1974cd2285251956f-X'; // get your public key from the dashboard.
-            $redirect_url = "http://localhost:4000/verifypayment/{$txref}";
-
-
-            curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.ravepay.co/flwv3-pug/getpaidx/api/v2/hosted/pay",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => json_encode([
-                'amount'=>$amount,
-                'customer_email'=>$customer_email,
-                'currency'=>$currency,
-                'txref'=>$txref,
-                'PBFPubKey'=>$PBFPubKey,
-                'redirect_url'=>$redirect_url,
-            
-            ]),
-            CURLOPT_HTTPHEADER => [
-                "content-type: application/json",
-                "cache-control: no-cache"
-            ],
-            ));
-
-            $response = curl_exec($curl);
-            $err = curl_error($curl);
-
-            if($err){
-            // there was an error contacting the rave API
-            die('Curl returned error: ' . $err);
-            }
-
-            $transaction = json_decode($response);
-            
-            if(!$transaction->data && !$transaction->data->link){
-            // there was an error from the API
-            print_r('API returned error: ' . $transaction->message);
-            }
-
-            // uncomment out this line if you want to redirect the user to the payment page
-            //print_r($transaction->data->message);
-
-
-            // redirect to page so User can pay
-            // uncomment this line to allow the user redirect to the payment page
-            header('Location: ' . $transaction->data->link);
 
             
         
     }
 
-    public function verifyTransaction($id){
-        $id = $id['txref'];
-        $curl = curl_init();
+    public function verifyTransaction(){
+        if(Request::has('post')){
+            $request = Request::get('post');
+            if(CSRFToken::verifyCSRFToken($request->token)){
+                
+                $curl = curl_init();
+                $id = $request->transaction_id;
+                curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.flutterwave.com/v3/transactions/{$id}/verify",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "GET",
+                CURLOPT_HTTPHEADER => array(
+                    "Content-Type: application/json",
+                    "Authorization: Bearer FLWSECK_TEST-e3fdf45b85e810308d36def3d0b52541-X"
+                ),
+                ));
+        
+                $response = curl_exec($curl);
+                $response = json_decode($response);
+                curl_close($curl);
 
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://api.flutterwave.com/v3/transactions/{$id}/verify",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "GET",
-        CURLOPT_HTTPHEADER => array(
-            "Content-Type: application/json",
-            "Authorization: Bearer FLWSECK_TEST-e3fdf45b85e810308d36def3d0b52541-X"
-        ),
-        ));
+            
+                if($response->status === 'success' and 
+                    $response->data->status === 'successful' and 
+                    $response->data->amount >= $request->rawTotal and
+                    $response->data->currency === "NGN"){
+                        $amount = $response->data->amount;
+                        $tx_ref = $response->data->tx_ref;
+                        $status = $response->data->status;
+                        
+                   $saveOrder =  self::storePaymentAndOrder($tx_ref, $amount, $status);
 
-        $response = curl_exec($curl);
+                   if($saveOrder['status'] == 'success'){
 
-        curl_close($curl);
-        dd($response);
+                    Redirect::to('/confirmation');
+
+                   }else{
+
+                    dd($saveOrder);
+
+                   }
+                    
+                }
+                // echo json_encode(['status' => '', 'response' => $response]);
+                // exit;
+
+            }
+
+            throw new \Exception('Token mismatch');
+        }
+
+
     }
 
+    public function storePaymentAndOrder($tx_ref, $amount, $status){
+        try{
+            $order_id = strtoupper(uniqid());
+            $result['product'] = array();
+            $result['order_id'] = $order_id;
+            $cartTotal = 0;
+            $delivery_fee = 0;
+             foreach($_SESSION['user_cart'] as $cartItem){
+                 $food_id = $cartItem['food_id'];
+                 $quantity = $cartItem['quantity'];
+                 $item = Food::where('food_id', $food_id)->first();
+                 if(!$item){ continue; }
+     
+                 $totalPrice = (int)$item->unit_price * $quantity;
+                 $vendor_id = $item->vendor_id;
+                 $delivery_fee = Vendor::where('vendor_id', $vendor_id)->first()->min_delivery;
+                 $cartTotal = $totalPrice + $cartTotal;
+                //  $totalPrice = number_format($totalPrice, 2);
+                 OrderItem::create([
+                     'order_id' => $order_id,
+                     'food_id' => $food_id,
+                     'unit_price' => $item->unit_price,
+                     'quantity' => $quantity,
+                     'total' => $totalPrice,
+                     
+                 ]);
+     
+                 array_push($result['product'], [
+                     'name' => $item->name,
+                     'unit_price' => $item->unit_price,
+                     'quantity' => $quantity,
+                     'total' => $totalPrice,
+                    
+                 ]);
+                 
+             }
+     
+             $rawTotal = $cartTotal;
+             //Save order
+             Order::create([
+                'user_id' => user()->user_id,
+                'order_id' => $order_id,
+                'rider_id' => '',
+                'delivery_fee' => $delivery_fee,
+                'total' => $cartTotal,
+                'grand_total' => $cartTotal + $delivery_fee,
+                'status' => 'paid',
+            ]);
+             //Add the payment details to the payment table
+             Payment::create([
+                 'tx_ref' => $tx_ref,
+                 'user_id' => user()->user_id,
+                 'order_id' => $order_id,
+                 'amount' => $amount,
+                 'status' => $status,
+             ]);
+             $result['delivery_fee'] = $delivery_fee;
+             $result['total'] = $cartTotal;
+             $result['grand_total'] = $cartTotal + $delivery_fee;
+             $data = [
+                'to' => user()->email,
+                'subject' => 'Order confirmation from Gfood',
+                'view' => 'purchasr',
+                'name' => user()->firstname . ' ' . user()->surname,
+                'body' => $result
+            ];
+
+            (New Mail())->send($data);
+            Cart::clear();
+             return ['status' => 'success'];
+
+        }catch(\Exception $e){
+            return ['status' => 'error', 'message' => $e->getMessage()];
+        }
+
+    }
+
+    public function confirmOrder(){
+
+    }
     
 }

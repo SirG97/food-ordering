@@ -1,9 +1,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     let app = new Vue({
         el: "#root",
-        components:{
-            'Rave': VueRavePayment.default
-          },
+       
         data: {
             menus: [],
             items:[],
@@ -19,21 +17,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
             disableCheckoutBtn: true,
             authenticated: false,
             txref: '',
-            raveKey: $("#properties").data('public-key'),
-            email: $("#properties").data('customer-email'),
-            amount: 90000
+            
         },
-        computed: {
-            reference(){
-              let text = "";
-              let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-              for( let i=0; i < 10; i++ )
-                text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-              return text;
-            }
-        },
+  
         methods:{
             getMenu: (vendorId) =>{
                 // this.loading = true;
@@ -163,6 +149,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     },
                     callback: function (data) { // specified callback function
                       console.log(data);
+                      let token = $('#root').data('token');
+                      let postData = $.param({tx_ref: data.tx_ref,
+                                                transaction_id: data.transaction_id,
+                                                 amount: data.amount, 
+                                                 rawTotal: app.rawTotal,
+                                                 status: data.status, 
+                                                 token: token});
+                       
+                      axios.post('/verifytransaction', postData).then((response) => {
+                          $("#toast").css("display", "block").html(response.data.success);
+                          setTimeout((e)=>{
+                              $("#toast").css("display", "none")
+                          }, 2500);
+                          console.log(response.data);
+                      }).catch((e) => {
+                          console.log(e);
+                          $("#toast").removeClass('alert-success').addClass('alert-danger').css("display", "block").html(e);
+                      });
                     },
                     customizations: {
                       title: "My store",
@@ -172,40 +176,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                   });
             },
 
-            payWithRave: () => {
-                const API_publicKey = $("#properties").data('public-key');
-                app.txref = app.generateTxRef();
-                var x = getpaidSetup({
-                    PBFPubKey: API_publicKey,
-                    customer_email: $("#properties").data('customer-email'),
-                    amount: app.rawTotal,
-                    customer_phone: "07033194937",
-                    currency: "NGN",
-                    txref: app.txref,
-                    onclose: function() {},
-                    callback: function(response) {
-                        var txref = response.data.txRef; // collect txRef returned and pass to a                    server page to complete status check.
-                        console.log("This is the response returned after a charge", response);
-                        if (
-                            response.data.chargeResponseCode == "00" ||
-                            response.data.chargeResponseCode == "0"
-                        ) {
-                            // redirect to a success page
-                        } else {
-                            // redirect to a failure page.
-                        }
-        
-                        x.close(); // use this to close the modal immediately after payment.
-                    }
-                });
-            },
-
-            callback: function(response){
-                console.log(response)
-              },
-            close: function(){
-                console.log("Payment closed")
-              }
         },
         beforeMount(){
             let v = $("#vid").data('id');

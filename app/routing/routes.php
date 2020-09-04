@@ -57,8 +57,9 @@ $router->map('POST', '/dashboard', $_ .'DashboardController@store', 'dt');
 
 
 $router->map('GET', '/customer/orders', $_ .'CustomerController@showOrders', 'customerOrders');
-$router->map('POST', '/pay', $_ .'CustomerController@makePayment', 'makePayment');
-$router->map('POST', '/verifytransaction/[:txref]', $_ .'CustomerController@verifyTransaction', 'verifyTransaction');
+
+$router->map('POST', '/verifytransaction', $_ .'CustomerController@verifyTransaction', 'verifyTransaction');
+$router->map('GET', '/confirmation', $_ .'CustomerController@confirmOrder', 'confirmOrder');
 $router->map('GET', '/customer/vendors', $_ .'CustomerController@showVendors', 'customerVendors');
 $router->map('GET', '/customer/address', $_ .'CustomerController@showAddress', 'customerAddress');
 $router->map('GET', '/customer/reviews', $_ .'CustomerController@showReviews', 'customerReviews');

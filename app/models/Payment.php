@@ -10,12 +10,12 @@ use Carbon\Carbon;
 
 
 
-class Order extends Model{
+class Payment extends Model{
     use SoftDeletes;
 
     public $timestamps = true;
     protected $dates = ['deleted_at'];
-    protected $fillable = ['user_id', 'order_id', 'rider_id', 'delivery_fee', 'status', 'total', 'grand_total'];
+    protected $fillable = ['tx_ref','user_id', 'order_id','amount', 'status',];
 
     public function rider(){
         return $this->hasOneThrough(User::class, Rider::class, 'user_id', 'rider_id', 'user_id', 'rider_id');
