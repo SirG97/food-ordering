@@ -15,11 +15,11 @@ $router->map('GET', '/revieworder', $_ .'IndexController@revieworder', 'review_o
 $router->map('GET', '/menu/[:uid]', $_ .'IndexController@getMenu', 'getmenu');
 
 // Cart Route
-$router->map('POST', '/cart', $_ .'CartController@addItem', 'addToCart');
+$router->map('GET', '/cart', $_ .'IndexController@reviewOrder', 'getCart');
+$router->map('POST', '/cart/add', $_ .'CartController@addItem', 'addToCart');
 $router->map('POST', '/cart/update', $_ .'CartController@updateQuantity', 'updateQuantity');
 $router->map('POST', '/cart/remove', $_ .'CartController@removeItem', 'removeItem');
 $router->map('GET', '/items', $_ .'CartController@getCartItems', 'getCartItem');
-
 
 
 

@@ -28,7 +28,7 @@ let app = new Vue({
                 let token = $('.product-container').data('token');
                 let postData = $.param({food_id: id, token: token});
 
-                axios.post('/cart', postData).then((response) => {
+                axios.post('/cart/add', postData).then((response) => {
                     app.updateCartView();
                     $("#toast").css("display", "block").html(response.data.success);
                     setTimeout((e)=>{
@@ -43,23 +43,31 @@ let app = new Vue({
             },
             displayCartItems: () =>{
                 this.cartLoading = true;
+               
                 setTimeout(function(){
                     axios.get('/items').then((response)=>{
                         if(response.data.error){
                             // It means cart is empty
                             app.cartLoading = false;
                             app.message = response.data.error;
+                            app.authenticated = response.data.authenticated;
+                            app.disableCheckoutBtn = true;
+                            console.log(this.disableCheckoutBtn);
+
                         }else if(response.data.items !== undefined){
                             app.items = response.data.items;
                             app.cartTotal = response.data.cartTotal;
                             app.cartLoading = false;
-                            app.disableCheckoutBtn = false;
                             app.authenticated = response.data.authenticated;
+                            app.disableCheckoutBtn = false;
+                            
                             console.log(app.authenticated);
                         
                         }else{
-
+                            app.disableCheckoutBtn = true;
+                            app.authenticated = response.data.authenticated;
                             app.cartLoading = false;
+                            console.log(app.authenticated);
                         }
                     })
                 },2000);

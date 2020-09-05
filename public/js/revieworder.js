@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 let token = $('.product-container').data('token');
                 let postData = $.param({food_id: id, token: token});
 
-                axios.post('/cart', postData).then((response) => {
+                axios.post('/cart/add', postData).then((response) => {
                     app.updateCartView();
                     $("#toast").css("display", "block").html(response.data.success);
                     setTimeout((e)=>{
@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 // alert(`Food with id ${id} and ${token} has been added to cart`)
             },
             displayCartItems: () =>{
+                
                 this.cartLoading = true;
                 setTimeout(function(){
                     axios.get('/items').then((response)=>{
@@ -56,6 +57,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             // It means cart is empty
                             app.cartLoading = false;
                             app.message = response.data.error;
+                            app.authenticated = response.data.authenticated;
                         }else if(response.data.items !== undefined){
                             app.items = response.data.items;
                             app.cartTotal = response.data.cartTotal;
@@ -63,13 +65,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             app.rawTotal = response.data.rawTotal;
                             app.delivery_fee = response.data.delivery_fee;
                             app.cartLoading = false;
+                            app.authenticated = response.data.authenticated;
+                            console.log(app.authenticated);
                             app.disableCheckoutBtn = false;
                         }else{
-
+                            app.authenticated = response.data.authenticated;
                             app.cartLoading = false;
                         }
                     })
-                },2000);
+                },200);
             },
             updateCartView: () =>{
                 app.cartLoading = true;
@@ -162,7 +166,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                           setTimeout((e)=>{
                               $("#toast").css("display", "none")
                           }, 2500);
-                          console.log(response.data);
+                          console.log(response.data.result);
                       }).catch((e) => {
                           console.log(e);
                           $("#toast").removeClass('alert-success').addClass('alert-danger').css("display", "block").html(e);

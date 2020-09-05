@@ -37,7 +37,7 @@ class CartController extends BaseController{
             $result = array();
             $cartTotal = 0;
             if(!Session::has('user_cart') || count(Session::get('user_cart')) < 1){
-                echo json_encode(['error' => 'Cart is empty']);
+                echo json_encode(['error' => 'Cart is empty', 'authenticated' => isAuthenticated()]);
                 exit();
             }
 
@@ -79,7 +79,7 @@ class CartController extends BaseController{
                               'authenticated' => isAuthenticated()]);
             exit();
         }catch (\Exception $e){
-            echo json_encode(['error' => 'operation failed', 'message' => $e]);
+            echo json_encode(['error' => 'operation failed','authenticated' => isAuthenticated(), 'message' => $e]);
         }
     }
 

@@ -21,7 +21,7 @@
     <script src="/js/axios.min.js"></script>
     <script src="/js/script.js"></script>
     <script src="/js/revieworder.js"></script>
-    <script src="/js/payment.js"></script>
+    
 
 </head>
 <body>
@@ -32,21 +32,34 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse " id="navbarNavDropdown">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav black-nav ml-auto">
                 <li class="nav-item active px-3">
                     <a class="nav-link" href="/">Home</a>
                 </li>
 
                 <li class="nav-item px-3">
-                    <a class="nav-link" href="/cart">vendors</a>
+                    <a class="nav-link" href="/restaurants">Vendors</a>
                 </li>
 
                 <li class="nav-item px-3">
                     <a class="nav-link" href="/cart"><i class="fa fa-shopping-cart"></i>Cart</a>
                 </li>
-                <li class="nav-item px-3 ">
-                    <a class="nav-link btn btn-danger btn-sm" href="/authenticate">Login/Signup</a>
-                </li>
+                @if(isAuthenticated())
+                <div class="dropdown">
+                    <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ customer()->firstname }}
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/customer/orders">Recent orders</a>
+                        <a class="dropdown-item" href="/customer">Profile</a>
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                    </div>
+                    </div>
+                @else
+                    <li class="nav-item px-3 ">
+                        <a class="nav-link btn btn-danger btn-sm" href="/customer/login">Login/Signup</a>
+                    </li>
+                @endif
             </ul>
         </div>
     </nav>
@@ -148,17 +161,18 @@
                 </div>
                 <div class="row mx-1">
                     <span id="properties"
-                            data-customer-email="{{ user()->email }}"
+                            data-customer-email="{{ customer()->email }}"
                             data-public-key="{{ \App\Classes\Session::get('public_key') }}"
 
                             >
                     </span>
                     <div class="col-md-12">
-                        <!-- <form method="POST" action="/pay">
-                            <input type="hidden" name="token" value="{{\App\Classes\CSRFToken::_token()}}">
-                            <button type="submit"  id="checkout" class="btn btn-success btn-block">Checkout</button>
-                        </form> -->
-                        <button type="submit" :disabled="disableCheckoutBtn"  @click.prevent="checkout" class="btn btn-success btn-block">Checkout</button>
+                    <!-- <a href="/revieworder" v-if="authenticated" class="btn btn-block btn-danger text-uppercase" :disabled="disableCheckoutBtn">checkout</a> -->
+                    <button type="submit" v-if="authenticated" :disabled="disableCheckoutBtn"  @click.prevent="checkout" class="btn btn-success btn-block">Checkout</button>
+                        <span v-else>
+                            <a href="/customer/login" class="btn btn-block btn-success text-uppercase" :disabled="disableCheckoutBtn">Login & Checkout</a>
+                        </span>
+                        
                     </div>
                     
                 </div>

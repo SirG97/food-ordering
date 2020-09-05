@@ -30,7 +30,7 @@
                     </div>
                 @else
                     <li class="nav-item px-3 ">
-                        <a class="nav-link btn btn-danger btn-sm" href="/login">Login/Signup</a>
+                        <a class="nav-link btn btn-danger btn-sm" href="/customer/login">Login/Signup</a>
                     </li>
                 @endif
             </ul>

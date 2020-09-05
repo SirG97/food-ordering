@@ -36,6 +36,7 @@ class IndexController extends BaseController{
 
     public function revieworder(){
         $token = CSRFToken::_token();
+
         return view('user.revieworder', ['token' => $token]);
     }
 }

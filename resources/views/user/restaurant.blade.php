@@ -44,7 +44,7 @@
                 @if(isAuthenticated())
                 <div class="dropdown">
                     <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ user()->firstname }}
+                        {{ customer()->firstname }}
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="/customer/orders">Recent orders</a>
@@ -54,7 +54,7 @@
                     </div>
                 @else
                     <li class="nav-item px-3 ">
-                        <a class="nav-link btn btn-danger btn-sm" href="/login">Login/Signup</a>
+                        <a class="nav-link btn btn-danger btn-sm" href="/customer/login">Login/Signup</a>
                     </li>
                 @endif
             </ul>
@@ -196,9 +196,10 @@
                                 <div id="grand" class="font-weight-bold">@{{ cartTotal }}</div>
                             </div>
                         </div>
-                        <a href="/revieworder" v-if="authenticated" class="btn btn-block btn-danger text-uppercase" :disabled="disableCheckoutBtn">checkout</a>
+                        
+                        <a href="/revieworder" v-if="authenticated" class="btn btn-block btn-danger text-uppercase" :disabled="true">checkout</a>
                         <span v-else>
-                            <a href="/login" class="btn btn-block btn-danger text-uppercase" :disabled="disableCheckoutBtn">checkout</a>
+                            <a href="/customer/login" class="btn btn-block btn-danger text-uppercase" >checkout</a>
                         </span>
                         
 

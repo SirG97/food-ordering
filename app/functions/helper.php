@@ -1,6 +1,7 @@
 <?php
 
 use App\Classes\Session;
+use App\Models\Customer;
 use App\Models\User;
 use eftec\bladeone\BladeOne;
 use voku\helper\Paginator;
@@ -39,6 +40,14 @@ function isAuthenticated(){
 function user(){
     if(isAuthenticated()){
         return User::findOrFail(Session::has('SESSION_USER_ID'));
+    }
+
+    return false;
+}
+
+function customer(){
+    if(isAuthenticated()){
+        return Customer::findOrFail(Session::has('SESSION_USER_ID'));
     }
 
     return false;

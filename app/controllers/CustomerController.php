@@ -11,6 +11,7 @@ use App\Classes\Resize;
 use App\Classes\Session;
 use App\Classes\Validation;
 use App\Classes\Cart;
+use App\Classes\Mail;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -20,6 +21,8 @@ use App\Models\Payment;
 
 class CustomerController extends BaseController{
     public function getLogin(){
+        // Session::add('referer', $_SERVER['HTTP_REFERER'] || false);
+        
         return view('customer.authenticate');
     }
 
@@ -42,16 +45,25 @@ class CustomerController extends BaseController{
                 }
 
                 $customer = Customer::where('email', $request->email)->first();
+                
                 if($customer){
 
                     if(!password_verify($request->password, $customer->password)){
                         Session::add('error', 'incorrect password');
                         return view('customer.authenticate');
                     }else{
+                        
                         Session::add('SESSION_USER_ID', $customer->user_id);
                         Session::add('SESSION_USERNAME', $customer->email);
-
-                        Redirect::to('/customer/orders');
+    
+                        if(Session::has('referer')){
+                            $url = Session::get('referer');
+                            Session::remove('referer');
+                            Redirect::to($url);
+                        }else{
+                            Redirect::to('/');
+                        }
+                        
                     }
                 }else{
                     Session::add('error', 'Invalid credentials');
@@ -178,11 +190,6 @@ class CustomerController extends BaseController{
             $rawTotal = $cartTotal;
             $delivery_fee = Vendor::where('vendor_id', $vendor_id)->first()->min_delivery;
             $rawTotal = (int)$rawTotal + (int)$delivery_fee;
-
-
-
-            
-        
     }
 
     public function verifyTransaction(){
@@ -223,13 +230,14 @@ class CustomerController extends BaseController{
                    $saveOrder =  self::storePaymentAndOrder($tx_ref, $amount, $status);
 
                    if($saveOrder['status'] == 'success'){
-
-                    Redirect::to('/confirmation');
-
+                        
+                        echo json_encode([ 'result' => $saveOrder['data']]);
+                        exit;
+                        // Redirect::to('/conformation');
                    }else{
-
-                    dd($saveOrder);
-
+                    echo json_encode([ 'result' => $saveOrder]);
+                    exit;
+                    
                    }
                     
                 }
@@ -284,7 +292,7 @@ class CustomerController extends BaseController{
              $rawTotal = $cartTotal;
              //Save order
              Order::create([
-                'user_id' => user()->user_id,
+                'user_id' => customer()->user_id,
                 'order_id' => $order_id,
                 'rider_id' => '',
                 'delivery_fee' => $delivery_fee,
@@ -295,7 +303,7 @@ class CustomerController extends BaseController{
              //Add the payment details to the payment table
              Payment::create([
                  'tx_ref' => $tx_ref,
-                 'user_id' => user()->user_id,
+                 'user_id' => customer()->user_id,
                  'order_id' => $order_id,
                  'amount' => $amount,
                  'status' => $status,
@@ -304,16 +312,16 @@ class CustomerController extends BaseController{
              $result['total'] = $cartTotal;
              $result['grand_total'] = $cartTotal + $delivery_fee;
              $data = [
-                'to' => user()->email,
+                'to' => customer()->email,
                 'subject' => 'Order confirmation from Gfood',
-                'view' => 'purchasr',
-                'name' => user()->firstname . ' ' . user()->surname,
+                'view' => 'purchase',
+                'name' => customer()->firstname . ' ' . customer()->surname,
                 'body' => $result
             ];
 
-            (New Mail())->send($data);
+            self::sendMail($data);
             Cart::clear();
-             return ['status' => 'success'];
+             return ['status' => 'success', 'data' => $result];
 
         }catch(\Exception $e){
             return ['status' => 'error', 'message' => $e->getMessage()];
@@ -321,8 +329,13 @@ class CustomerController extends BaseController{
 
     }
 
-    public function confirmOrder(){
+    public function confirmOrder($result){
+        
+        return view('user.confirmation', [ 'result' => $result]);
+    }
 
+    public function sendMail($data){
+        (New Mail())->send($data);
     }
     
 }
