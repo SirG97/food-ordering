@@ -230,9 +230,9 @@ class CustomerController extends BaseController{
                    $saveOrder =  self::storePaymentAndOrder($tx_ref, $amount, $status);
 
                    if($saveOrder['status'] == 'success'){
-                        
-                        echo json_encode([ 'result' => $saveOrder['data']]);
-                        exit;
+                        // return view('user.confirmation', ['result' => $saveOrder]);
+                        // // echo json_encode([ 'result' => $saveOrder['data']]);
+                        // // exit;
                         // Redirect::to('/conformation');
                    }else{
                     echo json_encode([ 'result' => $saveOrder]);
