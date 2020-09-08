@@ -70,6 +70,7 @@ $router->map('GET', '/customer', $_ .'CustomerController@showProfile', 'customer
 $router->map('GET', '/customer/login', $_ .'CustomerController@getLogin', 'getLogin');
 $router->map('GET', '/login', $_ .'CustomerController@getLogin', 'Login');
 $router->map('POST', '/customer/login', $_ .'CustomerController@login', 'customerLogin');
+$router->map('POST', '/customer/logout', $_ .'CustomerController@logout', 'customerLogout');
 $router->map('GET', '/customer/register', $_ .'CustomerController@getRegister', 'getRegister');
 $router->map('POST', '/customer/register', $_ .'CustomerController@register', 'CustomerRegister');
 

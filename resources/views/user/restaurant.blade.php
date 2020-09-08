@@ -49,7 +49,7 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="/customer/orders">Recent orders</a>
                         <a class="dropdown-item" href="/customer">Profile</a>
-                        <a class="dropdown-item" href="/logout">Logout</a>
+                        <a class="dropdown-item" href="/customer/logout">Logout</a>
                     </div>
                     </div>
                 @else

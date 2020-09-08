@@ -337,5 +337,19 @@ class CustomerController extends BaseController{
     public function sendMail($data){
         (New Mail())->send($data);
     }
+
+    public function logout(){
+        if(isAuthenticated()){
+            Session::remove('SESSION_USER_ID');
+            Session::remove('SESSION_USERNAME');
+
+            if(!Session::has('user_cart')){
+                session_destroy();
+                session_regenerate_id(true);
+            }
+            
+        }
+        Redirect::to('/customer/login');
+    }
     
 }
