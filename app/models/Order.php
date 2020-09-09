@@ -15,15 +15,15 @@ class Order extends Model{
 
     public $timestamps = true;
     protected $dates = ['deleted_at'];
-    protected $fillable = ['user_id', 'order_id', 'rider_id', 'delivery_fee', 'status', 'total', 'grand_total'];
+    protected $fillable = ['user_id', 'vendor_id', 'order_id',  'rider_id', 'delivery_fee', 'status', 'total', 'grand_total'];
 
     public function rider(){
         return $this->hasOneThrough(User::class, Rider::class, 'user_id', 'rider_id', 'user_id', 'rider_id');
     }
 
 
-    public function route(){
-        return $this->hasOne(Food::class, 'route_id', 'route_id');
+    public function vendor(){
+        return $this->hasOne(Vendor::class, 'vendor_id', 'vendor_id');
     }
 
 

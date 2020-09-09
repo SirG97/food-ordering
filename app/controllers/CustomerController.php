@@ -128,7 +128,9 @@ class CustomerController extends BaseController{
     }
 
     public function showOrders(){
-        $orders = Order::where('user_id', Session::get('user_id'))->get();
+        
+        $orders = Order::where('user_id', Session::get('SESSION_USER_ID'))->with('vendor')->get();
+        
         return view('customer.orders', ['orders' => $orders]);
     }
 
@@ -293,6 +295,7 @@ class CustomerController extends BaseController{
              //Save order
              Order::create([
                 'user_id' => customer()->user_id,
+                'vendor_id' => $vendor_id,
                 'order_id' => $order_id,
                 'rider_id' => '',
                 'delivery_fee' => $delivery_fee,

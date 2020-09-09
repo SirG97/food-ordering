@@ -77,7 +77,7 @@ class AuthController{
 
     public function showRegister(){
 
-        return view('user\register', ['success' => '','errors' => []]);
+        return view('user.register', ['success' => '','errors' => []]);
 
     }
 
@@ -97,7 +97,7 @@ class AuthController{
                 $validation->validate($_POST, $rules);
                 if($validation->hasError()){
                     $errors = $validation->getErrorMessages();
-                    return view('user\register', ['errors' => $errors]);
+                    return view('user.register', ['errors' => $errors]);
                 }
 
                 //Add the user

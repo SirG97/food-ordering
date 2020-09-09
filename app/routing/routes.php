@@ -43,8 +43,7 @@ $router->map('POST', '/food/[:food_id]/delete', $_ .'FoodController@delete', 'de
 
 //Authenticated routes
 
-$router->map('GET', '/register', $_ .'AuthController@showregister', 'show_register');
-$router->map('POST', '/register', $_ .'AuthController@register', 'register_user');
+
 
 // Authentication and login for admin
 $router->map('GET', '/admin/login', $_ .'AuthController@show', 'a_login');
@@ -73,6 +72,9 @@ $router->map('POST', '/customer/login', $_ .'CustomerController@login', 'custome
 $router->map('POST', '/customer/logout', $_ .'CustomerController@logout', 'customerLogout');
 $router->map('GET', '/customer/register', $_ .'CustomerController@getRegister', 'getRegister');
 $router->map('POST', '/customer/register', $_ .'CustomerController@register', 'CustomerRegister');
+
+$router->map('GET', '/register', $_ .'CustomerController@getRegister', 'show_register');
+$router->map('POST', '/register', $_ .'CustomerController@register', 'register_user');
 
 
 
