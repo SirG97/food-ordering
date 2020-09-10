@@ -140,8 +140,9 @@ class CustomerController extends BaseController{
     }
 
     public function showVendors(){
-        $orders = Order::where('user_id', Session::get('user_id'))->get();
-        return view('customer.recentvendors', ['orders' => $orders]);
+        $order = Order::where('user_id', Session::get('SESSION_USER_ID'))->groupBy('vendor_id')->with('vendor')->get();
+       
+        return view('customer.recentvendors', ['orders' => $order]);
     }
 
     public function showReviews(){

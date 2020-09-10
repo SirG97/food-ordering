@@ -2,8 +2,35 @@
 <?php $this->startSection('title', 'Recent Vendors'); ?>
 <?php $this->startSection('icon', 'fa-tachometer-alt'); ?>
 <?php $this->startSection('content'); ?>
- <div class="container-fluid">
+ <div class="container">
+ <div class="row mx-1">
+ <?php if(!empty($orders) && count($orders) > 0): ?>
+ <?php $__currentLoopData = $orders; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $order): $loop = $this->incrementLoopIndices();  ?>
+ <div class="card mx-3 w-100">
+ <div class="row p-1">
+ <div class="col-md-4">
+ <img src="/<?php echo \htmlentities($order->vendor->banner == false ? '/img/placeholder-vendor-desktop.svg' : str_replace('\\', '/', $order->vendor->banner), ENT_QUOTES, 'UTF-8', false); ?>" class="w-100">
+ </div>
+ <div class="col-md-8">
+ <div class="card-block px-3">
+ <h4 class="card-title"><?php echo \htmlentities($order->vendor->biz_name, ENT_QUOTES, 'UTF-8', false); ?></h4>
+ <p class="card-text"><?php echo \htmlentities($order->vendor->description, ENT_QUOTES, 'UTF-8', false); ?></p>
+ 
+ <a href="/restaurant/<?php echo \htmlentities($order->vendor->vendor_id, ENT_QUOTES, 'UTF-8', false); ?>" class="btn btn-primary">Visit</a>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ 
+ <?php else: ?>
+ <div class="d-flex justify-content-center flex-column align-items-center w-100">
+ <div class="align-items-center"><i class="fas fa-fw fa-shipping-fast fa-2x"></i></div>
+ <div>No Orders yet</div>
+ </div>
+ <?php endif; ?>
 
+ </div>
  </div>
 
 <?php $this->stopSection(); ?>

@@ -29,10 +29,13 @@
  <?php if($order['status'] === 'delivered'): ?>
  <span class="badge badge-success">
  <i class="fas fa-fw fa-check-circle"></i>
+ delivered
  </span>
  <?php elseif($order['status'] === 'ongoing'): ?>
  <span class="badge badge-info">
  <i class="fas fa-fw fa-shipping-fast text-info"></i>
+
+ Ongoing
  </span>
  <?php elseif($order['status'] === 'paid'): ?>
  <span class="badge badge-primary"> <i class="fas fa-fw fa-check"></i> Paid</span>
