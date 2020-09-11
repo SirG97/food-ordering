@@ -1,0 +1,99 @@
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('title', 'Orders'); ?>
+<?php $this->startSection('icon', 'fa-tachometer-alt'); ?>
+<?php $this->startSection('content'); ?>
+ <div class="container-fluid">
+
+ <div class="row">
+ <div class="custom-panel card py-2" >
+ <div class="font-weight-bold text-secondary mb-1 py-3 px-3">
+ Customer contributions
+ </div>
+ <div class="row cool-border-top ">
+ <div class="col-md-12">
+ <div class="d-flex flex-column p-3 contribution-overview">
+ <div class="d-flex justify-content-between">
+ <div class=""><h6>Total Contribution</h6></div>
+ <div class=""><h6>&#8358;9</h6></div>
+ </div>
+ <div class="d-flex justify-content-between">
+ <div class=""><h6>Total Withdrawal</h6></div>
+ <div class=""><h6>&#8358;9</h6></div>
+ </div>
+ <div class="d-flex justify-content-between">
+ <div class=""><h6>Balance</h6></div>
+ <div class=""><h6>&#8358;9</h6></div>
+ </div>
+ <div class="d-flex justify-content-between">
+ <div class=""><h6>Loan</h6></div>
+ <div class=""><h6>&#8358;8</h6></div>
+ </div>
+ <div class="d-flex justify-content-between">
+ <div class=""><h6>Service Charge</h6></div>
+ <div class=""><h6>&#8358;0</h6></div>
+ </div>
+ </div>
+ </div>
+ <div class="col-md-12">
+ <?php if(!empty($order->orderItem) && count($order->orderItem) > 0): ?>
+ <div class="table-responsive">
+ <table class="table table-hover ">
+ <thead class="trx-bg-head text-secondary py-3 px-3">
+ <tr>
+ <th scope="col">Amount</th>
+ <th scope="col">Credit/Debit</th>
+ <th scope="col">Savings type</th>
+ <th scope="col">Posted by</th>
+ <th scope="col">Approved by</th>
+ <th scope="col">Date</th>
+ </tr>
+ </thead>
+ <tbody class="table-style">
+ 
+ <ul class="list-group">
+ <?php $__currentLoopData = $cont; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $contribution): $loop = $this->incrementLoopIndices();  ?>
+ <li class="list-group-item d-flex justify-content-between align-items-center">
+ Cras justo odio
+ <span class="badge badge-primary badge-pill">14</span>
+ </li>
+ 
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </ul>
+ 
+
+ 
+
+ <?php else: ?>
+ <div class="table-responsive">
+ <table class="table table-hover ">
+ <thead class="trx-bg-head text-secondary py-3 px-3">
+ <tr>
+ <th scope="col">Pin</th>
+ <th scope="col">Amount</th>
+ <th scope="col">Daily Amount</th>
+ <th scope="col">Balance</th>
+ <th scope="col">Date</th>
+ </tr>
+ </thead>
+ <tbody class="table-style">
+ <tr>
+ <td colspan="5">
+ <div class="d-flex justify-content-center">No cotributions yet</div>
+ </td>
+ </tr>
+ </tbody>
+ </table>
+ <?php endif; ?>
+
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ </div>
+ </div>
+
+<?php $this->stopSection(); ?>
+<?php if (@$_shouldextend[1]) { echo $this->runChild('customer.layout.base'); } ?>

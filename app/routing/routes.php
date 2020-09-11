@@ -56,6 +56,7 @@ $router->map('POST', '/dashboard', $_ .'DashboardController@store', 'dt');
 
 
 $router->map('GET', '/customer/orders', $_ .'CustomerController@showOrders', 'customerOrders');
+$router->map('GET', '/order/[:order_id]', $_ .'CustomerController@showOrder', 'customerOrder');
 
 $router->map('POST', '/verifytransaction', $_ .'CustomerController@verifyTransaction', 'verifyTransaction');
 $router->map('GET', '/confirmation', $_ .'CustomerController@confirmOrder', 'confirmOrder');

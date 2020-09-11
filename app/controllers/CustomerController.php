@@ -134,6 +134,13 @@ class CustomerController extends BaseController{
         return view('customer.orders', ['orders' => $orders]);
     }
 
+    public function showOrder($id){
+        $order_id =  $id['order_id'];
+        $orders = Order::where('order_id', $order_id)->with('orderItem')->get();
+        dd($orders);
+        return view('customer.order', ['orders' => $orders]);
+    }
+
     public function showProfile(){
         $orders = Order::where('user_id', Session::get('user_id'))->get();
         return view('customer.profile', ['orders' => $orders]);
