@@ -537,4 +537,108 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }, duration);
     }
 
+    let ratedIndex = -1;
+
+    $('.fa-star').on('click', (e) => {
+        ratedIndex = parseInt(e.target.getAttribute('data-index'));
+        $('#star-text').text(starText(ratedIndex));
+    });
+
+    $('.fa-star').mouseover((e) => {
+        resetStarColors();
+      
+        let currentIndex = parseInt(e.target.getAttribute('data-index'));
+       
+        for(let i = 0; i <= currentIndex; i++){
+            $(`.fa-star:eq(${i})`).css('color', 'green');
+        }
+    });
+
+    $('.fa-star').mouseleave(() => {
+        resetStarColors();
+   
+        if(ratedIndex != -1){
+            
+            for(let i = 0; i <= ratedIndex; i++){
+                $(`.fa-star:eq(${i})`).css('color', 'green');
+            }
+        }
+    });
+
+    const resetStarColors = () => {
+        $('.fa-star').css('color', 'black');
+    }
+
+    const saveRating = (ratingIndex, feedback) => {
+        const url = '/review/save';
+
+        let d = new FormData();
+        
+        d.append('token', $('#token').val());
+        d.append('rating', ratingIndex);
+        d.append('feedback', feedback || $('#star-text').val());
+        if(ratingIndex !== null || ratingIndex !== undefined  || isNaN(ratingIndex)){
+            $.ajax({
+                url: url,
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                cache: false,
+                data: d,
+                beforeSend: function(){
+                    $('#save-review').html(`<i class="fas fa-circle-notch fa-spin fa-pulse"></i>`);
+                },
+                success: function (response) {
+                    let data = JSON.parse(response);
+                    console.log(JSON.parse(response));
+                    let message = data.success;
+                    // msg.innerHTML = alertMessage('success', message);
+                    // $('#save-review').html('Save review');
+                    // //interval(5000);
+                    // modal.close()
+                },
+                error: function(request, error){
+                    let errors = JSON.parse(request.responseText);
+                    console.log(errors);
+                    let ul = '';
+                    $.each(errors, (key, value) => {
+                        $.each(value, (index, item)=>{
+                            console.log(item);
+                            ul += `${item} <br>`;
+                        });
+                    });
+    
+                    msg.innerHTML = alertMessage('danger', ul);
+                    $('#editStaffBtn').html('Save');
+                    interval(5000);
+                }
+            });
+        }
+        
+    }
+
+    const starText = (index) => {
+        switch (index) {
+            case 0:
+                return 'Poor';
+                break;
+            case 1:
+                return 'Bad';
+                break;
+            case 2:
+                return 'Good';
+                break;
+            case 3:
+                return 'Great';
+                break;
+            case 4:
+            return 'Perfect';
+                break;
+            default:
+                break;
+        }
+    }
+
+
+
 });

@@ -136,9 +136,9 @@ class CustomerController extends BaseController{
 
     public function showOrder($id){
         $order_id =  $id['order_id'];
-        $orders = Order::where('order_id', $order_id)->with('orderItem')->get();
-        dd($orders);
-        return view('customer.order', ['orders' => $orders]);
+        $order = Order::where('order_id', $order_id)->with(['orderItem.food', 'vendor'])->first();
+       
+        return view('customer.order', ['order' => $order]);
     }
 
     public function showProfile(){
@@ -152,10 +152,7 @@ class CustomerController extends BaseController{
         return view('customer.recentvendors', ['orders' => $order]);
     }
 
-    public function showReviews(){
-        $orders = Order::where('user_id', Session::get('user_id'))->get();
-        return view('customer.review', ['orders' => $orders]);
-    }
+
 
     public function showAddress(){
         $orders = Order::where('user_id', Session::get('user_id'))->get();

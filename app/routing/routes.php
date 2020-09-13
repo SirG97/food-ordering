@@ -62,7 +62,8 @@ $router->map('POST', '/verifytransaction', $_ .'CustomerController@verifyTransac
 $router->map('GET', '/confirmation', $_ .'CustomerController@confirmOrder', 'confirmOrder');
 $router->map('GET', '/customer/vendors', $_ .'CustomerController@showVendors', 'customerVendors');
 $router->map('GET', '/customer/address', $_ .'CustomerController@showAddress', 'customerAddress');
-$router->map('GET', '/customer/reviews', $_ .'CustomerController@showReviews', 'customerReviews');
+$router->map('GET', '/customer/reviews', $_ .'ReviewController@showReviews', 'customerReviews');
+$router->map('POST', '/review/save', $_ .'ReviewController@saveReview', 'saveCustomerReview');
 $router->map('GET', '/customer/settings', $_ .'CustomerController@showSettings', 'customerSettings');
 $router->map('GET', '/customer/resetpassword', $_ .'CustomerController@showResetPassword', 'customerResetPassword');
 

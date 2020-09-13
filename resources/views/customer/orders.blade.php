@@ -69,9 +69,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="panel-footer py-1 mt-0 mr-3 d-flex justify-content-end">
-                        <a href="/orders" class="btn btn-primary btn-sm px-3">View more</a>
-                    </div>
+                    
 
                 </div>
             </div>
