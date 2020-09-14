@@ -18,20 +18,23 @@ use App\Models\OrderItem;
 use App\Models\Food;
 use App\Models\Vendor;
 use App\Models\Payment;
+use App\Models\Review;
 
-class CustomerController extends BaseController{
+class ReviewController extends BaseController{
     public function showReviews(){
         $orders = Order::where('user_id', Session::get('user_id'))->get();
         return view('customer.review', ['orders' => $orders]);
     }
 
     public function saveReview(){
+        
         if(Request::has('post')){
             $request = Request::get('post');
             if(CSRFToken::verifyCSRFToken($request->token, false)){
                 $rules = [
                     'rating' => ['required' => true, 'number' => true],
                     'feedback' => ['mixed' => true],
+                    'vendor' => ['mixed' => true, 'required' => true],
                    
                 ];
                 $validation = new Validation();
@@ -43,28 +46,29 @@ class CustomerController extends BaseController{
                     echo json_encode($errors);
                     exit();
                 }
-
                 // Calculate due date from from service type
-               
-
+            
                 //Add the user
                 $details = [
-                    'order_no' => $order_no,
-                    'request_type' => $request->request_type,
-                    'service_type' => $request->service_type,
-                    'email' => $request->email,
-                   
+                    'user_id' => customer()->user_id,
+                    'vendor_id' => $request->vendor_id,
+                    'review_id' => Random::generateId(16),
+                    'rating' => $request->rating,
+                    'feedback' => $request->feedback,
                 ];
-
-                Order::create($details);
-                Request::refresh();
-                Session::add('success', 'New order created successfully');
-
-                Redirect::to('/orders');
-                exit();
+                
+                try{
+                    Review::create($details);
+                    
+                    echo json_encode(['success' => 'Review saved successfully']);
+                    exit();
+                }catch (\Exception $e){
+                    header('HTTP 1.1 500 Server Error', true, 500);
+                    echo json_encode(['error' => 'Could not save review. please try again' . $e->getMessage()]);
+                    exit();
+                }
             }
-
-            Redirect::to('/orders');
+           
         }
     }
     

@@ -569,14 +569,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
         $('.fa-star').css('color', 'black');
     }
 
-    const saveRating = (ratingIndex, feedback) => {
+    const saveRating = (ratingIndex) => {
         const url = '/review/save';
 
         let d = new FormData();
         
-        d.append('token', $('#token').val());
-        d.append('rating', ratingIndex);
-        d.append('feedback', feedback || $('#star-text').val());
+        d.append('token', $('#token').data('token'));
+        d.append('vendor_id', $('#vendor').data('vendor'));
+        d.append('rating', ratingIndex + 1);
+        d.append('feedback', $('#rating_feedback').val() || starText(ratingIndex));
         if(ratingIndex !== null || ratingIndex !== undefined  || isNaN(ratingIndex)){
             $.ajax({
                 url: url,
@@ -586,30 +587,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 cache: false,
                 data: d,
                 beforeSend: function(){
-                    $('#save-review').html(`<i class="fas fa-circle-notch fa-spin fa-pulse"></i>`);
+                    $('#save-review').html(`<i class="fas fa-circle-notch fa-spin fa-pulse" disabled></i>`);
                 },
                 success: function (response) {
                     let data = JSON.parse(response);
                     console.log(JSON.parse(response));
                     let message = data.success;
-                    // msg.innerHTML = alertMessage('success', message);
-                    // $('#save-review').html('Save review');
-                    // //interval(5000);
+                     msg.innerHTML = alertMessage('success', message);
+                    $('#save-review').html('Save review');
+                    interval(5000);
                     // modal.close()
                 },
                 error: function(request, error){
-                    let errors = JSON.parse(request.responseText);
-                    console.log(errors);
-                    let ul = '';
-                    $.each(errors, (key, value) => {
-                        $.each(value, (index, item)=>{
-                            console.log(item);
-                            ul += `${item} <br>`;
-                        });
-                    });
-    
-                    msg.innerHTML = alertMessage('danger', ul);
-                    $('#editStaffBtn').html('Save');
+                    let message = JSON.parse(request.responseText);
+                    msg.innerHTML = alertMessage('danger', message);
+                    $('#save-review').html('Save review');
                     interval(5000);
                 }
             });
@@ -639,6 +631,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }
 
-
+    $('#save-review').on('click', () =>{
+        if(ratedIndex != -1){
+            saveRating(ratedIndex);
+        }else{
+            console.log('rated index is not here');
+        }
+        
+    })
 
 });

@@ -94,6 +94,7 @@
         </button>
       </div>
       <div class="modal-body">
+        <div id="msg" class="d-flex"></div>
         <div class="">
             <i class="fa fa-star" data-index="0"></i>
             <i class="fa fa-star" data-index="1"></i>
@@ -102,6 +103,8 @@
             <i class="fa fa-star" data-index="4"></i>
             <span id="star-text"></span>
         </div>
+        <div class="" id="vendor" data-vendor="{{ $order->vendor->vendor_id }}"></div>
+        <div class="" id="token" data-token="{{\App\Classes\CSRFToken::_token() }}"></div>
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Feedback</label>
             <textarea class="form-control" id="rating_feedback" rows="3"></textarea>
