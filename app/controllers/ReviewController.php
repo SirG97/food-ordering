@@ -22,8 +22,9 @@ use App\Models\Review;
 
 class ReviewController extends BaseController{
     public function showReviews(){
-        $orders = Order::where('user_id', Session::get('user_id'))->get();
-        return view('customer.review', ['orders' => $orders]);
+        $reviews = Review::where('user_id', Session::get('SESSION_USER_ID'))->with('vendor')->get();
+    
+        return view('customer.review', ['reviews' => $reviews]);
     }
 
     public function saveReview(){
