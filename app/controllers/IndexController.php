@@ -39,4 +39,9 @@ class IndexController extends BaseController{
 
         return view('user.revieworder', ['token' => $token]);
     }
+
+
+    public function home(){
+        return view('user.home');
+    }
 }

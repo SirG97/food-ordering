@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="/css/all.css">
     <link rel="stylesheet" href="/css/Chart.min.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/nstyle.css">
+    <link rel="stylesheet" href="/webfonts/Poppins-Regular.ttf">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
 
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>

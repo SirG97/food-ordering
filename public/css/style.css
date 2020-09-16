@@ -6,7 +6,9 @@ body {
     line-height: 1.5;
     letter-spacing: 0.4px;
     /* background-color: #F4F6F8; */
-    background-color: #e3e8ee;
+    background-color: #e5e5e5;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 .mymodal {
@@ -34,12 +36,12 @@ body {
 }
 
 .navbar-light .navbar-nav > .nav-item > a{
-    color: white;
+    color: black;
 }
 
 .navbar-light .navbar-nav .active>.nav-link{
-    border-bottom: 2px solid #ED3237;
-    color: white;
+    border-bottom: 2px solid #FF922C;
+    color: black;
 }
 
 .navbar-dark .black-nav .nav-link {
@@ -50,25 +52,25 @@ body {
 
 
 .navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
-    border-bottom: 2px solid #ED3237;
+    border-bottom: 2px solid #FF922C;
     color: white;
     /*transition: all .7s ease-in ;*/
     transition: left 3s ease-in-out;
 }
 
 .navbar-brand{
-
+    margin-left: 52px;
     font-weight: 500;
-    color: #ED3237 !important;
+    color:#FF922C !important;
 }
 
 .hero{
     height: 100vh;
     margin-top: -20px;
     /*background-image: linear-gradient(145deg,#022B3D 45%, #022B3D 85%);*/
-    background-image: url("../img/bgash2.jpg");
-    background-size: cover;
-    overflow-x: hidden;
+    /* background-image: url("../img/bgash2.jpg"); */
+    /* background-size: cover; */
+    overflow: hidden;
 }
 
 .hero-search{
@@ -236,7 +238,7 @@ body {
     justify-content: center;
     align-items: center;
 
-    color: #ED3237;
+    color: #FF922C;
     border: 2px solid#fff;
     -webkit-border-radius: 50%;
     border-radius: 50%;
@@ -279,7 +281,7 @@ body {
 
 .cta-btn{
     border-radius: 25px;
-    background-color: #ED3237;
+    background-color: #FF922C;
     padding: 10px 40px;
 }
 
@@ -564,7 +566,7 @@ body {
 
 .curved {
     position: relative;
-    background: #ED3237;
+    background: #FF922C;
     height: 150px;
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;

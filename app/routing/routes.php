@@ -81,4 +81,15 @@ $router->map('POST', '/register', $_ .'CustomerController@register', 'register_u
 
 
 
+//New UI implementation
+
+
+$router->map('GET', '/home', $_ .'IndexController@home', 'homep');
+$router->map('GET', '/newrs', $_ .'IndexController@newrs', 'newrs');
+$router->map('GET', '/newr/[:uid]', $_ .'IndexController@newr', 'newr');
+$router->map('GET', '/newro', $_ .'IndexController@newro', 'newRo');
+
+
+
+
 
