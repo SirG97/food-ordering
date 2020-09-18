@@ -1,12 +1,23 @@
+
 body {
     font-size: 14px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
     font-weight: 400;
     color: #212b36;
     line-height: 1.5;
     letter-spacing: 0.4px;
     /* background-color: #F4F6F8; */
-    background-color: #e5e5e5;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    width: 100vw;
+    overflow: hidden auto;
+    filter: drop-shadow(0px 4px 31px rgba(0, 0, 0, 0.15));
+}
+
+.wrapper{
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
 }
 
 .mymodal {
@@ -64,7 +75,7 @@ body {
 }
 
 .navbar-collapse{
-    font-family: 'Poppins', sans-serif;;
+    font-family: 'Poppins', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -83,7 +94,7 @@ body {
     position: absolute;
     width: 1213px;
     height: 1013px;
-    left: 545px;
+    margin-left: 545px;
     top: -500px;
     z-index: -999;
     background: #FFEEDE;
@@ -93,11 +104,29 @@ body {
 
 .hero-text{
     margin-left: 53px;
+    /*max-width: 460px;*/
+}
+
+.hero-inner-text{
     max-width: 460px;
 }
 
+.himg1{
+    position: relative;
+    left: 45%;
+    border-radius: 40%;
+    z-index: -1;
+}
+
+.himg2{
+    border-radius: 50%;
+    top: -60px;
+    position: relative;
+    right: 35%;
+}
+
 .hero-text h3{
-    font-family: Comfortaa;
+    font-family: Comfortaa, sans-serif;
     font-weight: bold;
     font-size: 55px;
     line-height: 69.77px;
@@ -116,12 +145,14 @@ body {
 }
 
 .theme-bg{
+    background-color: #FF922C;
+}
+
+.theme-color{
     color: #FF922C;
 }
 
-.color-bg{
-    background-color: #FF922C;
-}
+
 
 .action-btn{
     box-shadow: 0px 20px 40px #F4E2D1;
@@ -129,5 +160,484 @@ body {
     text-transform: uppercase;
     padding: 10px 25px;
     width: max-content;
+}
+
+.hero-search{
+    width: 93%;
+
+    border-radius: 16px;
+    background-color: #ffffff;
+}
+
+.search-btn{
+    border-bottom-right-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+.search-btn, .search-input{
+    padding: 24px;
+}
+
+.search-input .form-group{
+    margin-bottom: 0;
+}
+
+.hero-search-container{
+    filter: drop-shadow(0px 4px 31px rgba(0, 0, 0, 0.15));
+    position: relative;
+    /*top: -120px;*/
+    /*margin-bottom: -80px;*/
+}
+
+.hero{
+    /*border: 1px solid black;*/
+}
+
+.m-srch-btn{
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/*Section how it works starts*/
+
+.how-it-works, .restaurant{
+    margin-top: 50px;
+}
+
+.how-it-works-header{
+    margin-bottom: 16px;
+}
+
+.how-it-works-header h3, .restaurant-header h3{
+    font-family: Comfortaa, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 65px;
+    text-transform: capitalize;
+}
+
+.how-it-works-content, .restaurant-content{
+    padding: 0 100px;
+}
+
+.how-widget-img img{
+    height: 130px;
+}
+
+.how-widget{
+    background-color: #ffffff;
+    margin: 20px 0;
+    text-align: center;
+    padding-top: 35px;
+    padding-bottom: 35px;
+    border-radius: 16px;
+}
+
+.how-widget-text{
+    padding: 10px 36px;
+    font-size: 16px;
+    line-height: 33px;
+}
+
+/*.how-widget-text */
+
+.how-widget-text h4{
+    font-family: Comfortaa, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 33px;
+    text-align: center;
+    letter-spacing: 0.1px;
+    color: #131333;
+    padding-top: 15px;
+}
+
+/*Section how it works ends*/
+
+/*Metric section */
+
+.metrics{
+    padding-top: 40px;
+    background-color: #FFEEDE;
+    margin: 40px;
+    border-radius: 16px;
+    margin-top: 100px;
+}
+
+.metric-item{
+    margin-bottom: 15px;
+}
+
+.metric-number{
+    font-family: Comfortaa, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 65px;
+    letter-spacing: 0.2px;
+    color: #131333;
+}
+
+.metric-title{
+    font-family: Poppins, sans-serif;
+    font-size: 24px;
+    line-height: 57px;
+    letter-spacing: 0.2px;
+    color: #5C5C5C;
+}
+
+/* Metric section ends*/
+
+
+/*Restaurant header*/
+.restaurant-header {
+    margin-top: 50px;
+    margin-bottom: 30px;
+
+}
+.more-btn{
+    margin: 100px auto;
+    width: 300px;
+}
+
+.more-btn a{
+    border: 1px solid #FF922C;
+    box-sizing: border-box;
+    filter: drop-shadow(0px 20px 40px #F4E2D1);
+    border-radius: 69px;
+    display: inline-block;
+    padding: 20px 100px;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 24px;
+    text-transform: capitalize;
+    color: #FF922C;
+}
+.meta{
+    margin-bottom: 24px;
+}
+
+.card-title{
+    font-size: 24px;
+    line-height: 30px;
+    letter-spacing: 0.01em;
+    color: #131333;
+    font-weight: bold;
+}
+
+.featured-card{
+    border-radius: 16px;
+}
+
+.rating-badge{
+    font-size: 10px;
+    line-height: 25px;
+    text-align: center;
+    letter-spacing: 0.2em;
+    border-radius: 4px;
+    color: #FFFFFF;
+}
+
+.total-order{
+    border: 1px solid #D7D8D9;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 4px;
+    color: #FF922C;
+    font-size: 10px;
+}
+
+.card-text{
+    font-size: 16px;
+    line-height: 25px;
+    text-align: justify;
+    color: #6E798C;
+    margin-bottom: 24px;
+}
+
+.view-more{
+    padding: 12px 10px;
+    border-radius: 16px;
+    font-size: 16px;
+    line-height: 25px;
+    text-align: center;
+    letter-spacing: 0.18em;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+/* footer */
+.footer-item p a, .policy a{
+    color: white !important;
+}
+
+.footer-item h5{
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.231818px;
+    color: #FF922C !important;
+}
+
+.copyright-policy{
+    padding-bottom: 20px;
+    margin-top: 80px;
+}
+
+
+@media screen and (min-width: 320px){
+    .hero{
+        /*height: 70vh;*/
+        overflow: hidden;
+    }
+
+    .hero-text{
+        margin-left: 15px;
+    }
+    .navbar-brand {
+        margin-left: 5px;
+    }
+
+    .arc{
+        margin-left: 0;
+        width: 800px;
+        height: 800px;
+        top: -450px;
+    }
+
+    .hero-inner-text{
+        width: 300px;
+    }
+
+    .hero-inner-text h3{
+        font-size: 45px;
+        line-height: 45px;
+    }
+
+    .hero-search-container {
+        top: -50px;
+    }
+
+    .search-input .form-group{
+        margin-bottom: 10px;
+    }
+
+    .search-btn{
+        border-radius: 0 0 16px 16px;
+    }
+
+    .how-it-works-header h3, .restaurant-header h3 {
+        font-size: 45px;
+        line-height: 45px;
+    }
+
+    .restaurant-header h3 {
+        font-size: 30px;
+        line-height: 45px;
+        padding-left: 20px;
+    }
+
+    .how-it-works-content, .restaurant-content {
+        padding: 0 20px;
+    }
+
+    .metrics {
+        margin: 20px;
+    }
+
+    .metric-item {
+        margin-bottom: 40px;
+    }
+
+    .metric-title {
+        line-height: 27px;
+        font-size: 20px;
+    }
+
+    .copyright{
+        /*margin-top: 20px;*/
+    }
+
+    .himg1 {
+        left: -15%;
+    }
+}
+
+
+@media screen and (min-width: 480px){
+
+    .arc{
+        margin-left: 300px;
+    }
+
+    .how-it-works-content, .restaurant-content {
+        padding: 0 50px;
+    }
+}
+
+@media screen and (min-width: 550px){
+
+    .arc{
+        margin-left: 300px;
+    }
+
+    .how-it-works-content, .restaurant-content {
+        padding: 0 100px;
+    }
+}
+
+
+@media screen and (min-width: 768px){
+
+    .hero{
+        /*height: 60vh;*/
+    }
+
+    .arc{
+        margin-left: 245px;
+        width: 1213px;
+        height: 1013px;
+        top: -650px;
+    }
+
+    .hero-text{
+        margin-left: 30px;
+    }
+    .navbar-brand {
+        margin-left: 25px;
+    }
+
+
+    .hero-inner-text {
+        width: 400px;
+    }
+
+    .search-btn{
+        border-radius: 0 16px 16px 0;
+    }
+
+
+    .how-it-works-content, .restaurant-content {
+        padding: 0 20px;
+    }
+
+    .how-widget-text {
+        padding: 10px 16px;
+        font-size: 14px;
+        line-height: 33px;
+    }
+
+    .search-input .form-group{
+        margin-bottom: 0;
+    }
+
+    .card-body {
+        padding: 10px;
+    }
+
+    .himg1{
+        position: relative;
+        left: 45%;
+        border-radius: 40%;
+        z-index: -1;
+    }
+
+    .himg2{
+        border-radius: 50%;
+        top: -60px;
+        position: relative;
+        right: 35%;
+    }
+}
+
+
+
+@media screen and (min-width: 1200px){
+    .hero-search-container {
+        /*top: -120px;*/
+    }
+
+    .hero{
+        /*height: 100vh;*/
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+    .how-it-works-content, .restaurant-content {
+        padding: 0 100px;
+    }
+
+    .arc{
+        position: absolute;
+        width: 1013px;
+        height: 1013px;
+        left: 245px;
+        top: -600px;
+        z-index: -999;
+        background: #FFEEDE;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+
+    .himg2 {
+        right: 15%;
+    }
+
+    .himg1 {
+        left: 70%;
+    }
+}
+
+@media screen and (max-width: 1999px){
+
+}
+
+@media screen and (min-width: 1350px){
+
+}
+
+
+
+/*Check screen size to know the height of the hero*/
+
+@media screen and (min-height: 644px){
+    .hero{
+        /*height: 100vh;*/
+    }
+
+    .hero-search-container{
+        /*margin-top: -100px;*/
+    }
+}
+
+@media screen and (min-height: 800px){
+    .hero{
+        /*height: 80vh;*/
+    }
+}
+
+@media screen and (min-height: 1000px){
+    .hero{
+        /*height: 50vh;*/
+    }
+}
+
+@media screen and (min-height: 800px) and (min-width: 1200px){
+    .hero{
+        /*height: 100vh;*/
+    }
+
+
+}
+
+
+
+@media screen and (min-height: 800px){
+
+}
+
+@media screen and (min-height: 500px) and (min-width: 1000px){
 
 }

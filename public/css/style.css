@@ -65,18 +65,12 @@ body {
 }
 
 .hero{
-    height: 100vh;
-    margin-top: -20px;
-    /*background-image: linear-gradient(145deg,#022B3D 45%, #022B3D 85%);*/
-    /* background-image: url("../img/bgash2.jpg"); */
-    /* background-size: cover; */
+    height: 500px;
     overflow: hidden;
+
 }
 
-.hero-search{
- width: 100%;
- background-color: rgba(0, 0, 0, 0.5);
-}
+
 
 .filter-search{
     background-color: rgba(0, 0, 0, 0.5);
@@ -118,6 +112,7 @@ body {
 .featured-card{
     border-radius: 9px;
     font-size: 16px;
+    margin-bottom: 20px;
 }
 
 .featured-card img{
@@ -167,7 +162,6 @@ body {
     width: 25px;
     height: 25px;
 }
-
 
 
 .what{
@@ -287,7 +281,7 @@ body {
 
 #footer-container{
     padding: 100px 30px 0px;
-    background-color: #000d2b;
+    background-color: #262626;
     color: white;
 }
 
@@ -1238,7 +1232,6 @@ header{
     float: left;
     position: relative;
     width: 100px;
-    margin-bottom: -20px;
   } 
   .cornerimage {
     border: 0;

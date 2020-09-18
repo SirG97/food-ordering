@@ -18,7 +18,7 @@
                                 <div class="cornerimage" style="width:calc({{($review->rating / 5)}} * 100%);">
                                     <img src="https://image.ibb.co/caxgdF/stars_full.png" alt="">
                                 </div>
-                            <div>
+                            </div>
                         </h6>
                         		<br>	
                         
