@@ -11,13 +11,15 @@ body {
     background-color: #FFFFFF;
     width: 100vw;
     overflow: hidden auto;
-    filter: drop-shadow(0px 4px 31px rgba(0, 0, 0, 0.15));
+    /*filter: drop-shadow(0px 4px 31px rgba(0, 0, 0, 0.15));*/
 }
 
 .wrapper{
     overflow-x: hidden;
-    position: relative;
     width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff !important;
 }
 
 .mymodal {
@@ -53,8 +55,7 @@ body {
     color: white;
 }
 .navbar-light .navbar-nav .active>.nav-link{
-    border-bottom: 2px solid #FF922C;
-    color: black;
+    color: #FF922C;
 }
 
 .navbar-dark .black-nav .nav-link {
@@ -62,8 +63,7 @@ body {
 }
 
 .navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
-    border-bottom: 2px solid #FF922C;
-    color: white;
+    color: #FF922C;
     /*transition: all .7s ease-in ;*/
     transition: left 3s ease-in-out;
 }
@@ -185,23 +185,27 @@ body {
 .hero-search-container{
     filter: drop-shadow(0px 4px 31px rgba(0, 0, 0, 0.15));
     position: relative;
-    /*top: -120px;*/
-    /*margin-bottom: -80px;*/
 }
 
 .hero{
     /*border: 1px solid black;*/
 }
 
-.m-srch-btn{
-    font-weight: bold;
-    text-transform: uppercase;
+#m-srch-btn{
+    font-family: Poppins, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 40px;
+    text-align: center;
+    color: #FFFFFF;
 }
 
 /*Section how it works starts*/
 
 .how-it-works, .restaurant{
     margin-top: 50px;
+    filter: drop-shadow(0px 24px 64px rgba(0, 0, 0, 0.04));
 }
 
 .how-it-works-header{
@@ -329,6 +333,7 @@ body {
 
 .featured-card{
     border-radius: 16px;
+    border: 0;
 }
 
 .rating-badge{
@@ -384,6 +389,220 @@ body {
     padding-bottom: 20px;
     margin-top: 80px;
 }
+
+
+/* Restaurants page*/
+
+.page-title{
+    margin-top: 50px
+}
+
+.page-title h3{
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+}
+
+.r-p-heading{
+    font-family: Comfortaa, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 70px;
+    letter-spacing: 0.213023px;
+    color: #131333;
+}
+
+
+
+.filter-container{
+    filter: drop-shadow(0px 4px 31px rgba(0, 0, 0, 0.15));
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.all-restaurants{
+    filter: drop-shadow(0px 24px 64px rgba(0, 0, 0, 0.04));
+}
+
+.all-restaurants-content{
+    padding: 0px 40px;
+}
+
+/* Restaurants page ends*/
+
+/* Single restaurant page starts*/
+.drop-shadow{
+    filter: drop-shadow(0px 24px 64px rgba(0, 0, 0, 0.04));
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    color: green;
+    content: ">";
+}
+
+
+.restaurant-tabs{
+    background-color: white;
+}
+
+.restaurant-tabs > .nav-pills{
+    background-color: inherit !important;
+}
+
+.restaurant-tabs > .nav-pills li{
+    box-shadow: 0px 24px 64px rgba(0, 0, 0, 0.04);
+    border-radius: 16px;
+    margin: 0px 15px;
+    padding: 0px 45px;
+ }
+
+.r-tab li a{
+    font-family: Comfortaa;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 27px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
+    color: #131333;
+
+    padding: 12px 0px;
+    border-radius: 0 !important;
+}
+
+.r-tab li a.active{
+    border-bottom: 2px solid #FF922C;
+    background-color: unset !important;
+    color: #131333 !important;
+}
+
+.r-cart{
+    border-radius: 16px;
+    margin: 0px 25px;
+    border: 0;
+}
+
+.r-cart-header{
+    border-radius: 16px 16px 0 0 !important;
+    background: linear-gradient(0deg, #FFEEDE, #FFEEDE);
+    font-family: Comfortaa;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #131333;
+    border-bottom: 0;
+}
+
+.categories{
+    background: #FFFFFF;
+    border: 1.5px solid #EBECED;
+    border-radius: 16px;
+
+}
+
+.category-header{
+    padding: 20px;
+    font-family: Comfortaa;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 25px;
+    color: #131333;
+}
+
+.categories > .list-group > .list-group-item{
+    border: 0;
+    color: #131333;
+
+}
+
+
+.categories > .list-group > .list-group-item.active{
+    border-left: 3px solid #FF922C;
+    color: #131333;
+    margin-left: -1px;
+    background-color: unset !important;
+}
+
+.review-container h3, .info-container h3{
+    font-size: 24px;
+    line-height: 25px;
+    font-weight: bold;
+}
+
+.total-title{
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.grand-title{
+    color: #131333;
+}
+
+.grand-container, .subtotal-container, .del-container{
+    padding-bottom: 10px;
+}
+
+#grand, #delivery, #subtotal{
+    font-size: 16px;
+    line-height: 24px;
+    text-align: right;
+
+    color: #000000;
+}
+
+.update-btn{
+    color: white;
+    padding: 0;
+    box-sizing: border-box;
+    height: 20px;
+    width: 20px;
+}
+
+.item-c{
+    margin-left: -5px;
+    margin-right: -5px;
+    max-height: 200px;
+    overflow-y: hidden;
+}
+
+.item-c:hover{
+    overflow-y: scroll;
+}
+
+.item{
+    box-sizing: border-box;
+    margin: 12px 0px;
+}
+
+.remove{
+    background-color: #374A59;
+    border: 1px solid black;
+    border-radius: 50%;
+}
+
+.checkout-btn{
+    color: white;
+    border-radius: 8px;
+}
+
+.add-to-cart{
+    font-size: 14px;
+    line-height: 25px;
+    color: white !important;
+    border-radius: 16px;
+}
+
+/* Single restaurant page ends*/
 
 
 @media screen and (min-width: 320px){
@@ -462,6 +681,54 @@ body {
     .himg1 {
         left: -15%;
     }
+
+/*  Single restaurant responsive page  */
+    .restaurant-tabs{
+        margin-left: -12px;
+        margin-right: -15px;
+        margin-bottom: 15px;
+    }
+
+
+    .restaurant-tabs > .nav-pills {
+        background-color: inherit !important;
+        flex-wrap: nowrap;
+    }
+
+    .restaurant-tabs > .nav-pills li{
+        margin: 0px 15px;
+        padding: 0px 14px;
+    }
+
+    .r-tab li a {
+        font-size: 16px;
+        padding: 12px 0px;
+        border-radius: 0 !important;
+    }
+
+    .categories > .list-group > .list-group-item.active{
+        border-bottom: 3px solid #FF922C;
+        border-left: 0;
+        background-color: unset !important;
+    }
+
+    .categories{
+        overflow-y: hidden;
+        overflow-x: auto;
+
+    }
+
+    .category-header{
+        font-size: 16px;
+        padding: 10px;
+        font-weight: bold;
+    }
+
+    .categories ul{
+        overflow-y: hidden;
+        overflow-x: auto;
+    }
+/*  Single restaurant responsive page ends */
 }
 
 
@@ -484,6 +751,31 @@ body {
 
     .how-it-works-content, .restaurant-content {
         padding: 0 100px;
+    }
+}
+
+@media screen and (min-width: 576px){
+    .restaurant-tabs > .nav-pills li{
+        box-shadow: 0px 24px 64px rgba(0, 0, 0, 0.04);
+        border-radius: 16px;
+        margin: 0px 15px;
+        padding: 0px 45px;
+    }
+
+    .r-tab li a{
+        font-family: Comfortaa;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 27px;
+        padding: 12px 0px;
+        border-radius: 0 !important;
+    }
+
+    .category-header{
+        font-size: 20px;
+        padding: 15px;
+        font-weight: bold;
     }
 }
 
@@ -548,6 +840,16 @@ body {
         top: -60px;
         position: relative;
         right: 35%;
+    }
+}
+
+
+@media screen and (min-width: 992px){
+    .categories > .list-group > .list-group-item.active{
+        border-left: 3px solid #FF922C;
+        margin-left: -1px;
+        border-bottom: 0;
+        background-color: unset !important;
     }
 }
 

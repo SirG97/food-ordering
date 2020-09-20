@@ -57,7 +57,10 @@
                     </div>
                 @else
                     <li class="nav-item px-3 ">
-                        <a class="nav-link btn btn-danger btn-sm" href="/customer/login">Login/Signup</a>
+                        <a class="auth-btn btn auth btn-sm" href="/customer/login">Login</a>
+                    </li>
+                    <li class="nav-item px-3 ">
+                        <a class="auth-btn btn auth btn-sm" href="/customer/signup">Signup</a>
                     </li>
                 @endif
             </ul>

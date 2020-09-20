@@ -5,10 +5,6 @@ body {
     color: #212b36;
     line-height: 1.5;
     letter-spacing: 0.4px;
-    /* background-color: #F4F6F8; */
-    background-color: #e5e5e5;
-    max-width: 100%;
-    overflow-x: hidden;
 }
 
 .mymodal {
@@ -40,8 +36,7 @@ body {
 }
 
 .navbar-light .navbar-nav .active>.nav-link{
-    border-bottom: 2px solid #FF922C;
-    color: black;
+    color: #FF922C;
 }
 
 .navbar-dark .black-nav .nav-link {
@@ -52,8 +47,7 @@ body {
 
 
 .navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
-    border-bottom: 2px solid #FF922C;
-    color: white;
+    color: #FF922C;
     /*transition: all .7s ease-in ;*/
     transition: left 3s ease-in-out;
 }
@@ -473,10 +467,9 @@ body {
 
 .banner{
     /*height: 50vh;*/
-    margin-top:55px;
     background-size: cover;
     background-position: 50%;
-    height: 256px;
+    height: 351px;
 }
 
 .image-upload > input

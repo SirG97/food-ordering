@@ -26,10 +26,10 @@
 
                 </ul>
 
-                <ul class="navbar-nav">
+                <ul class="navbar-nav mr-3">
                     @if(isAuthenticated())
                         <div class="dropdown">
-                            <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="auth-btn btn auth btn-sm  dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{ customer()->firstname }}
                             </button>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
@@ -40,7 +40,10 @@
                         </div>
                     @else
                         <li class="nav-item px-3 ">
-                            <a class="auth-btn btn auth btn-sm" href="/customer/login">Login/Signup</a>
+                            <a class="auth-btn btn auth btn-sm" href="/customer/login">Login</a>
+                        </li>
+                        <li class="nav-item px-3 ">
+                            <a class="auth-btn btn auth btn-sm" href="/customer/signup">Signup</a>
                         </li>
                     @endif
                 </ul>
@@ -102,7 +105,7 @@
                     <div class="col-md-2 theme-bg search-btn">
                         <div class="d-flex justify-content-center">
                             <div class="align-items-center">
-                                <a href="/restaurant" class="btn theme-bg" id="m-srch-btn">Place Order</a>
+                                <a href="/restaurant" class="btn theme-bg" id="m-srch-btn">PLACE ORDER</a>
                             </div>
                         </div>
                     </div>
@@ -210,7 +213,7 @@
                                             <img src="/img/stars_blank.png" alt="img">
                                         </div>
                                         <div class="cornerimage" style="width:calc(100%);">
-                                            <img src="https://image.ibb.co/caxgdF/stars_full.png" alt="">
+                                            <img src="/img/stars_full.png" alt="">
                                         </div>
                                     </div>
                                 </div>
@@ -240,7 +243,7 @@
                                             <img src="/img/stars_blank.png" alt="img">
                                         </div>
                                         <div class="cornerimage" style="width:calc(60%);">
-                                            <img src="https://image.ibb.co/caxgdF/stars_full.png" alt="">
+                                            <img src="/img/stars_full.png" alt="">
                                         </div>
                                     </div>
                                 </div>
@@ -270,7 +273,7 @@
                                             <img src="/img/stars_blank.png" alt="img">
                                         </div>
                                         <div class="cornerimage" style="width:calc(89%);">
-                                            <img src="https://image.ibb.co/caxgdF/stars_full.png" alt="">
+                                            <img src="/img/stars_full.png" alt="">
                                         </div>
                                     </div>
                                 </div>
@@ -302,7 +305,7 @@
                                             <img src="/img/stars_blank.png" alt="img">
                                         </div>
                                         <div class="cornerimage" style="width:calc(100%);">
-                                            <img src="https://image.ibb.co/caxgdF/stars_full.png" alt="">
+                                            <img src="/img/stars_full.png" alt="">
                                         </div>
                                     </div>
                                 </div>
@@ -332,7 +335,7 @@
                                             <img src="/img/stars_blank.png" alt="img">
                                         </div>
                                         <div class="cornerimage" style="width:calc(60%);">
-                                            <img src="https://image.ibb.co/caxgdF/stars_full.png" alt="">
+                                            <img src="/img/stars_full.png" alt="">
                                         </div>
                                     </div>
                                 </div>
@@ -362,7 +365,7 @@
                                             <img src="/img/stars_blank.png" alt="img">
                                         </div>
                                         <div class="cornerimage" style="width:calc(89%);">
-                                            <img src="https://image.ibb.co/caxgdF/stars_full.png" alt="">
+                                            <img src="/img/stars_full.png" alt="">
                                         </div>
                                     </div>
                                 </div>

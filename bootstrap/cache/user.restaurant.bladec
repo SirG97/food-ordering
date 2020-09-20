@@ -1,49 +1,36 @@
+<?php echo $this->runChild('includes.head'); ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Gfood::vendors</title>
- <link rel="favicon" href="/favicon.ico">
- <link rel="stylesheet" href="/css/bootstrap.min.css">
- <link rel="stylesheet" href="/css/all.css">
- <link rel="stylesheet" href="/css/fontawesome-all.css">
- <link rel="stylesheet" href="/css/Chart.min.css">
- <link rel="stylesheet" href="/css/style.css">
-
- <script src="/js/jquery-3.2.1.min.js"></script>
- <script src="/js/bootstrap.bundle.min.js"></script>
- <script src="/js/moment.min.js"></script>
- <script src="/js/vue.js"></script>
- <script src="/js/axios.min.js"></script>
- <script src="/js/script.js"></script>
- <script src="/js/cart.js"></script>
-
-</head>
-<body id="vid" data-id="<?php echo \htmlentities($vendor->vendor_id, ENT_QUOTES, 'UTF-8', false); ?>">
-<div>
- <nav class="navbar navbar-expand-lg navbar-dark bg-white fixed-top main-menu custom">
+<div class="wrapper" id="vid" data-id="<?php echo \htmlentities($vendor->vendor_id, ENT_QUOTES, 'UTF-8', false); ?>">
+ <?php /* Navbar */ ?>
+ <div>
+ <nav class="navbar navbar-expand-lg navbar-light navbar-transparent custom">
  <a class="navbar-brand" href="#"><i class="fas fa-hamburger"></i>GFoods</a>
  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
  <span class="navbar-toggler-icon"></span>
  </button>
  <div class="collapse navbar-collapse " id="navbarNavDropdown">
- <ul class="navbar-nav black-nav ml-auto">
+ <ul class="navbar-nav mr-auto">
  <li class="nav-item active px-3">
- <a class="nav-link" href="/">Home</a>
+ <a class="nav-link" href="#">Resaturants</a>
  </li>
 
  <li class="nav-item px-3">
- <a class="nav-link" href="/cart">vendors</a>
+ <a class="nav-link" href="#">Become a Vendor</a>
  </li>
 
  <li class="nav-item px-3">
- <a class="nav-link" href="/cart"><i class="fa fa-shopping-cart"></i>Cart</a>
+ <a class="nav-link" href="#">Contact</a>
  </li>
+ <!-- <li> -->
+
+ <!-- </li> -->
+
+ </ul>
+
+ <ul class="navbar-nav mr-3">
  <?php if(isAuthenticated()): ?>
  <div class="dropdown">
- <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+ <button class="auth-btn btn auth btn-sm  dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
  <?php echo \htmlentities(customer()->firstname, ENT_QUOTES, 'UTF-8', false); ?>
 
  </button>
@@ -55,20 +42,22 @@
  </div>
  <?php else: ?>
  <li class="nav-item px-3 ">
- <a class="nav-link btn btn-danger btn-sm" href="/customer/login">Login/Signup</a>
+ <a class="auth-btn btn auth btn-sm" href="/customer/login">Login/Signup</a>
  </li>
  <?php endif; ?>
  </ul>
  </div>
  </nav>
-</div>
-<div class="banner restaurant-main-banner d-flex justify-content-center" style="background-image: url('/<?php echo \htmlentities($vendor->banner == false ? '/img/placeholder-vendor-desktop.svg' :str_replace("\\", "/", $vendor->banner), ENT_QUOTES, 'UTF-8', false); ?>'); width: 100vw">
+ </div>
+
+ <?php /*    Banner starts*/ ?>
+ <div class="banner restaurant-main-banner d-flex justify-content-center" style="background-image: url('/<?php echo \htmlentities($vendor->banner == false ? '/img/placeholder-vendor-desktop.svg' :str_replace("\\", "/", $vendor->banner), ENT_QUOTES, 'UTF-8', false); ?>'); width: 100vw">
  <div class="banner-header align-self-end">
  <div class="container">
  <nav aria-label="breadcrumb">
  <ol class="breadcrumb">
  <li class="breadcrumb-item"><a href="/">Home</a></li>
- <li class="breadcrumb-item"><a href="/vendors">Vendors</a></li>
+ <li class="breadcrumb-item"><a href="/restaurants">Vendors</a></li>
  <li class="breadcrumb-item active" aria-current="page"><?php echo \htmlentities($vendor->biz_name, ENT_QUOTES, 'UTF-8', false); ?></li>
  </ol>
  </nav>
@@ -88,127 +77,563 @@
  </div>
  </div>
  </div>
-</div>
-<?php /*banner ends*/ ?>
-
-<?php /*product navigation*/ ?>
-<div class="restaurant-nav my-1">
- <div class="container">
- <nav class="d-inline-flex flex-nowrap">
- <?php if(!empty($vendor->foodCategories) && count($vendor->foodCategories) > 0): ?>
- <?php $__currentLoopData = $vendor->foodCategories; $this->addLoop($__currentLoopData);$this->getFirstLoop();
- foreach($__currentLoopData as $c): $loop = $this->incrementLoopIndices();  ?>
- <a class="" href="#<?php echo \htmlentities($c->category_name, ENT_QUOTES, 'UTF-8', false); ?>"><?php echo \htmlentities($c->category_name, ENT_QUOTES, 'UTF-8', false); ?></a>
- <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
- <?php endif; ?>
- </nav>
  </div>
+ <?php /*banner ends*/ ?>
 
-</div>
-<?php /*product navigation ends*/ ?>
+<?php /*    */ ?><?php /*product navigation*/ ?>
+<?php /*    <div class="restaurant-nav my-1">*/ ?>
+<?php /*        <div class="container">*/ ?>
+<?php /*            <nav class="d-inline-flex flex-nowrap">*/ ?>
+<?php /*                <?php if(!empty($vendor->foodCategories) && count($vendor->foodCategories) > 0): ?>*/ ?>
+<?php /*                    <?php $__currentLoopData = $vendor->foodCategories; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $c): $loop = $this->incrementLoopIndices();  ?>*/ ?>
+<?php /*                        <a class="" href="#<?php echo \htmlentities($c->category_name, ENT_QUOTES, 'UTF-8', false); ?>"><?php echo \htmlentities($c->category_name, ENT_QUOTES, 'UTF-8', false); ?></a>*/ ?>
+<?php /*                    <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>*/ ?>
+<?php /*                <?php endif; ?>*/ ?>
+<?php /*            </nav>*/ ?>
+<?php /*        </div>*/ ?>
 
-<?php /*product listing*/ ?>
+<?php /*    </div>*/ ?>
+<?php /*    */ ?><?php /*product navigation ends*/ ?>
 
-<div class="product-container" id="root" data-id="<?php echo \htmlentities($vendor->vendor_id, ENT_QUOTES, 'UTF-8', false); ?>" data-token="<?php echo \htmlentities($token, ENT_QUOTES, 'UTF-8', false); ?>">
- <div class="container">
- <div class="row">
- <div class="col-md-8">
- <div v-cloak v-for="menu in menus">
- <div v-if="menu.food.length !== 0">
- <nav class="nav nav-tabs customer-nav mr-2" id="myTab" role="tablist">
- <a aria-controls="general" aria-selected="true" class="nav-link active" data-toggle="tab" href="'#' + menu.category_name"
- id="general-tab" role="tab">{{menu.category_name}}</a>
- </nav>
- <div class="product-group">
- <?php /*                            <?php $__currentLoopData = $c->food; $this->addLoop($__currentLoopData);$this->getFirstLoop();
- foreach($__currentLoopData as $food): $loop = $this->incrementLoopIndices();  ?>*/ ?>
- <div class="product-card py-1" v-for="food in menu.food" style="">
+ <?php /*product listing*/ ?>
+
+ <div class="product-container" id="root" data-id="<?php echo \htmlentities($vendor->vendor_id, ENT_QUOTES, 'UTF-8', false); ?>" data-token="<?php echo \htmlentities($token, ENT_QUOTES, 'UTF-8', false); ?>">
  <div class="container-fluid">
  <div class="row">
+ <div class="col-md-6 offset-md-3">
+ <div class="restaurant-tabs">
+ <ul class="nav nav-pills d-flex justify-content-start justify-content-sm-around r-tab">
+ <li class="nav-item drop-shadow">
+ <a class="nav-link active" id="menu-tab" data-toggle="tab" href="#menu" role="tab" aria-controls="menu" aria-selected="true">Menu</a>
+ </li>
+ <li class="nav-item">
+ <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="true">Reviews</a>
+ </li>
+ <li class="nav-item">
+ <a class="nav-link" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true">Info</a>
+ </li>
 
- <div class="col-4 col-sm-2 p-img-outer px-1 px-sm-2">
- <div class="card-img-container py-1">
- <img class="card-img align-self-center" :src="'/' + food.image" alt="food.name + 'picture'">
- </div>
- </div>
- <div class="col-8 col-sm-10 border-danger p-card-outer pl-1 pl-sm-2">
- <div class="product-description p-0 d-flex flex-column justify-content-between">
- <h5 class="card-title mb-0">{{ food.name }}</h5>
- <p class="card-text">{{ food.description }}</p>
- <div class="d-flex justify-content-end">
- <span class="font-weight-bold product-price">{{ food.unit_price }}</span>
- <button type="button" class="btn btn-outline-danger btn-sm p-0 px-1" @click.prevent="addToCart(food.food_id)"><i class="fa fa-plus"></i> </button>
+ </ul>
  </div>
  </div>
  </div>
-
+ <div class="row">
+ <div class="col-lg-2">
+ <div class="categories mx-0 mb-3 pt-2 pb-0">
+ <div class="category-header font-weight-bold">
+ Categories
+ </div>
+ <ul class="list-group list-group-flush d-flex flex-row flex-lg-column">
+ <li class="list-group-item active">Soup</li>
+ <li class="list-group-item">Rice</li>
+ <li class="list-group-item">Drinks</li>
+ <li class="list-group-item">Swallow</li>
+ <li class="list-group-item">Fries</li>
+ </ul>
+ </div>
+ </div>
+ <div class="col-lg-10 ">
+ <div class="row">
+ <div class="col-lg-8">
+ <div class="tab-content" id="myTabContent">
+ <div class="tab-pane fade show active drop-shadow" id="menu" role="tabpanel" aria-labelledby="menu-tab">
+ <div class="row">
+ <div class="col-md-6">
+ <div class="card featured-card" style="">
+ <img class="card-img-top" src="/img/Tortellini.png" alt="Card image cap" style="height: 216px">
+ <div class="card-body">
+ <h6 class="card-title">Jellof Rice</h6>
+ <div class="meta d-flex flex-row align-items-center">
+ <div class="justify-content-center">
+ <div class="rating-badge badge-secondary px-2 mr-2">
+ 4.0
+ </div>
+ </div>
+ <div class="justify-content-center">
+ <div class="containerdiv d-inline-block mr-2">
+ <div>
+ <img src="/img/stars_blank.png" alt="img">
+ </div>
+ <div class="cornerimage" style="width:calc(100%);">
+ <img src="/img/stars_full.png" alt="">
  </div>
  </div>
  </div>
- <?php /*                            <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>*/ ?>
+ <div class="justify-content-center">
+ <div class="total-order mr-1 btn-outline-secondary">400 Orders</div>
  </div>
  </div>
-
- </div>
- <div class="text-center">
- <i v-show="loading" class="fa fa-spinner fa-spin" style="font-size: 3rem; padding-bottom: 3rem; position:fixed;
- top:50%; bottom: 50%" ></i>
- </div>
- </div>
-<?php /*            Cart*/ ?>
- <div class="col-md-4">
- <div class="cart-container">
- <section class="curved">
- <div class="desktop-cart-header text-white p-3">
- <p class="text-small text-uppercase help-text">Order from</p>
- <div class="cart-res-name mt-0 mb-1"><?php echo \htmlentities($vendor->biz_name, ENT_QUOTES, 'UTF-8', false); ?></div>
- <p class="text-small text-uppercase help-text">Delivery time</p>
- <div class="cart-res-name mt-0">30min - 85min max</div>
- </div>
- </section>
-
- <div class="my-3 mx-2 pb-3">
- <div class="cart-item-container">
- <div class="cart-item my-1 py-2" v-for="item in items">
- <div class="cart-product-info d-flex justify-content-between mb-1">
- <div class="">{{ item.name }}</div>
- <div class="">{{ item.total }}</div>
- </div>
+ <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, animi consectetur adipisicing elit</p>
  <div class="d-flex justify-content-between">
- <span @click="removeItem(item.index)">remove <i class="fa fa-times"></i></span>
- <div class="d-flex ">
- <button type="button" class="btn btn-outline-danger btn-sm p-0 px-1" @click="updateQuantity(item.food_id, '-')"><i class="fa fa-minus"></i> </button>
- <span class="font-weight-bold product-price">{{ item.unit_price }}</span>
- <button type="button" class="btn btn-outline-danger btn-sm p-0 px-1"  @click="updateQuantity(item.food_id, '+')"><i class="fa fa-plus"></i> </button>
+ <div class="price d-flex flex-row justify-content-around align-items-center">
+ <div class="main-price">$3000</div> &nbsp; &nbsp;
+ <div class="sales-price" style="text-decoration: line-through;">$5000</div>
+ </div>
+ <div class="add-to-cart">
+ <a href="/restaurants" class="btn theme-bg add-to-cart">Add to Cart</a>
+ </div>
+ </div>
+
+ </div>
+ </div>
+ </div>
+ <div class="col-md-6">
+ <div class="card featured-card" style="">
+ <img class="card-img-top" src="/img/Tortellini.png" alt="Card image cap" style="height: 216px">
+ <div class="card-body">
+ <h6 class="card-title">KFC Chicken</h6>
+ <div class="meta d-flex flex-row align-items-center">
+ <div class="justify-content-center">
+ <div class="rating-badge badge-secondary px-2 mr-2">
+ 4.0
+ </div>
+ </div>
+ <div class="justify-content-center">
+ <div class="containerdiv d-inline-block mr-2">
+ <div>
+ <img src="/img/stars_blank.png" alt="img">
+ </div>
+ <div class="cornerimage" style="width:calc(100%);">
+ <img src="/img/stars_full.png" alt="">
+ </div>
+ </div>
+ </div>
+ <div class="justify-content-center">
+ <div class="total-order mr-1 btn-outline-secondary">400 Orders</div>
+ </div>
+ </div>
+ <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, animi consectetur adipisicing elit</p>
+ <a href="/restaurants" class="btn btn-block theme-bg view-more">View more</a>
+ </div>
+ </div>
+ </div>
+ <div class="col-md-6">
+ <div class="card featured-card" style="">
+ <img class="card-img-top" src="/img/Tortellini.png" alt="Card image cap" style="height: 216px">
+ <div class="card-body">
+ <h6 class="card-title">KFC Chicken</h6>
+ <div class="meta d-flex flex-row align-items-center">
+ <div class="justify-content-center">
+ <div class="rating-badge badge-secondary px-2 mr-2">
+ 4.0
+ </div>
+ </div>
+ <div class="justify-content-center">
+ <div class="containerdiv d-inline-block mr-2">
+ <div>
+ <img src="/img/stars_blank.png" alt="img">
+ </div>
+ <div class="cornerimage" style="width:calc(100%);">
+ <img src="/img/stars_full.png" alt="">
+ </div>
+ </div>
+ </div>
+ <div class="justify-content-center">
+ <div class="total-order mr-1 btn-outline-secondary">400 Orders</div>
+ </div>
+ </div>
+ <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, animi consectetur adipisicing elit</p>
+ <a href="/restaurants" class="btn btn-block theme-bg view-more">View more</a>
+ </div>
+ </div>
+ </div>
+ <div class="col-md-6">
+ <div class="card featured-card" style="">
+ <img class="card-img-top" src="/img/Tortellini.png" alt="Card image cap" style="height: 216px">
+ <div class="card-body">
+ <h6 class="card-title">KFC Chicken</h6>
+ <div class="meta d-flex flex-row align-items-center">
+ <div class="justify-content-center">
+ <div class="rating-badge badge-secondary px-2 mr-2">
+ 4.0
+ </div>
+ </div>
+ <div class="justify-content-center">
+ <div class="containerdiv d-inline-block mr-2">
+ <div>
+ <img src="/img/stars_blank.png" alt="img">
+ </div>
+ <div class="cornerimage" style="width:calc(100%);">
+ <img src="/img/stars_full.png" alt="">
+ </div>
+ </div>
+ </div>
+ <div class="justify-content-center">
+ <div class="total-order mr-1 btn-outline-secondary">400 Orders</div>
+ </div>
+ </div>
+ <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, animi consectetur adipisicing elit</p>
+ <a href="/restaurants" class="btn btn-block theme-bg view-more">View more</a>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+ <div class="row">
+ <div class="col-md-12">
+ <div class="review-container">
+ <h3>Customer Reviews(500)</h3>
+ <div class="list-group list-group-flush mt-3">
+ <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+ <div class="d-flex w-100 justify-content-between">
+ <div class="name-rating d-flex flex-row">
+ <h6 class="mb-1">Emeka</h6>
+ <div class="containerdiv d-inline-block ml-2">
+ <div>
+ <img src="/img/stars_blank.png" alt="img">
+ </div>
+ <div class="cornerimage" style="width:calc(100%);">
+ <img src="/img/stars_full.png" alt="">
+ </div>
+ </div>
+ </div>
+
+ <small>3 days ago</small>
+ </div>
+ <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+ </a>
+ <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+ <div class="d-flex w-100 justify-content-between">
+ <div class="name-rating d-flex flex-row">
+ <h6 class="mb-1">Emeka</h6>
+ <div class="containerdiv d-inline-block ml-2">
+ <div>
+ <img src="/img/stars_blank.png" alt="img">
+ </div>
+ <div class="cornerimage" style="width:calc(100%);">
+ <img src="/img/stars_full.png" alt="">
+ </div>
+ </div>
+ </div>
+
+ <small>3 days ago</small>
+ </div>
+ <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+ </a>
+ <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+ <div class="d-flex w-100 justify-content-between">
+ <div class="name-rating d-flex flex-row">
+ <h6 class="mb-1">Emeka</h6>
+ <div class="containerdiv d-inline-block ml-2">
+ <div>
+ <img src="/img/stars_blank.png" alt="img">
+ </div>
+ <div class="cornerimage" style="width:calc(100%);">
+ <img src="/img/stars_full.png" alt="">
+ </div>
+ </div>
+ </div>
+
+ <small>3 days ago</small>
+ </div>
+ <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+ </a>
+ <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+ <div class="d-flex w-100 justify-content-between">
+ <div class="name-rating d-flex flex-row">
+ <h6 class="mb-1">Emeka</h6>
+ <div class="containerdiv d-inline-block ml-2">
+ <div>
+ <img src="/img/stars_blank.png" alt="img">
+ </div>
+ <div class="cornerimage" style="width:calc(100%);">
+ <img src="/img/stars_full.png" alt="">
+ </div>
+ </div>
+ </div>
+
+ <small>3 days ago</small>
+ </div>
+ <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+ </a>
+ <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+ <div class="d-flex w-100 justify-content-between">
+ <div class="name-rating d-flex flex-row">
+ <h6 class="mb-1">Emeka</h6>
+ <div class="containerdiv d-inline-block ml-2">
+ <div>
+ <img src="/img/stars_blank.png" alt="img">
+ </div>
+ <div class="cornerimage" style="width:calc(100%);">
+ <img src="/img/stars_full.png" alt="">
+ </div>
+ </div>
+ </div>
+
+ <small>3 days ago</small>
+ </div>
+ <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+ </a>
+ <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+ <div class="d-flex w-100 justify-content-between">
+ <div class="name-rating d-flex flex-row">
+ <h6 class="mb-1">Emeka</h6>
+ <div class="containerdiv d-inline-block ml-2">
+ <div>
+ <img src="/img/stars_blank.png" alt="img">
+ </div>
+ <div class="cornerimage" style="width:calc(100%);">
+ <img src="/img/stars_full.png" alt="">
+ </div>
+ </div>
+ </div>
+
+ <small>3 days ago</small>
+ </div>
+ <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+ </a>
+ <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+ <div class="d-flex w-100 justify-content-between">
+ <div class="name-rating d-flex flex-row">
+ <h6 class="mb-1">Emeka</h6>
+ <div class="containerdiv d-inline-block ml-2">
+ <div>
+ <img src="/img/stars_blank.png" alt="img">
+ </div>
+ <div class="cornerimage" style="width:calc(100%);">
+ <img src="/img/stars_full.png" alt="">
+ </div>
+ </div>
+ </div>
+
+ <small>3 days ago</small>
+ </div>
+ <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+ </a>
+ <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+ <div class="d-flex w-100 justify-content-between">
+ <div class="name-rating d-flex flex-row">
+ <h6 class="mb-1">Emeka</h6>
+ <div class="containerdiv d-inline-block ml-2">
+ <div>
+ <img src="/img/stars_blank.png" alt="img">
+ </div>
+ <div class="cornerimage" style="width:calc(100%);">
+ <img src="/img/stars_full.png" alt="">
+ </div>
+ </div>
+ </div>
+
+ <small>3 days ago</small>
+ </div>
+ <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+ </a>
+ <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+ <div class="d-flex w-100 justify-content-between">
+ <div class="name-rating d-flex flex-row">
+ <h6 class="mb-1">Emeka</h6>
+ <div class="containerdiv d-inline-block ml-2">
+ <div>
+ <img src="/img/stars_blank.png" alt="img">
+ </div>
+ <div class="cornerimage" style="width:calc(100%);">
+ <img src="/img/stars_full.png" alt="">
+ </div>
+ </div>
+ </div>
+
+ <small>3 days ago</small>
+ </div>
+ <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+ </a>
+
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="tab-pane fade" id="info" role="tabpanel" aria-labelledby="info-tab">
+ <div class="row">
+ <div class="col-md-12">
+ <div class="info-container">
+ <h3>Johnny Rockets</h3>
+ <div class="list-group list-group-flush mt-3">
+ <li class="list-group-item d-flex justify-content-between align-items-center">
+ Minimum order amount
+ <span class="">$200</span>
+ </li>
+ <li class="list-group-item d-flex justify-content-between align-items-center">
+ Delivery hours
+ <span class="">8:00 am to 10:00pm</span>
+ </li>
+ <li class="list-group-item d-flex justify-content-between align-items-center">
+ Delivery time
+ <span class="">10 mins</span>
+ </li>
+
+ <li class="list-group-item d-flex justify-content-between align-items-center">
+ Pre-order
+ <span class="">Yes</span>
+ </li>
+
+ <li class="list-group-item d-flex justify-content-between align-items-center">
+ Ratings
+ <span class="">Very Good (4.0)</span>
+ </li>
+
+ <li class="list-group-item d-flex justify-content-between align-items-center">
+ Cuisines
+ <span class="">African, Local</span>
+ </li>
+
+ <li class="list-group-item d-flex justify-content-between align-items-center">
+ Payment
+ <span class="">Online</span>
+ </li>
+
+ </div>
+ </div>
+ </div>
  </div>
  </div>
  </div>
 
  </div>
- <div class="total-container">
+ <div class="col-lg-4">
+ <div class="row">
+ <div class="col-lg-12 drop-shadow px-2">
+ <div class="card r-cart ">
+ <div class="card-header r-cart-header">
+ Your Cart
+ </div>
+ <div class="card-body d-flex justify-content-center">
+<?php /*                                            <div class="align-items-center d-flex justify-content-center flex-column mx-auto py-3">*/ ?>
+<?php /*                                                <img src="/img/vector.png" alt="">*/ ?>
+<?php /*                                                <p>There are no items in your cart</p>*/ ?>
+<?php /*
+<?php echo \htmlentities(--                                            </div>*/ ?>
+ <div class="d-flex py-3 w-100 flex-column">
+ <div class="item-c">
+ <div class="d-flex justify-content-between item">
+ <div class="d-flex align-items-center justify-content-start">
+ <div class="d-flex align-items-center">
+ <button type="button" class="btn btn-sm theme-bg update-btn" @click="updateQuantity(item.food_id, '-')"><i class="fa fa-minus"></i> </button>
+ &nbsp;
+ <span class="font-weight-bold product-price">1</span>
+ &nbsp;
+ <button type="button" class="btn btn-sm theme-bg update-btn"  @click="updateQuantity(item.food_id, '+')"><i class="fa fa-plus"></i> </button>
+ </div>
+ <div class="mx-1 d-flex align-items-center"> Amala </div>
+ </div>
+ <div class="mr-1 d-flex align-items-center justify-content-end">
+ <div class=""> $220</div>&nbsp;&nbsp;
+ <span class="d-flex align-items-center"><i class="fa fa-inverse fa-minus-circle remove"></i></span>
+ </div>
+
+ </div>
+ <div class="d-flex justify-content-between item">
+ <div class="d-flex align-items-center justify-content-start">
+ <div class="d-flex align-items-center">
+ <button type="button" class="btn btn-sm theme-bg update-btn" @click="updateQuantity(item.food_id, '-')"><i class="fa fa-minus"></i> </button>
+ &nbsp;
+ <span class="font-weight-bold product-price">1</span>
+ &nbsp;
+ <button type="button" class="btn btn-sm theme-bg update-btn"  @click="updateQuantity(item.food_id, '+')"><i class="fa fa-plus"></i> </button>
+ </div>
+ <div class="mx-1 d-flex align-items-center"> Amala </div>
+ </div>
+ <div class="mr-1 d-flex align-items-center justify-content-end">
+ <div class=""> $220</div>&nbsp;&nbsp;
+ <span class="d-flex align-items-center"><i class="fa fa-inverse fa-minus-circle remove"></i></span>
+ </div>
+
+ </div>
+ <div class="d-flex justify-content-between item">
+ <div class="d-flex align-items-center justify-content-start">
+ <div class="d-flex align-items-center">
+ <button type="button" class="btn btn-sm theme-bg update-btn" @click="updateQuantity(item.food_id, '-')"><i class="fa fa-minus"></i> </button>
+ &nbsp;
+ <span class="font-weight-bold product-price">1</span>
+ &nbsp;
+ <button type="button" class="btn btn-sm theme-bg update-btn"  @click="updateQuantity(item.food_id, '+')"><i class="fa fa-plus"></i> </button>
+ </div>
+ <div class="mx-1 d-flex align-items-center"> Amala </div>
+ </div>
+ <div class="mr-1 d-flex align-items-center justify-content-end">
+ <div class=""> $220</div>&nbsp;&nbsp;
+ <span class="d-flex align-items-center"><i class="fa fa-inverse fa-minus-circle remove"></i></span>
+ </div>
+
+ </div>
+ <div class="d-flex justify-content-between item">
+ <div class="d-flex align-items-center justify-content-start">
+ <div class="d-flex align-items-center">
+ <button type="button" class="btn btn-sm theme-bg update-btn" @click="updateQuantity(item.food_id, '-')"><i class="fa fa-minus"></i> </button>
+ &nbsp;
+ <span class="font-weight-bold product-price">1</span>
+ &nbsp;
+ <button type="button" class="btn btn-sm theme-bg update-btn"  @click="updateQuantity(item.food_id, '+')"><i class="fa fa-plus"></i> </button>
+ </div>
+ <div class="mx-1 d-flex align-items-center"> Amala </div>
+ </div>
+ <div class="mr-1 d-flex align-items-center justify-content-end">
+ <div class=""> $220</div>&nbsp;&nbsp;
+ <span class="d-flex align-items-center"><i class="fa fa-inverse fa-minus-circle remove"></i></span>
+ </div>
+
+ </div>
+ <div class="d-flex justify-content-between item">
+ <div class="d-flex align-items-center justify-content-start">
+ <div class="d-flex align-items-center">
+ <button type="button" class="btn btn-sm theme-bg update-btn" @click="updateQuantity(item.food_id, '-')"><i class="fa fa-minus"></i> </button>
+ &nbsp;
+ <span class="font-weight-bold product-price">1</span>
+ &nbsp;
+ <button type="button" class="btn btn-sm theme-bg update-btn"  @click="updateQuantity(item.food_id, '+')"><i class="fa fa-plus"></i> </button>
+ </div>
+ <div class="mx-1 d-flex align-items-center">Amala with coke and pounded yam</div>
+ </div>
+ <div class="mr-1 d-flex align-items-center justify-content-end">
+ <div class=""> $220</div>&nbsp;&nbsp;
+ <span class="d-flex align-items-center"><i class="fa fa-inverse fa-minus-circle remove"></i></span>
+ </div>
+
+ </div>
+ <div class="d-flex justify-content-between item">
+ <div class="d-flex align-items-center justify-content-start">
+ <div class="d-flex align-items-center">
+ <button type="button" class="btn btn-sm theme-bg update-btn" @click="updateQuantity(item.food_id, '-')"><i class="fa fa-minus"></i> </button>
+ &nbsp;
+ <span class="font-weight-bold product-price">1</span>
+ &nbsp;
+ <button type="button" class="btn btn-sm theme-bg update-btn"  @click="updateQuantity(item.food_id, '+')"><i class="fa fa-plus"></i> </button>
+ </div>
+ <div class="mx-1 d-flex align-items-center">Burger and Fries</div>
+ </div>
+ <div class="mr-1 d-flex align-items-center justify-content-end">
+ <div class=""> $220</div>&nbsp;&nbsp;
+ <span class="d-flex align-items-center"><i class="fa fa-inverse fa-minus-circle remove"></i></span>
+ </div>
+
+ </div>
+
+ </div>
  <div class="subtotal-container d-flex justify-content-between">
- <div >Subtotal</div>
- <div id="subtotal">{{ cartTotal }}</div>
+ <div class="total-title">Subtotal</div>
+<?php /*                                                        @{{ cartTotal, ENT_QUOTES, 'UTF-8', false); ?>*/ ?>
+ <div id="subtotal">200</div>
  </div>
  <div class="del-container d-flex justify-content-between">
- <div >Delivery fee</div>
+ <div class="total-title">Delivery fee</div>
  <div id="delivery"><?php echo \htmlentities($vendor->min_delivery, ENT_QUOTES, 'UTF-8', false); ?></div>
  </div>
- <div class="del-container d-flex justify-content-between">
- <div class="font-weight-bold">Grand total</div>
- <div id="grand" class="font-weight-bold">{{ cartTotal }}</div>
+ <div class="grand-container d-flex justify-content-between">
+ <div class="total-title grand-title font-weight-bold">Grand total</div>
+ <div id="grand" class="font-weight-bold total-value">{{ cartTotal }}</div>
  </div>
- </div>
- 
- <a href="/revieworder" v-if="authenticated" class="btn btn-block btn-danger text-uppercase" :disabled="true">checkout</a>
- <span v-else>
- <a href="/customer/login" class="btn btn-block btn-danger text-uppercase" >checkout</a>
- </span>
- 
+ <button class="btn btn-block theme-bg checkout-btn">Proceed to Checkout</button>
 
- <div class="text-center">
- <i v-show="cartLoading" class="fa fa-spinner fa-spin" style="font-size: 3rem; padding-bottom: 3rem; position:absolute;
- top:50%; bottom: 50%" ></i>
  </div>
  </div>
  </div>
@@ -216,11 +641,17 @@
  </div>
  </div>
  </div>
-<div class="alert alert-success" id="toast" role="alert">
 
+ </div>
+ <?php /* Cart*/ ?>
+
+ </div>
+ </div>
+ </div>
+ <div class="alert alert-success" id="toast" role="alert">
+
+ </div>
 </div>
-
-</body>
-</html>
+<?php echo $this->runChild('includes.footer'); ?>
 
 

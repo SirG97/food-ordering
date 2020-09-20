@@ -1,268 +1,283 @@
-@include('includes.head')
-
-<div class="wrapper">
-{{--    Navigation bar--}}
-    <div>
-        <nav class="navbar navbar-expand-lg navbar-light navbar-transparent custom">
-            <a class="navbar-brand" href="#"><i class="fas fa-hamburger"></i>GFoods</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse " id="navbarNavDropdown">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active px-3">
-                        <a class="nav-link" href="#">Resaturants</a>
-                    </li>
-
-                    <li class="nav-item px-3">
-                        <a class="nav-link" href="#">Become a Vendor</a>
-                    </li>
-
-                    <li class="nav-item px-3">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                    <!-- <li> -->
-
-                    <!-- </li> -->
-
-                </ul>
-
-                <ul class="navbar-nav mr-3">
-                    @if(isAuthenticated())
-                        <div class="dropdown">
-                            <button class="auth-btn btn auth btn-sm  dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{ customer()->firstname }}
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="/customer/orders">Recent orders</a>
-                                <a class="dropdown-item" href="/customer">Profile</a>
-                                <a class="dropdown-item" href="/customer/logout">Logout</a>
-                            </div>
-                        </div>
-                    @else
-                        <li class="nav-item px-3 ">
-                            <a class="auth-btn btn auth btn-sm" href="/customer/login">Login</a>
-                        </li>
-                        <li class="nav-item px-3 ">
-                            <a class="auth-btn btn auth btn-sm" href="/customer/signup">Signup</a>
-                        </li>
-                    @endif
-                </ul>
-            </div>
+<div v-cloak v-for="menu in menus">
+    <div v-if="menu.food.length !== 0">
+        <nav class="nav nav-tabs customer-nav mr-2" id="myTab" role="tablist">
+            <a aria-controls="general" aria-selected="true" class="nav-link active" data-toggle="tab" href="'#' + menu.category_name"
+               id="general-tab" role="tab">@{{menu.category_name}}</a>
         </nav>
-    </div>
+        <div class="product-group">
+            {{--                            @foreach($c->food as $food)--}}
+            <div class="product-card py-1" v-for="food in menu.food" style="">
+                <div class="container-fluid">
+                    <div class="row">
 
-{{--    Title of the page --}}
-
-    <div class="page-title d-flex justify-content-center">
-        <h3 class="r-p-heading">Find restaurant close to you</h3>
-    </div>
-
-{{--   Filter container  --}}
-    <div class="filter-container d-flex justify-content-center">
-        <section class="hero-search" style="">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-10 search-input"  style="">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <select class="custom-select form-control form-control-lg" id="inputGroupSelect01">
-                                        <option selected>Select city</option>
-                                        <option value="1">Port-Harcourt</option>
-                                        <option value="2">Owerri</option>
-                                        <option value="3">Enugu</option>
-                                    </select>
-                                </div>
+                        <div class="col-4 col-sm-2 p-img-outer px-1 px-sm-2">
+                            <div class="card-img-container py-1">
+                                <img class="card-img align-self-center" :src="'/' + food.image" alt="food.name + 'picture'">
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <input type="email" class="form-control form-control-lg" value="" id="area" name="area" placeholder="Your Area">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-lg" value="" id="meal" name="meal" placeholder="Filter">
+                        </div>
+                        <div class="col-8 col-sm-10 border-danger p-card-outer pl-1 pl-sm-2">
+                            <div class="product-description p-0 d-flex flex-column justify-content-between">
+                                <h5 class="card-title mb-0">@{{ food.name }}</h5>
+                                <p class="card-text">@{{ food.description }}</p>
+                                <div class="d-flex justify-content-end">
+                                    <span class="font-weight-bold product-price">@{{ food.unit_price }}</span>
+                                    <button type="button" class="btn btn-outline-danger btn-sm p-0 px-1" @click.prevent="addToCart(food.food_id)"><i class="fa fa-plus"></i> </button>
                                 </div>
                             </div>
                         </div>
 
                     </div>
-                    <div class="col-md-2 theme-bg search-btn">
-                        <div class="d-flex justify-content-center">
-                            <div class="align-items-center">
-                                <a href="#" class="btn theme-bg" id="m-srch-btn">Search</a>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
-        </section>
-    </div>
-
-{{--  All restaurants  --}}
-    <div class="all-restaurants">
-        <div class="all-restaurants-header d-flex p-2 mx-1 mx-sm-3 mx-md-5">
-            <h4 class="r-p-heading">All restaurant</h4>
-        </div>
-        <div class="all-restaurants-content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-6 col-xl-3">
-                        <div class="card featured-card" style="">
-                            <img class="card-img-top" src="/img/Tortellini.png" alt="Card image cap" style="height: 216px">
-                            <div class="card-body">
-                                <h6 class="card-title">KFC Chicken</h6>
-                                <div class="meta d-flex flex-row align-items-center">
-                                    <div class="justify-content-center">
-                                        <div class="rating-badge badge-secondary px-2 mr-2">
-                                            4.0
-                                        </div>
-                                    </div>
-                                    <div class="justify-content-center">
-                                        <div class="containerdiv d-inline-block mr-2">
-                                            <div>
-                                                <img src="/img/stars_blank.png" alt="img">
-                                            </div>
-                                            <div class="cornerimage" style="width:calc(100%);">
-                                                <img src="/img/stars_full.png" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="justify-content-center">
-                                        <div class="total-order mr-1 btn-outline-secondary">400 Orders</div>
-                                    </div>
-                                </div>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, animi consectetur adipisicing elit</p>
-                                <a href="/restaurants" class="btn btn-block theme-bg view-more">View more</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-3">
-                        <div class="card featured-card" style="">
-                            <img class="card-img-top" src="/img/Tortellini.png" alt="Card image cap" style="height: 216px">
-                            <div class="card-body">
-                                <h6 class="card-title">KFC Chicken</h6>
-                                <div class="meta d-flex flex-row align-items-center">
-                                    <div class="justify-content-center">
-                                        <div class="rating-badge badge-secondary px-2 mr-2">
-                                            4.0
-                                        </div>
-                                    </div>
-                                    <div class="justify-content-center">
-                                        <div class="containerdiv d-inline-block mr-2">
-                                            <div>
-                                                <img src="/img/stars_blank.png" alt="img">
-                                            </div>
-                                            <div class="cornerimage" style="width:calc(100%);">
-                                                <img src="/img/stars_full.png" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="justify-content-center">
-                                        <div class="total-order mr-1 btn-outline-secondary">400 Orders</div>
-                                    </div>
-                                </div>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, animi consectetur adipisicing elit</p>
-                                <a href="/restaurants" class="btn btn-block theme-bg view-more">View more</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-3">
-                        <div class="card featured-card" style="">
-                            <img class="card-img-top" src="/img/Tortellini.png" alt="Card image cap" style="height: 216px">
-                            <div class="card-body">
-                                <h6 class="card-title">KFC Chicken</h6>
-                                <div class="meta d-flex flex-row align-items-center">
-                                    <div class="justify-content-center">
-                                        <div class="rating-badge badge-secondary px-2 mr-2">
-                                            4.0
-                                        </div>
-                                    </div>
-                                    <div class="justify-content-center">
-                                        <div class="containerdiv d-inline-block mr-2">
-                                            <div>
-                                                <img src="/img/stars_blank.png" alt="img">
-                                            </div>
-                                            <div class="cornerimage" style="width:calc(100%);">
-                                                <img src="/img/stars_full.png" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="justify-content-center">
-                                        <div class="total-order mr-1 btn-outline-secondary">400 Orders</div>
-                                    </div>
-                                </div>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, animi consectetur adipisicing elit</p>
-                                <a href="/restaurants" class="btn btn-block theme-bg view-more">View more</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-3">
-                        <div class="card featured-card" style="">
-                            <img class="card-img-top" src="/img/Tortellini.png" alt="Card image cap" style="height: 216px">
-                            <div class="card-body">
-                                <h6 class="card-title">KFC Chicken</h6>
-                                <div class="meta d-flex flex-row align-items-center">
-                                    <div class="justify-content-center">
-                                        <div class="rating-badge badge-secondary px-2 mr-2">
-                                            4.0
-                                        </div>
-                                    </div>
-                                    <div class="justify-content-center">
-                                        <div class="containerdiv d-inline-block mr-2">
-                                            <div>
-                                                <img src="/img/stars_blank.png" alt="img">
-                                            </div>
-                                            <div class="cornerimage" style="width:calc(100%);">
-                                                <img src="/img/stars_full.png" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="justify-content-center">
-                                        <div class="total-order mr-1 btn-outline-secondary">400 Orders</div>
-                                    </div>
-                                </div>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, animi consectetur adipisicing elit</p>
-                                <a href="/restaurants" class="btn btn-block theme-bg view-more">View more</a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+            {{--                            @endforeach--}}
         </div>
     </div>
 
-    <section class="featured">
-        <div class="featured-container text-black-50">
-            <div class="do-you font-weight-normal">Vendors</div>
-            <div class="container-fluid">
-                <div class="row">
-                    @foreach($vendors as $vendor)
-                        <div class="col-md-6 col-xl-3">
-                            <a href="/restaurant/{{$vendor['vendor_id']}}">
-                                <div class="card featured-card" style="">
-                                    <img class="card-img-top" src="{{$vendor['banner']}}" alt="Card image cap" style="height: 180px">
-                                    <div class="card-body px-1 py-2">
-                                        <h6 class="card-title">{{$vendor['biz_name']}}</h6>
-                                        <p class="card-text"> {{$vendor['description']}}</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
+</div>
+<div class="text-center">
+    <i v-show="loading" class="fa fa-spinner fa-spin" style="font-size: 3rem; padding-bottom: 3rem; position:fixed;
+                   top:50%; bottom: 50%" ></i>
+</div>
 
-                </div>
-
-            </div>
+<div class="cart-container">
+    <section class="curved">
+        <div class="desktop-cart-header text-white p-3">
+            <p class="text-small text-uppercase help-text">Order from</p>
+            <div class="cart-res-name mt-0 mb-1">{{$vendor->biz_name}}</div>
+            <p class="text-small text-uppercase help-text">Delivery time</p>
+            <div class="cart-res-name mt-0">30min - 85min max</div>
         </div>
     </section>
 
+    <div class="my-3 mx-2 pb-3">
+        <div class="cart-item-container">
+            <div class="cart-item my-1 py-2" v-for="item in items">
+                <div class="cart-product-info d-flex justify-content-between mb-1">
+                    <div class="">@{{ item.name }}</div>
+                    <div class="">@{{ item.total }}</div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span @click="removeItem(item.index)">remove <i class="fa fa-times"></i></span>
+                    <div class="d-flex ">
+                        <button type="button" class="btn btn-outline-danger btn-sm p-0 px-1" @click="updateQuantity(item.food_id, '-')"><i class="fa fa-minus"></i> </button>
+                        <span class="font-weight-bold product-price">@{{ item.unit_price }}</span>
+                        <button type="button" class="btn btn-outline-danger btn-sm p-0 px-1"  @click="updateQuantity(item.food_id, '+')"><i class="fa fa-plus"></i> </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="total-container">
+            <div class="subtotal-container d-flex justify-content-between">
+                <div >Subtotal</div>
+                <div id="subtotal">@{{ cartTotal }}</div>
+            </div>
+            <div class="del-container d-flex justify-content-between">
+                <div >Delivery fee</div>
+                <div id="delivery">{{$vendor->min_delivery}}</div>
+            </div>
+            <div class="del-container d-flex justify-content-between">
+                <div class="font-weight-bold">Grand total</div>
+                <div id="grand" class="font-weight-bold">@{{ cartTotal }}</div>
+            </div>
+        </div>
+
+        <a href="/revieworder" v-if="authenticated" class="btn btn-block btn-danger text-uppercase" :disabled="true">checkout</a>
+        <span v-else>
+                            <a href="/customer/login" class="btn btn-block btn-danger text-uppercase" >checkout</a>
+                        </span>
+
+
+        <div class="text-center">
+            <i v-show="cartLoading" class="fa fa-spinner fa-spin" style="font-size: 3rem; padding-bottom: 3rem; position:absolute;
+                   top:50%; bottom: 50%" ></i>
+        </div>
+    </div>
 </div>
 
-@include('includes.footer')
 
 
 
+
+
+
+
+<div class="product-container" id="root" data-id="{{$vendor->vendor_id}}" data-token="{{$token}}">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="restaurant-tabs">
+                    <ul class="nav nav-pills d-flex justify-content-start justify-content-sm-around r-tab">
+                        <li class="nav-item drop-shadow">
+                            <a class="nav-link active" href="#">Menu</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Reviews</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Info</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="categories mx-0 mb-3 pt-2 pb-0">
+                    <div class="category-header font-weight-bold">
+                        Categories
+                    </div>
+                    <ul class="list-group list-group-flush d-flex flex-row flex-lg-column">
+                        <li class="list-group-item active">Soup</li>
+                        <li class="list-group-item">Rice</li>
+                        <li class="list-group-item">Drinks</li>
+                        <li class="list-group-item">Swallow</li>
+                        <li class="list-group-item">Fries</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 drop-shadow">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card featured-card" style="">
+                            <img class="card-img-top" src="/img/Tortellini.png" alt="Card image cap" style="height: 216px">
+                            <div class="card-body">
+                                <h6 class="card-title">KFC Chicken</h6>
+                                <div class="meta d-flex flex-row align-items-center">
+                                    <div class="justify-content-center">
+                                        <div class="rating-badge badge-secondary px-2 mr-2">
+                                            4.0
+                                        </div>
+                                    </div>
+                                    <div class="justify-content-center">
+                                        <div class="containerdiv d-inline-block mr-2">
+                                            <div>
+                                                <img src="/img/stars_blank.png" alt="img">
+                                            </div>
+                                            <div class="cornerimage" style="width:calc(100%);">
+                                                <img src="/img/stars_full.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="justify-content-center">
+                                        <div class="total-order mr-1 btn-outline-secondary">400 Orders</div>
+                                    </div>
+                                </div>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, animi consectetur adipisicing elit</p>
+                                <a href="/restaurants" class="btn btn-block theme-bg view-more">View more</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card featured-card" style="">
+                            <img class="card-img-top" src="/img/Tortellini.png" alt="Card image cap" style="height: 216px">
+                            <div class="card-body">
+                                <h6 class="card-title">KFC Chicken</h6>
+                                <div class="meta d-flex flex-row align-items-center">
+                                    <div class="justify-content-center">
+                                        <div class="rating-badge badge-secondary px-2 mr-2">
+                                            4.0
+                                        </div>
+                                    </div>
+                                    <div class="justify-content-center">
+                                        <div class="containerdiv d-inline-block mr-2">
+                                            <div>
+                                                <img src="/img/stars_blank.png" alt="img">
+                                            </div>
+                                            <div class="cornerimage" style="width:calc(100%);">
+                                                <img src="/img/stars_full.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="justify-content-center">
+                                        <div class="total-order mr-1 btn-outline-secondary">400 Orders</div>
+                                    </div>
+                                </div>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, animi consectetur adipisicing elit</p>
+                                <a href="/restaurants" class="btn btn-block theme-bg view-more">View more</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card featured-card" style="">
+                            <img class="card-img-top" src="/img/Tortellini.png" alt="Card image cap" style="height: 216px">
+                            <div class="card-body">
+                                <h6 class="card-title">KFC Chicken</h6>
+                                <div class="meta d-flex flex-row align-items-center">
+                                    <div class="justify-content-center">
+                                        <div class="rating-badge badge-secondary px-2 mr-2">
+                                            4.0
+                                        </div>
+                                    </div>
+                                    <div class="justify-content-center">
+                                        <div class="containerdiv d-inline-block mr-2">
+                                            <div>
+                                                <img src="/img/stars_blank.png" alt="img">
+                                            </div>
+                                            <div class="cornerimage" style="width:calc(100%);">
+                                                <img src="/img/stars_full.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="justify-content-center">
+                                        <div class="total-order mr-1 btn-outline-secondary">400 Orders</div>
+                                    </div>
+                                </div>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, animi consectetur adipisicing elit</p>
+                                <a href="/restaurants" class="btn btn-block theme-bg view-more">View more</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card featured-card" style="">
+                            <img class="card-img-top" src="/img/Tortellini.png" alt="Card image cap" style="height: 216px">
+                            <div class="card-body">
+                                <h6 class="card-title">KFC Chicken</h6>
+                                <div class="meta d-flex flex-row align-items-center">
+                                    <div class="justify-content-center">
+                                        <div class="rating-badge badge-secondary px-2 mr-2">
+                                            4.0
+                                        </div>
+                                    </div>
+                                    <div class="justify-content-center">
+                                        <div class="containerdiv d-inline-block mr-2">
+                                            <div>
+                                                <img src="/img/stars_blank.png" alt="img">
+                                            </div>
+                                            <div class="cornerimage" style="width:calc(100%);">
+                                                <img src="/img/stars_full.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="justify-content-center">
+                                        <div class="total-order mr-1 btn-outline-secondary">400 Orders</div>
+                                    </div>
+                                </div>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, animi consectetur adipisicing elit</p>
+                                <a href="/restaurants" class="btn btn-block theme-bg view-more">View more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- Cart--}}
+            <div class="col-lg-3 drop-shadow px-2">
+                <div class="card r-cart ">
+                    <div class="card-header r-cart-header">
+                        Your Cart
+                    </div>
+                    <div class="card-body d-flex justify-content-center">
+                        <div class="align-items-center d-flex justify-content-center flex-column mx-auto py-3">
+                            <img src="/img/vector.png" alt="">
+                            <p>There are no items in your cart</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="alert alert-success" id="toast" role="alert">
+
+</div>
