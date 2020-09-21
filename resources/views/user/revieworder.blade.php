@@ -1,106 +1,136 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gfood::vendors</title>
-    <link rel="favicon" href="/favicon.ico">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/all.css">
-    <link rel="stylesheet" href="/css/fontawesome-all.css">
-    <link rel="stylesheet" href="/css/Chart.min.css">
-    <link rel="stylesheet" href="/css/style.css">
-
-    <script src="/js/jquery-3.2.1.min.js"></script>
-    <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="https://checkout.flutterwave.com/v3.js"></script>
-    <!-- <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script> -->
-    <script src="/js/vue.js"></script>
-    <script src="https://unpkg.com/vue-ravepayment/dist/rave.min.js"></script>
-    <script src="/js/axios.min.js"></script>
-    <script src="/js/script.js"></script>
-    <script src="/js/revieworder.js"></script>
-    
-
-</head>
-<body>
-<div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-white fixed-top main-menu custom">
-        <a class="navbar-brand" href="#"><i class="fas fa-hamburger"></i>GFoods</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse " id="navbarNavDropdown">
-            <ul class="navbar-nav black-nav ml-auto">
-                <li class="nav-item active px-3">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-
-                <li class="nav-item px-3">
-                    <a class="nav-link" href="/restaurants">Vendors</a>
-                </li>
-
-                <li class="nav-item px-3">
-                    <a class="nav-link" href="/cart"><i class="fa fa-shopping-cart"></i>Cart</a>
-                </li>
-                @if(isAuthenticated())
-                <div class="dropdown">
-                    <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ customer()->firstname }}
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="/customer/orders">Recent orders</a>
-                        <a class="dropdown-item" href="/customer">Profile</a>
-                        <a class="dropdown-item" href="/logout">Logout</a>
-                    </div>
-                    </div>
-                @else
-                    <li class="nav-item px-3 ">
-                        <a class="auth-btn btn auth btn-sm" href="/customer/login">Login</a>
+@include('includes.head')
+<div class="wrapper">
+    {{-- Navbar --}}
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light navbar-transparent custom">
+            <a class="navbar-brand" href="#"><i class="fas fa-hamburger"></i>GFoods</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarNavDropdown">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active px-3">
+                        <a class="nav-link" href="#">Resaturants</a>
                     </li>
-                    <li class="nav-item px-3 ">
-                        <a class="auth-btn btn auth btn-sm" href="/customer/signup">Signup</a>
+
+                    <li class="nav-item px-3">
+                        <a class="nav-link" href="#">Become a Vendor</a>
                     </li>
-                @endif
-            </ul>
-        </div>
-    </nav>
-</div>
 
+                    <li class="nav-item px-3">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                    <!-- <li> -->
 
-{{--<div class="order-timeline d-flex justify-content-center">--}}
-{{--    <ul class="order-steps d-flex justify-content-center">--}}
-{{--        <li><span class="order-steps-box"><i class="fa fa-check"></i></span></li>--}}
-{{--        <li><span class="order-steps-box"><i class="fa fa-check"></i></span></li>--}}
-{{--        <li><span class="order-steps-box"><i class="fa fa-check"></i></span></li>--}}
-{{--    </ul>--}}
-{{--</div>--}}
-<div class="container" id="root" style="margin-top: 80px;" data-token="{{$token}}">
+                    <!-- </li> -->
 
-    <div class="row">
-        <div class="col-md-12">
-            @include('includes.message')
-        </div>
+                </ul>
+
+                <ul class="navbar-nav mr-3">
+                    @if(isAuthenticated())
+                        <div class="dropdown">
+                            <button class="auth-btn btn auth btn-sm  dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ customer()->firstname }}
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/customer/orders">Recent orders</a>
+                                <a class="dropdown-item" href="/customer">Profile</a>
+                                <a class="dropdown-item" href="/customer/logout">Logout</a>
+                            </div>
+                        </div>
+                    @else
+                        <li class="nav-item px-3 ">
+                            <a class="auth-btn btn auth btn-sm" href="/customer/login">Login</a>
+                        </li>
+                        <li class="nav-item px-3 ">
+                            <a class="auth-btn btn auth btn-sm" href="/customer/signup">Signup</a>
+                        </li>
+                    @endif
+                </ul>
+            </div>
+        </nav>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="custom-panel card py-2">
-                <div class="font-weight-bold text-secondary mb-1 py-3 px-3">
-                   Orders
+    <div class="container" id="root" style="margin-top: 20px;" data-token="{{$token}}">
+        <div class="review-breadcrumb">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/restaurants">Restaurant</a></li>
+                    <li class="breadcrumb-item"><a href="/restaurant/">Johnny</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @include('includes.message')
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="payment-summary">
+                    <div class="card">
+                        <h5 class="card-header">Payment Summary</h5>
+                        <div class="card-body">
+                            <div class="voucher-wrapper">
+                                <div class="voucher">
+                                    <form class="form-inline">
+                                        <label class="sr-only" for="inlineFormInputName2">Name</label>
+                                        <input type="text" class="form-control  mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Voucher Code">
+
+                                        <button type="submit" class="btn mb-2 voucher-btn theme-bg">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class=" d-flex justify-content-end flex-column">
+                                <div class="row">
+                                    <div class="offset-md-8"></div>
+                                    <div class="col-md-4">
+                                        <div class="review-cart p-3 m-2 drop-shadow">
+                                            <div class="subtotal-container d-flex justify-content-between">
+                                                <div class="total-title">Subtotal</div>
+                                                {{--                                                        @{{ cartTotal }}--}}
+                                                <div id="subtotal">200</div>
+                                            </div>
+                                            <div class="del-container d-flex justify-content-between">
+                                                <div class="total-title">Delivery fee</div>
+                                                <div id="delivery">500</div>
+                                            </div>
+                                            <div class="grand-container d-flex justify-content-between">
+                                                <div class="total-title grand-title font-weight-bold">Grand total</div>
+                                                <div id="grand" class="font-weight-bold total-value">@{{ cartTotal }}</div>
+                                            </div>
+                                            <button class="btn btn-block theme-bg checkout-btn">Place Order</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-hover ">
-                        <thead class="trx-bg-head text-secondary py-3 px-3">
-                        <tr>
-                            <th scope="col">Image</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody class="table-style">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="custom-panel card py-2">
+                    <div class="font-weight-bold text-secondary mb-1 py-3 px-3">
+                        Orders
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover ">
+                            <thead class="trx-bg-head text-secondary py-3 px-3">
+                            <tr>
+                                <th scope="col">Image</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-style">
                             <tr v-if="!items.length">
                                 <td colspan="5">
                                     <div class="d-flex justify-content-center">
@@ -126,138 +156,79 @@
                    top:50%; bottom: 50%" ></i>
                             </div>
 
-                        </tbody>
-                    </table>
-                </div>
-                <div class="row mx-1">
-                    <div class="col-md-12 ">
-                        <div class="form-group">
-                            <label for="address">Address</label>
-                            <select class="form-control" id="address">
-                                <option>No 10 Obanye Street Onitsha</option>
-                            </select>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
-                
-
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-
-                    </div>
-                    <div class="col-md-6">
-                        <div class="m-3 cart-font">
-                            <div class="d-flex justify-content-between">
-                                <div >Subtotal</div>
-                                <div id="subtotal">@{{ cartTotal }}</div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div >Delivery fee</div>
-                                <div id="delivery">@{{ delivery_fee }}</div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="font-weight-bold">Grand total</div>
-                                <div id="grand" class="font-weight-bold">@{{ grandTotal }}</div>
+                    <div class="row mx-1">
+                        <div class="col-md-12 ">
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <select class="form-control" id="address">
+                                    <option>No 10 Obanye Street Onitsha</option>
+                                </select>
                             </div>
                         </div>
+
+
                     </div>
-                </div>
-                <div class="row mx-1">
+                    <div class="row">
+                        <div class="col-md-6">
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="m-3 cart-font">
+                                <div class="d-flex justify-content-between">
+                                    <div >Subtotal</div>
+                                    <div id="subtotal">@{{ cartTotal }}</div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div >Delivery fee</div>
+                                    <div id="delivery">@{{ delivery_fee }}</div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="font-weight-bold">Grand total</div>
+                                    <div id="grand" class="font-weight-bold">@{{ grandTotal }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mx-1">
                     <span id="properties"
-                            data-customer-email="{{ customer()->email }}"
-                            data-public-key="{{ \App\Classes\Session::get('public_key') }}"
+                          data-customer-email="{{ customer()->email }}"
+                          data-public-key="{{ \App\Classes\Session::get('public_key') }}"
 
-                            >
+                    >
                     </span>
-                    <div class="col-md-12">
-                    <!-- <a href="/revieworder" v-if="authenticated" class="btn btn-block btn-danger text-uppercase" :disabled="disableCheckoutBtn">checkout</a> -->
-                    <button type="submit" v-if="authenticated" :disabled="disableCheckoutBtn"  @click.prevent="checkout" class="btn btn-success btn-block">Checkout</button>
-                        <span v-else>
+                        <div class="col-md-12">
+                            <!-- <a href="/revieworder" v-if="authenticated" class="btn btn-block btn-danger text-uppercase" :disabled="disableCheckoutBtn">checkout</a> -->
+                            <button type="submit" v-if="authenticated" :disabled="disableCheckoutBtn"  @click.prevent="checkout" class="btn btn-success btn-block">Checkout</button>
+                            <span v-else>
                             <a href="/customer/login" class="btn btn-block btn-success text-uppercase" :disabled="disableCheckoutBtn">Login & Checkout</a>
                         </span>
-                        
-                    </div>
-                    
-                </div>
-                
-            </div>
-        </div>
-        <div class="col-md-12">
-            
-        </div>
 
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="custom-panel py-2">
-                
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-12">
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="custom-panel py-2">
+
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-{{--footer--}}
-<section id="footer-container">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3">
-                <h5>About Updel </h5>
-                <p>UPdel Services is a courier company borne out of the need to bridge
-                    the growing gap between the need for fast,
-                    flexible supply of delivery service and available options.</p>
-            </div>
-            <div class="col-md-3 d-flex flex-column">
-                <h5>Our Services</h5>
-                <p>Breakfast</p>
-                <p>Dinner</p>
-                <p>Lunch</p>
-                <p>Parties</p>
-            </div>
-            <div class="col-md-3 d-flex flex-column">
-                <h5>Sub Services</h5>
-                <p>Premium Services</p>
-                <p>Precise Delivery Services</p>
-                <p>Same Day Delivery</p>
-                <p>Two Day Delivery</p>
-                <p><a href="/services">See more ...</a></p>
-            </div>
-            <div class="col-md-3">
-                <h5>Contact us</h5>
-                <p><i class="fa fa-map-marker-alt"></i> Nationwide</p>
-                <div class="d-inline-flex mb-2 justify-content-between">
-                    <div class="align-self-start"><i class="fa fa-envelope"></i></div> &nbsp;
-                    <div>info@updelservices.com <br>updelservices@gmail.com</div>
-                </div>
-                <p><i class="fa fa-phone"></i> +2347040463183</p>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12">
-                <div class="footer-social">
-                    <ul>
-                        <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                        <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                    </ul>
-                </div>
-                <div class="footer-nav text-center">
-                    <ul>
-                        <li><a href="" class="footer-lin">Home</a></li>
-                        <li><a href="" class="footer-lin">About</a></li>
-                        <li><a href="" class="footer-lin">Services</a></li>
-                        <li><a href="" class="footer-lin">FAQ</a></li>
-                        <li><a href="" class="footer-lin">Contact us</a></li>
-                    </ul>
-                </div>
-                <div class="copyright text-center">
-                    <p>Copyright © 2019 All Rights Reserved</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-</body>
-</html>
+{{--footer--}}
+@include('includes.footer')
 
 

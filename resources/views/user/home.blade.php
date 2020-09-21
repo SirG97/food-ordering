@@ -1,6 +1,6 @@
 @include('includes.head')
 
-<div class="wrapper">
+<div class="wrapper" id="root">
     <div>
         <nav class="navbar navbar-expand-lg navbar-light navbar-transparent custom">
             <a class="navbar-brand" href="#"><i class="fas fa-hamburger"></i>GFoods</a>
@@ -54,19 +54,16 @@
     {{--Hero section--}}
     <div class="arc"></div>
     <div class="hero d-flex justify-content-start">
-
         <div class="hero-text d-flex align-items-center justify-content-start">
-
             <div class="d-flex flex-column hero-inner-text">
                 <h3>Eat fresh and healthy food</h3>
                 <p>Get Delicious, healthy meal Prepared by best resturants and delivered to your doorstep. We also deliver fresh foods. What are you waiting for, place your order now!</p>
                 <a class="btn theme-bg action-btn">Order now</a>
             </div>
-                    <div class="hero-img d-flex flex-row">
-                        <img class="himg1" src="/img/food2.png" alt="">
-                        <img class="himg2" src="/img/foodimg.png" alt="">
-                    </div>
-
+            <div class="hero-img d-flex flex-row">
+                <img class="himg1" src="/img/food2.png" alt="">
+                <img class="himg2" src="/img/foodimg.png" alt="">
+            </div>
         </div>
 
 
@@ -104,8 +101,8 @@
                     </div>
                     <div class="col-md-2 theme-bg search-btn">
                         <div class="d-flex justify-content-center">
-                            <div class="align-items-center">
-                                <a href="/restaurant" class="btn theme-bg" id="m-srch-btn">PLACE ORDER</a>
+                            <div class="align-items-center theme-bg">
+                                <a href="/restaurant" class="theme-bg" id="m-srch-btn">PLACE ORDER</a>
                             </div>
                         </div>
                     </div>
