@@ -68,7 +68,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="payment-summary">
+                <div class="revieworder-card">
                     <div class="card">
                         <h5 class="card-header">Payment Summary</h5>
                         <div class="card-body">
@@ -86,7 +86,7 @@
                                 <div class="row">
                                     <div class="offset-md-8"></div>
                                     <div class="col-md-4">
-                                        <div class="review-cart p-3 m-2 drop-shadow">
+                                        <div class="review-cart p-3 drop-shadow">
                                             <div class="subtotal-container d-flex justify-content-between">
                                                 <div class="total-title">Subtotal</div>
                                                 {{--                                                        @{{ cartTotal }}--}}
@@ -106,6 +106,138 @@
                                     </div>
                                 </div>
 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="revieworder-card">
+                    <div class="card">
+                        <h5 class="card-header">Delivery address</h5>
+                        <div class="card-body">
+                            <div class="review-address">
+                                Johnny Wills | No 16 Shilla Ekond Street, Off Portharcourt Rood | +2348569708544
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="revieworder-card">
+                    <div class="card">
+                        <h5 class="card-header">Delivery Time</h5>
+                        <div class="card-body">
+                            <div class="review-delivery-time">
+                                <div class="">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                        <label class="form-check-label" for="inlineRadio1">Now</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                        <label class="form-check-label" for="inlineRadio2">Pre-order</label>
+                                    </div>
+                                </div>
+                                <div class="pre-order">
+                                    <span>Please check the time for the pre-order option. Endeavour to Order an hour before the time.</span>
+                                    <form>
+                                        <div class="form-row align-items-center">
+                                            <div class="col-sm-3 my-1">
+                                                <input type="date" class="form-control" id="inlineFormInputName" placeholder="Date">
+                                            </div>
+                                            <div class="col-sm-3 my-1">
+                                                <input type="time" class="form-control" id="inlineFormInputName" placeholder="Time">
+
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="revieworder-card">
+                    <div class="card">
+                        <h5 class="card-header">Order Summary</h5>
+                        <div class="card-body">
+                            <div class=" d-flex justify-content-end flex-column">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="o-sum-title ">
+                                            <h6 class="pl-3">Amala Shitta</h6>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12 order-items">
+                                        <table class="table table-borderless">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">item(s)</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col">Qty</th>
+                                                <th scope="col">Total</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr >
+
+                                                <th scope="row">Ewedu and Gbegiri</th>
+                                                <td>$300</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-sm theme-bg update-btn" @click="updateQuantity(item.food_id, '-')"><i class="fa fa-minus"></i> </button>
+                                                    <span class="font-weight-bold product-price">3</span>
+                                                    <button type="button" class="btn theme-bg update-btn btn-sm"  @click="updateQuantity(item.food_id, '+')"><i class="fa fa-plus"></i> </button>
+                                                </td>
+                                                <td>$12000</td>
+                                                <td><span @click="removeItem()">remove <i class="fa fa-times"></i></span></td>
+
+                                            </tr>
+                                                <tr >
+
+                                                <th scope="row">Ewedu and Gbegiri</th>
+                                                <td>$300</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-sm theme-bg update-btn" @click="updateQuantity(item.food_id, '-')"><i class="fa fa-minus"></i> </button>
+                                                    <span class="font-weight-bold product-price">3</span>
+                                                    <button type="button" class="btn theme-bg update-btn btn-sm"  @click="updateQuantity(item.food_id, '+')"><i class="fa fa-plus"></i> </button>
+                                                </td>
+                                                <td>$12000</td>
+                                                <td><span @click="removeItem()">remove <i class="fa fa-times"></i></span></td>
+
+                                            </tr>
+                                                <tr >
+
+                                                    <th scope="row">Ewedu and Gbegiri</th>
+                                                    <td>$300</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-sm theme-bg update-btn" @click="updateQuantity(item.food_id, '-')"><i class="fa fa-minus"></i> </button>
+                                                        <span class="font-weight-bold product-price">3</span>
+                                                        <button type="button" class="btn theme-bg update-btn btn-sm"  @click="updateQuantity(item.food_id, '+')"><i class="fa fa-plus"></i> </button>
+                                                    </td>
+                                                    <td>$12000</td>
+                                                    <td><span @click="removeItem()">remove <i class="fa fa-times"></i></span></td>
+
+                                                </tr>
+                                                <tr >
+
+                                                    <th scope="row">Ewedu and Gbegiri</th>
+                                                    <td>$300</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-sm theme-bg update-btn" @click="updateQuantity(item.food_id, '-')"><i class="fa fa-minus"></i> </button>
+                                                        <span class="font-weight-bold product-price">3</span>
+                                                        <button type="button" class="btn theme-bg update-btn btn-sm"  @click="updateQuantity(item.food_id, '+')"><i class="fa fa-plus"></i> </button>
+                                                    </td>
+                                                    <td>$12000</td>
+                                                    <td><span @click="removeItem()">remove <i class="fa fa-times"></i></span></td>
+
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" colspan="3">Total</th>
+                                                    <td>$2300</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

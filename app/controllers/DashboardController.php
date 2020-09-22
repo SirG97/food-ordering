@@ -25,13 +25,13 @@ class DashboardController extends BaseController{
         $total_orders = Order::all()->count();
 
         // Total completed
-        $total_completed = Order::where('order_status', '=', ['completed', 'delivered'])->count();
+        $total_completed = Order::where('status', '=', ['completed', 'delivered'])->count();
 
         // Total ongoing
-        $total_ongoing = Order::where('order_status', 'ongoing')->count();
+        $total_ongoing = Order::where('status', 'ongoing')->count();
 
         // Total pot
-        $total_pot = Order::where('order_status', '=', ['uncompleted', 'abandoned'])->count();
+        $total_pot = Order::where('status', '=', ['uncompleted', 'abandoned'])->count();
 
         $latest_order = Order::take(15)->orderBy('id', 'desc')->get();
 //        // Total revenue generated
@@ -68,7 +68,7 @@ class DashboardController extends BaseController{
 //        $latest_contributions = Contribution::orderBy('id', 'desc')->take(10)->get();
 
         // TODO: Doughnut pie of channel used
-        return view('user\dashboard', ['total_orders'=> $total_orders,
+        return view('user.dashboard', ['total_orders'=> $total_orders,
                                             'total_completed' => $total_completed,
                                             'total_ongoing' => $total_ongoing,
                                             'total_pot' => $total_pot,

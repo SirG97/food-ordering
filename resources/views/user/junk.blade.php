@@ -84,8 +84,8 @@
 
         <a href="/revieworder" v-if="authenticated" class="btn btn-block btn-danger text-uppercase" :disabled="true">checkout</a>
         <span v-else>
-                            <a href="/customer/login" class="btn btn-block btn-danger text-uppercase" >checkout</a>
-                        </span>
+            <a href="/customer/login" class="btn btn-block btn-danger text-uppercase" >checkout</a>
+        </span>
 
 
         <div class="text-center">
@@ -296,3 +296,67 @@
 <script src="/js/revieworder.js"></script>
 
 border: 1px solid #FF922C;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="md-offset-3"></div>
+        <div class="col-md-6">
+            <form method="POST" action="storepost.php">
+                <div class="form-group">
+                    <label for="ptitle">Title</label>
+                    <input type="text" class="form-control" id="ptitle" placeholder="Example input">
+                </div>
+                <div class="form-group">
+                    <label for="pauthor">Author</label>
+                    <input type="text" class="form-control" id="pauthor" placeholder="Author">
+                </div>
+
+                <div class="form-group">
+                    <label for="post-t">Bodyd</label>
+                    <textarea name="" id="post-t" class="form-control" cols="30" rows="10"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
