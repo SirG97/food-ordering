@@ -631,23 +631,38 @@ body {
     color: #6E798C !important;
 }
 
-.payment-summary > .card > .card-header{
+.revieworder-card > .card > .card-header{
     background-color: white;
     font-size: 24px;
 }
 
+.revieworder-card{
+    margin-bottom: 20px;
+}
 
-.payment-summary > .card-body{
-    border: 1px solid #EBECED;
-
+.revieworder-card > .card > .card-body{
+    /*border: 1px solid #EBECED;*/
+    padding: 0;
 }
 
 .voucher-wrapper{
     border-bottom: 1px solid #EBECED;
+    padding: 1rem;
 }
 
 .voucher{
-    margin: 0 1.25rem;
+    /*margin: 0 1.25rem;*/
+}
+
+.review-address{
+    font-size: 16px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.213023px;
+    color: #131333;
+    padding: 15px
 }
 
 
@@ -663,9 +678,91 @@ body {
 
 .review-cart{
     box-shadow: 0px 24px 64px rgba(0, 0, 0, 0.04);
+    margin: 20px;
+}
+
+.review-delivery-time{
+    padding: 15px;
+}
+.pre-order{
+    margin-top:20px;
+}
+
+.pre-order span{
+    line-height: 30px;
+}
+
+.o-sum-title{
+    border-bottom: 1px solid #EBECED;
+}
+
+.o-sum-title h6{
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 40px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.213023px;
+    color: #131333;
+}
+
+.order-items > table >thead{
+    background: #FAFAFA;
 }
 
 /* Checkout page ends*/
+
+/* Sign in and signup pages*/
+.bg-image {
+    background-image: url('../img/ononirufood.png');
+    background-size: cover;
+    background-position: center center;
+}
+
+.full-height{
+    height: 100vh;
+}
+
+.login-header{
+    font-family: Comfortaa;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 27px;
+    color: #131333;
+}
+
+.login{
+    max-height: 100vh;
+    overflow-y: auto;
+    padding-bottom: 30px;
+}
+
+.login-text{
+    border-bottom: 1px solid #EBECED;
+    margin-bottom: 20px;
+}
+
+.signin input{
+    border: 1px solid #FF922C;
+    border-radius: 16px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 14px;
+    filter: drop-shadow(0px 24px 64px rgba(0, 0, 0, 0.04));
+}
+
+.signin button{
+    border-radius: 16px;
+}
+
+.signin a:hover{
+    color: #F89E4C;
+}
+
+/*Sign in and signup ends*/
+
 
 
 @media screen and (min-width: 320px){
@@ -889,7 +986,7 @@ body {
     }
 
     .card-body {
-        padding: 10px;
+        /*padding: 10px;*/
     }
 
     .himg1{
@@ -929,7 +1026,7 @@ body {
     }
 
     .card-body {
-        padding: 20px;
+        /*padding: 20px;*/
     }
     .how-it-works-content, .restaurant-content {
         padding: 0 100px;
