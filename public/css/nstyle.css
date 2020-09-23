@@ -764,6 +764,93 @@ body {
 /*Sign in and signup ends*/
 
 
+/* Users dashboard and layout*/
+
+.inner-wrapper main{
+    margin-left: 60px;
+
+}
+
+.inner-wrapper > .sidebar{
+    box-shadow: 0px 24px 64px rgba(0, 0, 0, 0.04);
+    position: fixed;
+    background-color: #FFFFFF;
+    transition: height 500ms ease;
+}
+
+.sidebar-top{
+    top: 0;
+
+}
+
+.sidebar-nav{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.profile.active svg path, .profile:hover svg path{
+    fill: #FF922C;
+}
+
+.orders.active > svg > path, .orders:hover > svg > path{
+    stroke: #FF922C;
+}
+.orders.active > svg > path:last-child, .orders:hover > svg > path:last-child{
+    fill: #FF922C;
+}
+
+.notifications.active svg path, .notifications:hover svg path{
+    stroke: #FF922C;
+}
+
+.reviews.active svg g path, .reviews:hover svg g path{
+    stroke: #FF922C;
+    fill: #FF922C;
+}
+
+.logout:hover svg path{
+    stroke: #FF922C;
+}
+/*  */
+
+
+/* Profile details page*/
+    .p-details{
+        box-shadow: 0px 24px 64px rgba(0, 0, 0, 0.04);
+    }
+
+    .p-details-header h5{
+        font-family: Comfortaa;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 27px;
+        color: #000000;
+    }
+
+.p-details-form input{
+    border: 1px solid #DDE2E5;
+    box-sizing: border-box;
+    border-radius: 16px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 14px;
+    /*filter: drop-shadow(0px 24px 64px rgba(0, 0, 0, 0.04));*/
+}
+
+.p-details-form  button{
+    border-radius: 16px;
+}
+
+.p-details-form  a:hover{
+    color: #F89E4C;
+}
+
+.save{
+    border-radius: 16px;
+}
+/*Profile details page*/
 
 @media screen and (min-width: 320px){
     .hero{
@@ -891,8 +978,6 @@ body {
 /*  Single restaurant responsive page ends */
 }
 
-
-
 @media screen and (min-width: 480px){
 
     .arc{
@@ -940,6 +1025,46 @@ body {
     }
 }
 
+@media only screen and (max-width: 576px){
+    .inner-wrapper .sidebar{
+        bottom: 0;
+        height: 60px;
+        width: 100vw;
+    }
+    .inner-wrapper main{
+        margin-left: 0;
+    }
+
+    .sidebar-item{
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .sidebar-nav{
+        padding-top: 10px;
+    }
+
+    .sidebar-top{
+        top: unset;
+    }
+}
+
+@media only screen and (min-width: 576px){
+    .inner-wrapper > .sidebar{
+        width: 60px;
+        height: 100vh;
+    }
+
+    .sidebar-item{
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .sidebar-nav{
+        padding-top: 0px;
+    }
+
+}
 
 @media screen and (min-width: 768px){
 

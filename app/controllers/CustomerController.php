@@ -359,5 +359,9 @@ class CustomerController extends BaseController{
         }
         Redirect::to('/customer/login');
     }
-    
+
+
+
+
+
 }

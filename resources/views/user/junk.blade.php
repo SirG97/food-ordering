@@ -345,6 +345,259 @@ border: 1px solid #FF922C;
 
 
 
+{{--customer dashboard layout--}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin :: @yield('title')</title>
+    <link rel="favicon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/all.css">
+    {{--    <link rel="stylesheet" href="/css/bootstrap-select.min.css">--}}
+    {{--    <link rel="stylesheet" href="/css/croppie.css">--}}
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    {{--    <script src="/js/bootstrap-select.min.js"></script>--}}
+    {{--    <script src="/js/moment.min.js"></script>--}}
+    {{--    <script src="/js/croppie.min.js"></script>--}}
+    <script src="/js/script.js"></script>
+</head>
+<body>
+<div class="">
+    <div id="hamburger" class="navigation-menu">
+        <svg width="20px" height="20px" viewBox="0 0 69 51" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g stroke="none" stroke-width="1" fill-rule="evenodd">
+                <g fill-rule="nonzero" stroke="none">
+                    <g>
+                        <rect x="0" y="0" width="69" height="6.2072333" rx="3.10361665"></rect> <rect x="0" y="22" width="69" height="6.2072333" rx="3.10361665"></rect> <rect x="0" y="44.7927667" width="69" height="6.2072333" rx="3.10361665"></rect>
+                    </g>
+                </g>
+            </g>
+        </svg>
+    </div>
+    <nav class="nav nav-sidebar">
+        <div class="nav_section">
+            <div class="nav_section_content company">
+                <div class="nav_item prelative">
+                    <a href="" class="nav_flex">
+                            <span class="company-icon d-flex justify-content-center">
+                             <i class="fa fa-hamburger align-self-center"></i>
+                            </span>
+                        <span class="company_text font-weight-bold">GFood Admin</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="nav_section margin-fix scroll-menu">
+            <div class="nav_section_content">
+                <div class="nav_item prelative">
+                    <a href="/customer" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/dashboard')}}">
+                           <span class="nav_link_icon">
+                            <i class="fas fa-fw fa-tachometer-alt"></i>
+                           </span>
+                        <span class="nav_link_text">Profile</span>
+                    </a>
+                </div>
+                <div class="nav_item prelative">
+                    <a href="/customer/orders" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/dashboard')}}">
+                           <span class="nav_link_icon">
+                            <i class="fas fa-fw fa-tachometer-alt"></i>
+                           </span>
+                        <span class="nav_link_text">Orders</span>
+                    </a>
+                </div>
+                <div class="nav_item prelative">
+                    <a href="/customer/vendors" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/vendor/register')}}">
+                           <span class="nav_link_icon">
+                            <i class="fas fa-fw fa-user"></i>
+                           </span>
+                        <span class="nav_link_text">Recent Vendors</span>
+                    </a>
+                </div>
+                <div class="nav_item prelative">
+                    <a href="/customer/reviews" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/vendors')}}">
+                            <span class="nav_link_icon">
+                             <i class="fas fa-fw fa-qrcode"></i>
+                            </span>
+                        <span class="nav_link_text">Reviews</span>
+                    </a>
+                </div>
+                <div class="nav_item prelative">
+                    <a href="/customer/address" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/customers')}}">
+                            <span class="nav_link_icon">
+                             <i class="fas fa-fw fa-user-shield"></i>
+                            </span>
+                        <span class="nav_link_text">Address</span>
+                    </a>
+                </div>
+
+                <div class="nav_item prelative">
+                    <a href="/customer/settings" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/staff')}}">
+                            <span class="nav_link_icon">
+                             <i class="fas fa-fw fa-user-plus"></i>
+                            </span>
+                        <span class="nav_link_text">Settings</span>
+                    </a>
+                </div>
+
+                <div class="nav_item prelative">
+                    <a href="/customer/resetpassword" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/orders')}}">
+                         <span class="nav_link_icon">
+                          <i class="fas fa-fw fa-truck"></i>
+                         </span>
+                        <span class="nav_link_text">Reset password</span>
+                    </a>
+                </div>
+
+                <div class="nav_item prelative">
+                    <a href="/logout" class="nav_link nav_flex {{\App\Classes\Menu::is_active('/logout')}}">
+                         <span class="nav_link_icon">
+                          <i class="fas fa-fw fa-sign-out-alt"></i>
+                         </span>
+                        <span class="nav_link_text">Logout</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<header class="d-flex">
+    <div class="header-page-title mr-auto">
+        <div class="icon-block blue-bg">
+            <i class="fas fa-fw @yield('icon')"></i>
+        </div>
+        <span class="header-page-title-text">@yield('title')</span>
+    </div>
+
+    <div class="header-nav">
+            <span class="header-nav-item">
+                <!-- <img class="avatar rounded-circle img-thumbnail img-fluid" src="" alt="profile pics"> -->
+                <i class="fa fa-user"></i> &nbsp; Hi! Noble
+
+            </span>
+        <div class="nav-dropdown">
+            <div class="nav-dropdown-item">
+                <a href="/profile">
+                    <div class="nav-dropdown-item-link">
+                        Profile
+                    </div>
+                </a>
+            </div>
+            <div class="nav-dropdown-item">
+                <a href="/customer/settings">
+                    <div class="nav-dropdown-item-link">
+                        Settings
+                    </div>
+                </a>
+            </div>
+            <div class="nav-dropdown-item">
+                <a href="/logout">
+                    <div class="nav-dropdown-item-link">
+                        Logout
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+<main class="main" id="main">
+    <div class="main_container">
+        @yield('content')
+    </div>
+</main>
+
+
+
+</body>
+</html>
+
+
+
+{{--Orders table--}}
+@extends('customer.layout.base')
+@section('title', 'Orders')
+@section('icon', 'fa-tachometer-alt')
+@section('content')
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="custom-panel card py-2">
+                    <div class="font-weight-bold text-secondary mb-1 py-3 px-3">
+                        Orders
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover ">
+                            <thead class="trx-bg-head text-secondary py-3 px-3">
+                            <tr>
+                                <th scope="col">Status</th>
+                                <th scope="col">Order ID</th>
+                                <th scope="col">Restaurant</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-style">
+                            @if(!empty($orders) && count($orders) > 0)
+                                @foreach($orders as $order)<tr>
+                                    <td scope="row">
+                                        @if($order['status'] === 'delivered')
+                                            <span class="badge badge-success">
+                                                    <i class="fas fa-fw fa-check-circle"></i>
+                                                    delivered
+                                                </span>
+                                        @elseif($order['status'] === 'ongoing')
+                                            <span class="badge badge-info">
+                                                <i class="fas fa-fw fa-shipping-fast text-info"></i>
+
+                                                Ongoing
+                                                </span>
+                                        @elseif($order['status'] === 'paid')
+                                            <span class="badge badge-primary"> <i class="fas fa-fw fa-check"></i> Paid</span>
+                                        @elseif($order['status'] === 'uncompleted')
+                                            <span class="badge badge-danger">
+                                                <i class="fas fa-fw fa-times-circle"></i>
+                                                </span>
+                                        @endif
+                                    </td>
+                                    <td>#{{ $order['order_id'] }}</td>
+                                    <td>{{ $order->vendor->biz_name}}</td>
+                                    <td>{{ $order['grand_total'] }}</td>
+                                    <td class="table-action d-flex flex-nowrap">
+                                        <a href="/order/{{ $order['order_id'] }}" ><i class="fas fa-fw fa-eye text-success" title="View order details"></i></a> &nbsp; &nbsp;
+                                        </i> &nbsp; &nbsp;
+
+                                    </td>
+
+                                </tr>
+                                @endforeach
+
+                            @else
+                                <tr>
+                                    <td colspan="6">
+                                        <div class="d-flex justify-content-center flex-column align-items-center">
+                                            <div class="align-items-center"><i class="fas fa-fw fa-shipping-fast fa-2x"></i></div>
+                                            <div>No Orders yet</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endif
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+@endsection()
 
 
 
