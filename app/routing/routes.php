@@ -62,6 +62,7 @@ $router->map('POST', '/verifytransaction', $_ .'CustomerController@verifyTransac
 $router->map('GET', '/confirmation', $_ .'CustomerController@confirmOrder', 'confirmOrder');
 $router->map('GET', '/customer/notifications', $_ .'CustomerController@notifications', 'Notifications');
 $router->map('GET', '/customer/account', $_ .'CustomerController@showAccount', 'customerAccount');
+$router->map('POST', '/customer/edit', $_ .'CustomerController@editAccount', 'editAccount');
 $router->map('GET', '/customer/vendors', $_ .'CustomerController@showVendors', 'customerVendors');
 $router->map('GET', '/customer/address', $_ .'CustomerController@showAddress', 'customerAddress');
 $router->map('GET', '/customer/reviews', $_ .'ReviewController@showReviews', 'customerReviews');

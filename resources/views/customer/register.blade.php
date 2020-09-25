@@ -40,12 +40,13 @@
                                 </div>
 
                                 <!-- <p class="text-muted mb-4">Create a login split page using Bootstrap 4.</p> -->
-                                @include('includes.message')
-                                @yield('content')
+
+
                                 <form action="/customer/register" method="POST" id="form" class="signin">
                                     <div class="formheadercontainer">
                                         <span class="formheadertext">Create your account</span>
                                     </div>
+                                    @include('includes.message')
                                     <input type="hidden" name="token" value="{{\App\Classes\CSRFToken::_token()}}">
                                     <div class="form-group">
 

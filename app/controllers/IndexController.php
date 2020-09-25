@@ -5,10 +5,12 @@ use App\Classes\CSRFToken;
 use App\Classes\Mail;
 use App\Classes\Redirect;
 use App\Models\Vendor;
+use App\Models\Customer;
 
 class IndexController extends BaseController{
     public function index(){
         $vendors = Vendor::all();
+
         return view('user.index', ['vendors' => $vendors]);
     }
 

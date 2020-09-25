@@ -12,12 +12,15 @@ use App\Classes\Session;
 use App\Classes\Validation;
 use App\Classes\Cart;
 use App\Classes\Mail;
+use App\Models\Address;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Food;
 use App\Models\Vendor;
 use App\Models\Payment;
+use mysql_xdevapi\Exception;
+
 
 class CustomerController extends BaseController{
     public function getLogin(){
@@ -43,18 +46,18 @@ class CustomerController extends BaseController{
                     return view('customer.authenticate', ['errors' => $errors]);
                 }
 
+
                 $customer = Customer::where('email', $request->email)->first();
-                
                 if($customer){
 
                     if(!password_verify($request->password, $customer->password)){
                         Session::add('error', 'incorrect password');
                         return view('customer.authenticate');
                     }else{
-                        
-                        Session::add('SESSION_USER_ID', $customer->user_id);
+
+                        Session::add('SESSION_USER_ID', $customer->customer_id);
                         Session::add('SESSION_USERNAME', $customer->email);
-    
+
                         if(Session::has('referer')){
                             $url = Session::get('referer');
                             Session::remove('referer');
@@ -85,8 +88,63 @@ class CustomerController extends BaseController{
     }
 
     public function showAccount(){
-        return view('customer.profile', ['success' => '','errors' => []]);
+        $customer = Customer::where('customer_id', Session::get('SESSION_USER_ID'))->first();
 
+        $address = Address::where('customer_id', Session::get('SESSION_USER_ID'))->first();
+
+        return view('customer.profile', ['customer' => $customer, 'address' => $address]);
+
+    }
+
+    public function editAccount(){
+        if(Request::has('post')){
+            $request = Request::get('post');
+            if(CSRFToken::verifyCSRFToken($request->token)){
+                $address = Address::where('customer_id', Session::get('SESSION_USER_ID'))->first();
+                $rules = [
+                    'customer_id' => ['required' => true,],
+                    'firstname' => ['required' => true, 'maxLength' => 40, 'string' => true],
+                    'surname' => ['string' => true, 'maxLength' => 40],
+                    'phone' => ['number' => true, 'maxLength' => 14],
+                    'address' => ['mixed' => true, 'maxLength' => 200],
+                    'town' => ['mixed' => true, 'maxLength' => 50],
+                    'area' => ['mixed' => true, 'maxLength' => 50],
+                ];
+                $validation = new Validation();
+                $validation->validate($_POST, $rules);
+                if($validation->hasError()){
+                    $errors = $validation->getErrorMessages();
+                    $customer = Customer::where('customer_id', Session::get('SESSION_USER_ID'))->first();
+                    $address = Address::where('customer_id', Session::get('SESSION_USER_ID'))->first();
+                    return view('customer.profile', ['errors' => $errors, 'customer' => $customer, 'address' => $address]);
+                }
+                $customer = Customer::findOrFail($request->customer_id);
+//                $address = Address::findOrFail($request->customer_id);
+
+                $customer->surname = $request->surname;
+                $customer->firstname = $request->firstname;
+                $customer->phone = $request->phone;
+
+                $address->address = $request->address;
+                $address->town = $request->town;
+                $address->area = $request->area;
+               try{
+                   $customer->save();
+                   $address->save();
+                   Session::add('success', 'Details updated successfully');
+                   Redirect::to('/customer/account');
+
+               }catch (\Exception $e){
+                   Session::add('error', 'Operation failed');
+                   Redirect::to('/customer/account');
+               }
+
+
+
+            }
+
+            throw new \Exception('Token mismatch');
+        }
     }
 
     public function register(){
@@ -95,7 +153,7 @@ class CustomerController extends BaseController{
             if(CSRFToken::verifyCSRFToken($request->token)){
 
                 $rules = [
-                    'email' => ['required' => true, 'maxLength' => 20, 'email' => true, 'unique' =>'customers'],
+                    'email' => ['required' => true, 'maxLength' => 40, 'email' => true, 'unique' =>'customers'],
                     'firstname' => ['required' => true, 'maxLength' => 40, 'string' => true],
                     'surname' => ['string' => true, 'maxLength' => 40],
                     'phone' => ['number' => true, 'maxLength' => 14],
@@ -111,7 +169,7 @@ class CustomerController extends BaseController{
 
                 //Add the user
                 Customer::create([
-                    'user_id' => Random::generateId(16),
+                    'customer_id' => Random::generateId(16),
                     'surname' => $request->surname,
                     'firstname' => $request->firstname,
                     'email' => $request->email,

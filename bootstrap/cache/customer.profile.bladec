@@ -2,38 +2,44 @@
 <?php $this->startSection('title', 'Account details'); ?>
 <?php $this->startSection('icon', 'fa-tachometer-alt'); ?>
 <?php $this->startSection('content'); ?>
+ <div class="container-fluid">
  <div class="row">
  <div class="offset-md-2"></div>
  <div class="col-md-7">
+
+ <form action="/customer/edit" method="POST">
+ <?php echo $this->runChild('includes.message'); ?>
  <div class="p-details my-4 p-3">
+
  <div class="p-details-header">
  <h5>Personal Details</h5>
  </div>
  <div class="p-details-content">
- <form action="#" method="POST" id="form" class="p-details-form">
+ <div id="form" class="p-details-form">
 
  <input type="hidden" name="token" value="<?php echo \htmlentities(\App\Classes\CSRFToken::_token(), ENT_QUOTES, 'UTF-8', false); ?>">
+ <input type="hidden" name="customer_id" value="<?php echo \htmlentities($customer->customer_id, ENT_QUOTES, 'UTF-8', false); ?>">
  <div class="form-row mb-2">
  <div class="col">
  <label for="firstname" class="">First name</label>
- <input type="text" class="form-control" placeholder="First name" value="" id="firstname" name="firstname">
+ <input type="text" class="form-control" placeholder="First name" value="<?php echo \htmlentities($customer->firstname, ENT_QUOTES, 'UTF-8', false); ?>" id="firstname" name="firstname">
  </div>
  <div class="col">
  <label for="surname" class="">Last</label>
- <input type="text" class="form-control" placeholder="Last name" value="" id="surname" name="surname">
+ <input type="text" class="form-control" placeholder="Last name" value="<?php echo \htmlentities($customer->surname, ENT_QUOTES, 'UTF-8', false); ?>" id="surname" name="surname">
  </div>
  </div>
  <div class="form-group">
  <label for="email" class="">Email</label>
- <input type="email" class="form-control form-control-lg" placeholder="Enter password" value="" id="email" name="email">
+ <input type="email" class="form-control form-control-lg" placeholder="Email" value="<?php echo \htmlentities($customer->email, ENT_QUOTES, 'UTF-8', false); ?>" id="email" name="email" disabled>
  </div>
  <div class="form-group">
  <label for="phone" class="">Phone Number</label>
- <input type="tel" class="form-control form-control-lg" placeholder="Enter password" value="" id="phone" name="phone">
+ <input type="tel" class="form-control form-control-lg" placeholder="Phone" value="<?php echo \htmlentities($customer->phone, ENT_QUOTES, 'UTF-8', false); ?>" id="phone" name="phone">
  </div>
 
 
- </form>
+ </div>
  </div>
  </div>
  <div class="p-details my-5 p-3">
@@ -41,28 +47,31 @@
  <h5>Contact Details</h5>
  </div>
  <div class="p-details-content">
- <form action="#" method="POST" id="form" class="p-details-form">
+ <div id="form" class="p-details-form">
  <div class="form-group">
  <label for="address" class="">Address</label>
- <input type="text" class="form-control form-control-lg" placeholder="Address" value="" id="address" name="address">
+ <input type="text" class="form-control form-control-lg" placeholder="Address" value="<?php echo \htmlentities($address !== null ? $address->address : '', ENT_QUOTES, 'UTF-8', false); ?>" id="address" name="address">
  </div>
  <div class="form-row mb-2">
  <div class="col">
- <label for="state" class="">State</label>
- <input type="text" class="form-control" placeholder="State" value="" id="state" name="state">
+ <label for="town" class="">Town</label>
+ <input type="text" class="form-control" placeholder="Town" value="<?php echo \htmlentities($address !== null ? $address->town : '', ENT_QUOTES, 'UTF-8', false); ?>" id="town" name="town">
  </div>
  <div class="col">
- <label for="surname" class="">Landmark</label>
- <input type="text" class="form-control" placeholder="Landmark" value="" id="landmark" name="landmark">
+ <label for="area" class="">Area</label>
+ <input type="text" class="form-control" placeholder="Area" value="<?php echo \htmlentities($address !== null ? $address->area : '', ENT_QUOTES, 'UTF-8', false); ?>" id="area" name="area">
  </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="p-details my-2 p-3">
+ <button type="submit" class="btn btn-block theme-bg btn-lg text-white save">Save</button>
  </div>
  </form>
  </div>
  </div>
- <div class="p-details my-2 p-3">
- <button class="btn btn-block theme-bg btn-lg text-white save">Save</button>
  </div>
- </div>
- </div>
+
 <?php $this->stopSection(); ?>
 <?php if (@$_shouldextend[1]) { echo $this->runChild('customer.layout.base'); } ?>

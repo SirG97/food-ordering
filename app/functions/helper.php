@@ -39,7 +39,7 @@ function isAuthenticated(){
 
 function user(){
     if(isAuthenticated()){
-        return User::findOrFail(Session::has('SESSION_USER_ID'));
+        return User::findOrFail(Session::get('SESSION_USER_ID'));
     }
 
     return false;
@@ -47,7 +47,7 @@ function user(){
 
 function customer(){
     if(isAuthenticated()){
-        return Customer::findOrFail(Session::has('SESSION_USER_ID'));
+        return Customer::findOrFail(Session::get('SESSION_USER_ID'));
     }
 
     return false;

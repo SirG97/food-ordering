@@ -15,7 +15,8 @@
         "symfony/var-dumper": "^5.1",
         "illuminate/database": "^7.16",
         "tecnickcom/tc-lib-barcode": "1.15",
-      "ext-gd": "*"
+      "ext-gd": "*",
+      "ext-curl": "*"
     },
     "autoload":{
         "psr-4":{

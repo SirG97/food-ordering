@@ -5,9 +5,5 @@
     @extends('user.layout.base')
 @elseif($priviledge === 'Manager')
     @extends('user.layout.usermenu')
-@elseif($priviledge === 'Customer Service Adviser')
-    @extends('user.layout.supportmenu')
-@elseif($priviledge === 'Rider')
-    @extends('user.layout.ridermenu')
 @endif
 

@@ -5,13 +5,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Customer extends Model{
+class Address extends Model{
 
     public $timestamps = true;
     protected $dates = ['deleted_at'];
-    protected $primaryKey = 'customer_id';
-    public $incrementing = false;
-    protected $fillable = ['customer_id', 'email','password', 'firstname', 'surname', 'phone'];
+
+    protected $fillable = ['address_id', 'customer_id', 'state','town', 'area', 'address', 'extra'];
 
 
     public function orders(){
