@@ -60,6 +60,8 @@ $router->map('GET', '/order/[:order_id]', $_ .'CustomerController@showOrder', 'c
 
 $router->map('POST', '/verifytransaction', $_ .'CustomerController@verifyTransaction', 'verifyTransaction');
 $router->map('GET', '/confirmation', $_ .'CustomerController@confirmOrder', 'confirmOrder');
+$router->map('GET', '/customer/notifications', $_ .'CustomerController@notifications', 'Notifications');
+$router->map('GET', '/customer/account', $_ .'CustomerController@showAccount', 'customerAccount');
 $router->map('GET', '/customer/vendors', $_ .'CustomerController@showVendors', 'customerVendors');
 $router->map('GET', '/customer/address', $_ .'CustomerController@showAddress', 'customerAddress');
 $router->map('GET', '/customer/reviews', $_ .'ReviewController@showReviews', 'customerReviews');
@@ -71,7 +73,7 @@ $router->map('GET', '/customer', $_ .'CustomerController@showProfile', 'customer
 $router->map('GET', '/customer/login', $_ .'CustomerController@getLogin', 'getLogin');
 $router->map('GET', '/login', $_ .'CustomerController@getLogin', 'Login');
 $router->map('POST', '/customer/login', $_ .'CustomerController@login', 'customerLogin');
-$router->map('POST', '/customer/logout', $_ .'CustomerController@logout', 'customerLogout');
+$router->map('GET', '/customer/logout', $_ .'CustomerController@logout', 'customerLogout');
 $router->map('GET', '/customer/register', $_ .'CustomerController@getRegister', 'getRegister');
 $router->map('POST', '/customer/register', $_ .'CustomerController@register', 'CustomerRegister');
 

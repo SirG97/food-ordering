@@ -109,156 +109,43 @@
         <div class="all-restaurants-content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-6 col-xl-3">
-                        <div class="card featured-card" style="">
-                            <img class="card-img-top" src="/img/Tortellini.png" alt="Card image cap" style="height: 216px">
-                            <div class="card-body">
-                                <h6 class="card-title">KFC Chicken</h6>
-                                <div class="meta d-flex flex-row align-items-center">
-                                    <div class="justify-content-center">
-                                        <div class="rating-badge badge-secondary px-2 mr-2">
-                                            4.0
-                                        </div>
-                                    </div>
-                                    <div class="justify-content-center">
-                                        <div class="containerdiv d-inline-block mr-2">
-                                            <div>
-                                                <img src="/img/stars_blank.png" alt="img">
-                                            </div>
-                                            <div class="cornerimage" style="width:calc(100%);">
-                                                <img src="/img/stars_full.png" alt="">
+                    @foreach($vendors as $vendor)
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card featured-card" style="">
+                                <img class="card-img-top" src="{{$vendor['banner']}}" alt="Card image cap" style="height: 216px">
+                                <div class="card-body">
+                                    <h6 class="card-title">{{$vendor['biz_name']}}</h6>
+                                    <div class="meta d-flex flex-row align-items-center">
+                                        <div class="justify-content-center">
+                                            <div class="rating-badge badge-secondary px-2 mr-2">
+                                                4.0
                                             </div>
                                         </div>
+                                        <div class="justify-content-center">
+                                            <div class="containerdiv d-inline-block mr-2">
+                                                <div>
+                                                    <img src="/img/stars_blank.png" alt="img">
+                                                </div>
+                                                <div class="cornerimage" style="width:calc(100%);">
+                                                    <img src="/img/stars_full.png" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="justify-content-center">
+                                            <div class="total-order mr-1 btn-outline-secondary">400 Orders</div>
+                                        </div>
                                     </div>
-                                    <div class="justify-content-center">
-                                        <div class="total-order mr-1 btn-outline-secondary">400 Orders</div>
-                                    </div>
+                                    <p class="card-text">{{$vendor['description']}}</p>
+                                    <a href="/restaurant/{{$vendor['vendor_id']}}" class="btn btn-block theme-bg view-more">View more</a>
                                 </div>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, animi consectetur adipisicing elit</p>
-                                <a href="/restaurants" class="btn btn-block theme-bg view-more">View more</a>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 col-xl-3">
-                        <div class="card featured-card" style="">
-                            <img class="card-img-top" src="/img/Tortellini.png" alt="Card image cap" style="height: 216px">
-                            <div class="card-body">
-                                <h6 class="card-title">KFC Chicken</h6>
-                                <div class="meta d-flex flex-row align-items-center">
-                                    <div class="justify-content-center">
-                                        <div class="rating-badge badge-secondary px-2 mr-2">
-                                            4.0
-                                        </div>
-                                    </div>
-                                    <div class="justify-content-center">
-                                        <div class="containerdiv d-inline-block mr-2">
-                                            <div>
-                                                <img src="/img/stars_blank.png" alt="img">
-                                            </div>
-                                            <div class="cornerimage" style="width:calc(100%);">
-                                                <img src="/img/stars_full.png" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="justify-content-center">
-                                        <div class="total-order mr-1 btn-outline-secondary">400 Orders</div>
-                                    </div>
-                                </div>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, animi consectetur adipisicing elit</p>
-                                <a href="/restaurants" class="btn btn-block theme-bg view-more">View more</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-3">
-                        <div class="card featured-card" style="">
-                            <img class="card-img-top" src="/img/Tortellini.png" alt="Card image cap" style="height: 216px">
-                            <div class="card-body">
-                                <h6 class="card-title">KFC Chicken</h6>
-                                <div class="meta d-flex flex-row align-items-center">
-                                    <div class="justify-content-center">
-                                        <div class="rating-badge badge-secondary px-2 mr-2">
-                                            4.0
-                                        </div>
-                                    </div>
-                                    <div class="justify-content-center">
-                                        <div class="containerdiv d-inline-block mr-2">
-                                            <div>
-                                                <img src="/img/stars_blank.png" alt="img">
-                                            </div>
-                                            <div class="cornerimage" style="width:calc(100%);">
-                                                <img src="/img/stars_full.png" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="justify-content-center">
-                                        <div class="total-order mr-1 btn-outline-secondary">400 Orders</div>
-                                    </div>
-                                </div>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, animi consectetur adipisicing elit</p>
-                                <a href="/restaurants" class="btn btn-block theme-bg view-more">View more</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-3">
-                        <div class="card featured-card" style="">
-                            <img class="card-img-top" src="/img/Tortellini.png" alt="Card image cap" style="height: 216px">
-                            <div class="card-body">
-                                <h6 class="card-title">KFC Chicken</h6>
-                                <div class="meta d-flex flex-row align-items-center">
-                                    <div class="justify-content-center">
-                                        <div class="rating-badge badge-secondary px-2 mr-2">
-                                            4.0
-                                        </div>
-                                    </div>
-                                    <div class="justify-content-center">
-                                        <div class="containerdiv d-inline-block mr-2">
-                                            <div>
-                                                <img src="/img/stars_blank.png" alt="img">
-                                            </div>
-                                            <div class="cornerimage" style="width:calc(100%);">
-                                                <img src="/img/stars_full.png" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="justify-content-center">
-                                        <div class="total-order mr-1 btn-outline-secondary">400 Orders</div>
-                                    </div>
-                                </div>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, animi consectetur adipisicing elit</p>
-                                <a href="/restaurants" class="btn btn-block theme-bg view-more">View more</a>
-                            </div>
-                        </div>
-                    </div>
-
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
 
-    <section class="featured">
-        <div class="featured-container text-black-50">
-            <div class="do-you font-weight-normal">Vendors</div>
-            <div class="container-fluid">
-                <div class="row">
-                    @foreach($vendors as $vendor)
-                        <div class="col-md-6 col-xl-3">
-                            <a href="/restaurant/{{$vendor['vendor_id']}}">
-                                <div class="card featured-card" style="">
-                                    <img class="card-img-top" src="{{$vendor['banner']}}" alt="Card image cap" style="height: 180px">
-                                    <div class="card-body px-1 py-2">
-                                        <h6 class="card-title">{{$vendor['biz_name']}}</h6>
-                                        <p class="card-text"> {{$vendor['description']}}</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
-
-                </div>
-
-            </div>
-        </div>
-    </section>
 
 </div>
 

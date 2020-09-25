@@ -852,6 +852,21 @@ body {
 }
 /*Profile details page*/
 
+/* Order page*/
+.order-body th, .order-body td{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.order-body tr:first-child td, .order-body tr:first-child th{
+    border-top: 0;
+}
+
+.order-t-header thead th{
+    background: #FAFAFA;
+    border: 0;
+}
+/*Order page ends*/
+
 @media screen and (min-width: 320px){
     .hero{
         /*height: 70vh;*/

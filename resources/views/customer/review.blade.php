@@ -1,64 +1,92 @@
 @extends('customer.layout.base')
-@section('title', 'Reviews')
+@section('title', 'Orders')
 @section('icon', 'fa-tachometer-alt')
 @section('content')
-    <div class="container-fluid">
-        <div class="col-md-10 offset-md-1">
-        @if(!empty($reviews) && count($reviews) > 0)
-            @foreach($reviews as $review)
-            <div class="card order-card text-secondary">
-                <div class="card-body">
-                    <h6 class="text-primary">{{ $review->vendor->biz_name}}</h6>
-                        <h6>
-
-                            <div class="containerdiv">
-                                <div>
-                                    <img src="https://image.ibb.co/jpMUXa/stars_blank.png" alt="img">
-                                </div>
-                                <div class="cornerimage" style="width:calc({{($review->rating / 5)}} * 100%);">
-                                    <img src="https://image.ibb.co/caxgdF/stars_full.png" alt="">
-                                </div>
-                            </div>
-                        </h6>
-                        		<br>	
-                        
-                    <p>{{$review->feedback}}</p>
-                    <div class="text-right">{{$review->created_at->DiffForHumans()}}</div>
-                </div>
-                
-            </div>
-            @endforeach
-        @else
+    <div class="table-responsive">
+        <table class="table mt-4 order-t-header ">
+            <thead>
             <tr>
-                <td colspan="6">
-                    <div class="d-flex justify-content-center flex-column align-items-center">
-                        <div class="align-items-center"><i class="fas fa-fw fa-shipping-fast fa-2x"></i></div>
-                        <div>You have no Reviews yet</div>
-                    </div>
-                </td>
+                <th scope="col">Vendor</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Comment</th>
+                <th scope="col">Time</th>
+                <th scope="col">Date</th>
             </tr>
-        @endif
-            
+            </thead>
+            <tbody class="order-body">
+            <tr class="my-3">
 
-            <div class="card order-card text-secondary">
-                <div class="card-body">
-                    <h6 class="text-primary">Johnny just come</em> 
-                        <i class="fa fa-star text-warning"></i>
-                        <i class="fa fa-star text-warning"></i>
-                        <i class="fa fa-star text-warning"></i>
-                        <i class="fa fa-star text-warning"></i>
-                        <i class="fa-stack">
-                        <i style="color: #eeeeee;" class="fa-stack-1x fas fa-star"></i>						
-                        <i style="color: #ffc107;" class="fa-stack-1x fas fa-star-half"></i>
-                        </i>
-                    </h6>
-                        			
-                    <p>I really like how this fits and looks. I have purchased other similar prww</p>
-                    <div class="text-right">{{$review->created_at->DiffForHumans()}}</div>
-                </div>
-                
-            </div>
-        </div>
+                <td>Amala Shitta</td>
+                <td> <div class="justify-content-center">
+                        <div class="containerdiv d-inline-block mr-2">
+                            <div>
+                                <img src="/img/stars_blank.png" alt="img">
+                            </div>
+                            <div class="cornerimage" style="width:calc(100%);">
+                                <img src="/img/stars_full.png" alt="">
+                            </div>
+                        </div>
+                    </div></td>
+                <td>The food was awesome and well packaged, I love it</td>
+                <td>12 Sep 2020</td>
+                <td>10:00pm</td>
+            </tr>
+            <tr>
+                <th scope="row">#JH8H3WNLAV</th>
+                <td>Delivered</td>
+                <td>Amala Shitta</td>
+                <td>12 Sep 2020</td>
+                <td>10:00pm</td>
+            </tr>
+            <tr>
+                <th scope="row">#JH8H3WNLAV</th>
+                <td>Delivered</td>
+                <td>Amala Shitta</td>
+                <td>12 Sep 2020</td>
+                <td>10:00pm</td>
+            </tr>
+            <tr>
+                <th scope="row">#JH8H3WNLAV</th>
+                <td>Delivered</td>
+                <td>Amala Shitta</td>
+                <td>12 Sep 2020</td>
+                <td>10:00pm</td>
+            </tr>
+            <tr>
+                <th scope="row">#JH8H3WNLAV</th>
+                <td>Delivered</td>
+                <td>Amala Shitta</td>
+                <td>12 Sep 2020</td>
+                <td>10:00pm</td>
+            </tr>
+            <tr>
+                <th scope="row">#JH8H3WNLAV</th>
+                <td>Delivered</td>
+                <td>Amala Shitta</td>
+                <td>12 Sep 2020</td>
+                <td>10:00pm</td>
+            </tr>
+            <tr>
+                <th scope="row">#JH8H3WNLAV</th>
+                <td>Delivered</td>
+                <td>Amala Shitta</td>
+                <td>12 Sep 2020</td>
+                <td>10:00pm</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
 @endsection()

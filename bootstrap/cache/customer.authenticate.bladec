@@ -20,18 +20,18 @@
 
 
  <!-- The content half -->
- <div class="col-md-6">
+ <div class="col-md-6 login">
  <div class="content-part">
  <div class="signup-text d-flex justify-content-end pt-3 mb-3">
  <p>Become a vendor ? <span class="theme-color">Click here</span></p>
  </div>
- <div class="login d-flex justify-content-center ">
+ <div class="d-flex justify-content-center ">
 
  <!-- Demo content-->
  <div class="container">
  <div class="row mx-1 mx-sm-2 mx-md-4">
 
- <div class="col-md-8 col-lg-9  mx-auto ">
+ <div class="col-md-8 col-lg-9  mx-auto">
  <div class="login-header mb-4">
  <h5 class="display-5 text-left login-header">Sign in</h5>
  </div>

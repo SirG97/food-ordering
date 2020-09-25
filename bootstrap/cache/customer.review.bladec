@@ -1,65 +1,92 @@
 <?php $_shouldextend[1]=1; ?>
-<?php $this->startSection('title', 'Reviews'); ?>
+<?php $this->startSection('title', 'Orders'); ?>
 <?php $this->startSection('icon', 'fa-tachometer-alt'); ?>
 <?php $this->startSection('content'); ?>
- <div class="container-fluid">
- <div class="col-md-10 offset-md-1">
- <?php if(!empty($reviews) && count($reviews) > 0): ?>
- <?php $__currentLoopData = $reviews; $this->addLoop($__currentLoopData);$this->getFirstLoop();
- foreach($__currentLoopData as $review): $loop = $this->incrementLoopIndices();  ?>
- <div class="card order-card text-secondary">
- <div class="card-body">
- <h6 class="text-primary"><?php echo \htmlentities($review->vendor->biz_name, ENT_QUOTES, 'UTF-8', false); ?></h6>
- <h6>
-
- <div class="containerdiv">
- <div>
- <img src="https://image.ibb.co/jpMUXa/stars_blank.png" alt="img">
- </div>
- <div class="cornerimage" style="width:calc(<?php echo \htmlentities(($review->rating / 5), ENT_QUOTES, 'UTF-8', false); ?> * 100%);">
- <img src="https://image.ibb.co/caxgdF/stars_full.png" alt="">
- </div>
- </div>
- </h6>
- 		<br>	
- 
- <p><?php echo \htmlentities($review->feedback, ENT_QUOTES, 'UTF-8', false); ?></p>
- <div class="text-right"><?php echo \htmlentities($review->created_at->DiffForHumans(), ENT_QUOTES, 'UTF-8', false); ?></div>
- </div>
- 
- </div>
- <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
- <?php else: ?>
+ <div class="table-responsive">
+ <table class="table mt-4 order-t-header ">
+ <thead>
  <tr>
- <td colspan="6">
- <div class="d-flex justify-content-center flex-column align-items-center">
- <div class="align-items-center"><i class="fas fa-fw fa-shipping-fast fa-2x"></i></div>
- <div>You have no Reviews yet</div>
- </div>
- </td>
+ <th scope="col">Vendor</th>
+ <th scope="col">Rating</th>
+ <th scope="col">Comment</th>
+ <th scope="col">Time</th>
+ <th scope="col">Date</th>
  </tr>
- <?php endif; ?>
- 
+ </thead>
+ <tbody class="order-body">
+ <tr class="my-3">
 
- <div class="card order-card text-secondary">
- <div class="card-body">
- <h6 class="text-primary">Johnny just come</em> 
- <i class="fa fa-star text-warning"></i>
- <i class="fa fa-star text-warning"></i>
- <i class="fa fa-star text-warning"></i>
- <i class="fa fa-star text-warning"></i>
- <i class="fa-stack">
- <i style="color: #eeeeee;" class="fa-stack-1x fas fa-star"></i>						
- <i style="color: #ffc107;" class="fa-stack-1x fas fa-star-half"></i>
- </i>
- </h6>
- 			
- <p>I really like how this fits and looks. I have purchased other similar prww</p>
- <div class="text-right"><?php echo \htmlentities($review->created_at->DiffForHumans(), ENT_QUOTES, 'UTF-8', false); ?></div>
+ <td>Amala Shitta</td>
+ <td> <div class="justify-content-center">
+ <div class="containerdiv d-inline-block mr-2">
+ <div>
+ <img src="/img/stars_blank.png" alt="img">
  </div>
- 
+ <div class="cornerimage" style="width:calc(100%);">
+ <img src="/img/stars_full.png" alt="">
  </div>
  </div>
+ </div></td>
+ <td>The food was awesome and well packaged, I love it</td>
+ <td>12 Sep 2020</td>
+ <td>10:00pm</td>
+ </tr>
+ <tr>
+ <th scope="row">#JH8H3WNLAV</th>
+ <td>Delivered</td>
+ <td>Amala Shitta</td>
+ <td>12 Sep 2020</td>
+ <td>10:00pm</td>
+ </tr>
+ <tr>
+ <th scope="row">#JH8H3WNLAV</th>
+ <td>Delivered</td>
+ <td>Amala Shitta</td>
+ <td>12 Sep 2020</td>
+ <td>10:00pm</td>
+ </tr>
+ <tr>
+ <th scope="row">#JH8H3WNLAV</th>
+ <td>Delivered</td>
+ <td>Amala Shitta</td>
+ <td>12 Sep 2020</td>
+ <td>10:00pm</td>
+ </tr>
+ <tr>
+ <th scope="row">#JH8H3WNLAV</th>
+ <td>Delivered</td>
+ <td>Amala Shitta</td>
+ <td>12 Sep 2020</td>
+ <td>10:00pm</td>
+ </tr>
+ <tr>
+ <th scope="row">#JH8H3WNLAV</th>
+ <td>Delivered</td>
+ <td>Amala Shitta</td>
+ <td>12 Sep 2020</td>
+ <td>10:00pm</td>
+ </tr>
+ <tr>
+ <th scope="row">#JH8H3WNLAV</th>
+ <td>Delivered</td>
+ <td>Amala Shitta</td>
+ <td>12 Sep 2020</td>
+ <td>10:00pm</td>
+ </tr>
+ <tr>
+ <th scope="row">2</th>
+ <td>Jacob</td>
+ <td>Thornton</td>
+ <td>@fat</td>
+ </tr>
+ <tr>
+ <th scope="row">3</th>
+ <td>Larry</td>
+ <td>the Bird</td>
+ <td>@twitter</td>
+ </tr>
+ </tbody>
+ </table>
  </div>
 
 <?php $this->stopSection(); ?>

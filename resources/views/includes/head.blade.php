@@ -15,13 +15,13 @@
 
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="https://checkout.flutterwave.com/v3.js"></script>
+    @yield('flutterwave')
     <!-- <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script> -->
     <script src="/js/vue.js"></script>
-    <script src="https://unpkg.com/vue-ravepayment/dist/rave.min.js"></script>
     <script src="/js/axios.min.js"></script>
     <script src="/js/script.js"></script>
-    <script src="/js/revieworder.js"></script>
+    @yield('extrascript')
+{{--    --}}
 
 
 </head>

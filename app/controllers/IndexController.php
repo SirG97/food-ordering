@@ -8,8 +8,8 @@ use App\Models\Vendor;
 
 class IndexController extends BaseController{
     public function index(){
-
-        return view('user.index');
+        $vendors = Vendor::all();
+        return view('user.index', ['vendors' => $vendors]);
     }
 
     public function restaurants(){

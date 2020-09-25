@@ -8,6 +8,9 @@ let app = new Vue({
             cartLoading: false,
             failed: false,
             cartTotal: 0,
+            rawTotal: 0,
+            grandTotal: 0,
+            delivery_fee: 0,
             message: '',
             vendorId: $("#vid").data('id'),
             disableCheckoutBtn: true,
@@ -19,6 +22,7 @@ let app = new Vue({
                 axios.get(`/menu/${vendorId}`).then((response)=>{
                     console.log(`/menu/${vendorId}`);
                     app.menus = response.data.vendor.food_categories;
+                    console.log(app.menus);
                     app.loading = false;
                 }).catch((e) =>{
                     console.log(e);
@@ -58,6 +62,9 @@ let app = new Vue({
                             app.items = response.data.items;
                             app.cartTotal = response.data.cartTotal;
                             app.cartLoading = false;
+                            app.grandTotal = response.data.grandTotal;
+                            app.rawTotal = response.data.rawTotal;
+                            app.delivery_fee = response.data.delivery_fee;
                             app.authenticated = response.data.authenticated;
                             app.disableCheckoutBtn = false;
                             
@@ -95,12 +102,10 @@ let app = new Vue({
                     })
                 },200);
             },
-
             updateQuantity: (foodId, operator) =>{
                 console.log(foodId, operator);
                 let postData = $.param({food_id: foodId, operator: operator});
                 axios.post('/cart/update', postData).then((response) => {
-                  
                     app.updateCartView();
 
                 }).catch((e) => {
@@ -108,7 +113,6 @@ let app = new Vue({
                     $("#toast").removeClass('alert-success').addClass('alert-danger').css("display", "block").html(e);
                 });
             },
-
             removeItem: (index) => {
                 let postData = $.param({item_index: index});
                 axios.post('/cart/remove', postData).then((response) => {

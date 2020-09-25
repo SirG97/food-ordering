@@ -1,196 +1,239 @@
 @include('includes.head')
 
-<div>
-    <nav class="navbar navbar-expand-lg navbar-light navbar-transparent fixed-top custom">
-        <a class="navbar-brand" href="#"><i class="fas fa-hamburger"></i>GFoods</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse " id="navbarNavDropdown">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active px-3">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-
-            
-
-                <li class="nav-item px-3">
-                    <a class="nav-link" href="/cart"><i class="fa fa-shopping-cart"></i>Cart</a>
-                </li>
-                @if(isAuthenticated())
-                <div class="dropdown">
-                    <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ customer()->firstname }}
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="/customer/orders">Recent orders</a>
-                        <a class="dropdown-item" href="/customer">Profile</a>
-                        <a class="dropdown-item" href="/customer/logout">Logout</a>
-                    </div>
-                    </div>
-                @else
-                    <li class="nav-item px-3 ">
-                        <a class="auth-btn btn auth btn-sm" href="/customer/login">Login</a>
+<div class="wrapper" id="root">
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light navbar-transparent custom">
+            <a class="navbar-brand" href="#"><i class="fas fa-hamburger"></i>GFoods</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarNavDropdown">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active px-3">
+                        <a class="nav-link" href="#">Resaturants</a>
                     </li>
-                    <li class="nav-item px-3 ">
-                        <a class="auth-btn btn auth btn-sm" href="/customer/signup">Signup</a>
+
+                    <li class="nav-item px-3">
+                        <a class="nav-link" href="#">Become a Vendor</a>
                     </li>
-                @endif
-            </ul>
+
+                    <li class="nav-item px-3">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                    <!-- <li> -->
+
+                    <!-- </li> -->
+
+                </ul>
+
+                <ul class="navbar-nav mr-3">
+                    @if(isAuthenticated())
+                        <div class="dropdown">
+                            <button class="auth-btn btn auth btn-sm  dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ customer()->firstname }}
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/customer/orders">Recent orders</a>
+                                <a class="dropdown-item" href="/customer">Profile</a>
+                                <a class="dropdown-item" href="/customer/logout">Logout</a>
+                            </div>
+                        </div>
+                    @else
+                        <li class="nav-item px-3 ">
+                            <a class="auth-btn btn auth btn-sm" href="/customer/login">Login</a>
+                        </li>
+                        <li class="nav-item px-3 ">
+                            <a class="auth-btn btn auth btn-sm" href="/customer/signup">Signup</a>
+                        </li>
+                    @endif
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    {{--Hero section--}}
+    <div class="arc"></div>
+    <div class="hero d-flex justify-content-start">
+        <div class="hero-text d-flex align-items-center justify-content-start">
+            <div class="d-flex flex-column hero-inner-text">
+                <h3>Eat fresh and healthy food</h3>
+                <p>Get Delicious, healthy meal Prepared by best resturants and delivered to your doorstep. We also deliver fresh foods. What are you waiting for, place your order now!</p>
+                <a class="btn theme-bg action-btn">Order now</a>
+            </div>
+            <div class="hero-img d-flex flex-row">
+                <img class="himg1" src="/img/food2.png" alt="">
+                <img class="himg2" src="/img/foodimg.png" alt="">
+            </div>
         </div>
-    </nav>
-</div>
-<div class="hero d-flex justify-content-center">
-    <section class="hero-search align-self-center p-2 px-sm-3 px-md-5">
-        <div class="container-fluid">
+
+
+    </div>
+
+    {{--Search Bar section--}}
+    <div class="d-flex justify-content-center hero-search-container">
+        <section class="hero-search" style="">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-10 search-input"  style="">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <select class="custom-select form-control form-control-lg" id="inputGroupSelect01">
+                                        <option selected>Select city</option>
+                                        <option value="1">Port-Harcourt</option>
+                                        <option value="2">Owerri</option>
+                                        <option value="3">Enugu</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="email" class="form-control form-control-lg" value="" id="area" name="area" placeholder="Your Area">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-lg" value="" id="meal" name="meal" placeholder="Your Meal">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-2 theme-bg search-btn">
+                        <div class="d-flex justify-content-center">
+                            <div class="align-items-center theme-bg">
+                                <a href="/restaurant" class="theme-bg" id="m-srch-btn">PLACE ORDER</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+
+    {{--How it works section--}}
+    <section class="how-it-works d-flex justify-content-center flex-column">
+        <div class="how-it-works-header justify-content-center d-flex">
+            <h3>How it Works</h3>
+        </div>
+        <div class="how-it-works-content">
             <div class="row">
-                <div class="input-group py-3">
-                    <select class="custom-select form-control form-control-lg" id="inputGroupSelect01">
-                        <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                    <select class="custom-select form-control form-control-lg" id="inputGroupSelect01">
-                        <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                    <div class="input-group-append">
-                        <button class="btn btn-danger px-2" type="button">Search</button>
+                <div class="col-md-4">
+                    <div class="how-widget">
+                        <div class="how-widget-img">
+                            <img src="img/plate.png" alt="">
+                        </div>
+                        <div class="how-widget-text">
+                            <h4>Pick Meals</h4>
+                            <p>Choose any meal from your favourite resturants or any resturants close to you</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="how-widget">
+                        <div class="how-widget-img">
+                            <img src="img/card.png" alt="">
+                        </div>
+                        <div class="how-widget-text">
+                            <h4>Make Payment</h4>
+                            <p>Choose any meal from your favourite resturants or any resturants close to you</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="how-widget">
+                        <div class="how-widget-img">
+                            <img src="img/deliver.png" alt="">
+                        </div>
+                        <div class="how-widget-text">
+                            <h4>Fast Delivery</h4>
+                            <p>Choose any meal from your favourite resturants or any resturants close to you</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </section>
-</div>
-<section class="featured">
-    <div class="featured-container text-black-50">
-        <div class="do-you font-weight-normal">Featured</div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6 col-xl-3">
-                    <div class="card featured-card" style="">
-                        <img class="card-img-top" src="/img/bg11.jpg" alt="Card image cap">
-                        <div class="card-body px-1 py-2">
-                            <h6 class="card-title">Celebrity Vegan Burger (San Francisco)</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-3">
-                    <div class="card featured-card" style="">
-                        <img class="card-img-top" src="/img/bgash2.jpg" alt="Card image cap">
-                        <div class="card-body px-1 py-2">
-                            <h6 class="card-title ">King's Palace Restaurant</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-3" style=" height: inherit">
-                    <div class="card featured-card" >
-                        <img class="card-img-top" src="/img/bg2.jpg" alt="Card image cap">
-                        <div class="card-body px-1 py-2">
-                            <h6 class="card-title ">Hong Kong Chinese</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-3">
-                    <div class="card featured-card" style="">
-                        <img class="card-img-top" src="/img/bgf2.jpg" alt="Card image cap">
-                        <div class="card-body px-1 py-2">
-                            <h6 class="card-title">Lavazza Espression</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    {{--How it works section ends--}}
 
+    {{--Metrics--}}
 
-<!-- start how we operate-->
-<div class="what">
-    <div class="what-header">
-        <h3>How it works</h3>
-    </div>
-    <div class="what-widget">
+    <section class="metrics d-flex">
         <div class="container">
             <div class="row">
-
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <div class="widget-item">
-                        <div class="circle-icon">
-                            <i class="fa fa-map-marked"></i>
-                        </div>
-                        <h6>Choose delivery location</h6>
-                        <p>Choose the location where you want us to delivery</p>
-
+                <div class="col-md-4 d-flex justify-content-center">
+                    <div class="metric-item align-items-center text-center">
+                        <div class="metric-number">3000+</div>
+                        <div class="metric-title">Dishes Delivered</div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <div class="widget-item">
-                        <div class="circle-icon">
-                            <i class="fa fa-hamburger"></i>
-                        </div>
-                        <h6>Select the product</h6>
-                        <p>Choose from a variety of dishes available in the region.</p>
-
+                <div class="col-md-4 d-flex justify-content-center">
+                    <div class="metric-item align-items-center text-center">
+                        <div class="metric-number">500</div>
+                        <div class="metric-title">Enthusiastic Customers</div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <div class="widget-item">
-                        <div class="circle-icon">
-                            <i class="fa fa-shipping-fast"></i>
-                        </div>
-                        <h6>Recieve at your doorstep</h6>
-                        <p>The food will be delivered to your doorstep.</p>
-
+                <div class="col-md-4 d-flex justify-content-center">
+                    <div class="metric-item align-items-center text-center">
+                        <div class="metric-number">10</div>
+                        <div class="metric-title">Energetic Vendors</div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
 
-    </div>
+    {{--Metrics ends here--}}
+    {{--Browse restaurant section--}}
+
+    <section class="restaurant d-flex justify-content-center flex-column">
+        <div class="restaurant-header justify-content-center d-flex">
+            <h3>Browse through restaurants & menus</h3>
+        </div>
+        <div class="restaurant-content">
+            <div class="row">
+                @foreach($vendors as $vendor)
+                    <div class="col-md-4">
+                        <div class="card featured-card" style="">
+                            <img class="card-img-top" src="{{$vendor['banner']}}" alt="Card image cap" style="height: 216px">
+                            <div class="card-body">
+                                <h6 class="card-title">{{$vendor['biz_name']}}</h6>
+                                <div class="meta d-flex flex-row align-items-center">
+                                    <div class="justify-content-center">
+                                        <div class="rating-badge badge-secondary px-2 mr-2">
+                                            4.0
+                                        </div>
+                                    </div>
+                                    <div class="justify-content-center">
+                                        <div class="containerdiv d-inline-block mr-2">
+                                            <div>
+                                                <img src="/img/stars_blank.png" alt="img">
+                                            </div>
+                                            <div class="cornerimage" style="width:calc(100%);">
+                                                <img src="/img/stars_full.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="justify-content-center">
+                                        <div class="total-order mr-1 btn-outline-secondary">400 Orders</div>
+                                    </div>
+                                </div>
+                                <p class="card-text">{{$vendor['description']}}</p>
+                                <a href="/restaurant/{{$vendor['vendor_id']}}" class="btn btn-block theme-bg view-more">View more</a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="more-btn d-flex justify-content-center">
+            <a href="/restaurants" class="btn btn-outline-light px-2 align-items-center btn-block">View all restaurant</a>
+        </div>
+    </section>
+
 </div>
-<!-- End how we operate -->
 
-<section class="services">
-    <div class="container-fluid text-white">
-        <h4 class="text-center text-white text-uppercase">Our services</h4>
-        <div class="row py-5">
-            <div class="col-md-4 d-flex justify-content-center">
-                <div class="service">
-                    <img src="/img/breakfast.png" alt="">
-                    <h5>Breakfast deal</h5>
-                </div>
-            </div>
-            <div class="col-md-4 d-flex justify-content-center">
-                <div class="service">
-                    <img src="/img/lunch.png" alt="">
-                    <h5>Awesome lunch</h5>
-                </div>
-            </div>
-            <div class="col-md-4 d-flex justify-content-center">
-                <div class="service">
-                    <img src="/img/dinner.png" alt="">
-                    <h5>Special dinners</h5>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<script>
-    $(document).ready(() => {
-        $('nav, .nav-item').toggleClass('nav-scrolled scroll-item', window.pageYOffset > 60);
-        $(window).scroll(() => {
-            $('nav, .nav-item').toggleClass('nav-scrolled scroll-item', $(this).scrollTop() > 60)
-        });
-    });
-</script>
 @include('includes.footer')
 

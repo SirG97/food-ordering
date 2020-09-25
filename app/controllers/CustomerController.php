@@ -22,7 +22,6 @@ use App\Models\Payment;
 class CustomerController extends BaseController{
     public function getLogin(){
         // Session::add('referer', $_SERVER['HTTP_REFERER'] || false);
-        
         return view('customer.authenticate');
     }
 
@@ -82,8 +81,12 @@ class CustomerController extends BaseController{
     }
 
     public function getRegister(){
-
         return view('customer.register', ['success' => '','errors' => []]);
+    }
+
+    public function showAccount(){
+        return view('customer.profile', ['success' => '','errors' => []]);
+
     }
 
     public function register(){
@@ -151,8 +154,6 @@ class CustomerController extends BaseController{
        
         return view('customer.recentvendors', ['orders' => $order]);
     }
-
-
 
     public function showAddress(){
         $orders = Order::where('user_id', Session::get('user_id'))->get();
@@ -357,11 +358,13 @@ class CustomerController extends BaseController{
             }
             
         }
-        Redirect::to('/customer/login');
+        Redirect::to('/');
     }
 
 
-
+    public function notifications(){
+        return view('customer.notification', []);
+    }
 
 
 }

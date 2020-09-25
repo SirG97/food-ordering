@@ -146,6 +146,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     tx_ref: app.txref,
                     amount: app.rawTotal,
                     currency: "NGN",
+                    payment_options: "card, account, ussd, qr",
                     // redirect_url: `http://localhost:4000/verifytransaction`,
                     customer: {
                       email: $("#properties").data('customer-email'),
