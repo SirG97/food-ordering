@@ -14,6 +14,7 @@ use App\Classes\Cart;
 use App\Classes\Mail;
 use App\Models\Address;
 use App\Models\Customer;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Food;
@@ -203,13 +204,13 @@ class CustomerController extends BaseController{
     }
 
     public function showProfile(){
-        $orders = Order::where('user_id', Session::get('user_id'))->get();
-        return view('customer.profile', ['orders' => $orders]);
+        $customer = Customer::where('customer_id', Session::get('SESSION_USER_ID'))->first();
+        $address = Address::where('customer_id', Session::get('SESSION_USER_ID'))->first();
+        return view('customer.profile', ['customer' => $customer, 'address' => $address]);
     }
 
     public function showVendors(){
         $order = Order::where('user_id', Session::get('SESSION_USER_ID'))->groupBy('vendor_id')->with('vendor')->get();
-       
         return view('customer.recentvendors', ['orders' => $order]);
     }
 
@@ -248,9 +249,7 @@ class CustomerController extends BaseController{
                 $totalPrice = (int)$item->unit_price * $quantity;
                 $vendor_id = $item->vendor_id;
                 $cartTotal = $totalPrice + $cartTotal;
-               
 
-                
                 $index++;
             }
             $rawTotal = $cartTotal;
@@ -297,8 +296,8 @@ class CustomerController extends BaseController{
 
                    if($saveOrder['status'] == 'success'){
                         // return view('user.confirmation', ['result' => $saveOrder]);
-                        // // echo json_encode([ 'result' => $saveOrder['data']]);
-                        // // exit;
+                          echo json_encode([ 'result' => $saveOrder['data']]);
+                          exit;
                         // Redirect::to('/conformation');
                    }else{
                     echo json_encode([ 'result' => $saveOrder]);
@@ -333,7 +332,8 @@ class CustomerController extends BaseController{
      
                  $totalPrice = (int)$item->unit_price * $quantity;
                  $vendor_id = $item->vendor_id;
-                 $delivery_fee = Vendor::where('vendor_id', $vendor_id)->first()->min_delivery;
+                 $vendor = Vendor::where('vendor_id', $vendor_id)->first()->min_delivery;
+                 $delivery_fee = $vendor->min_delivery;
                  $cartTotal = $totalPrice + $cartTotal;
                 //  $totalPrice = number_format($totalPrice, 2);
                  OrderItem::create([
@@ -356,9 +356,11 @@ class CustomerController extends BaseController{
              }
      
              $rawTotal = $cartTotal;
+
+             $customer = customer();
              //Save order
              Order::create([
-                'user_id' => customer()->user_id,
+                'user_id' => $customer->customer_id,
                 'vendor_id' => $vendor_id,
                 'order_id' => $order_id,
                 'rider_id' => '',
@@ -370,19 +372,25 @@ class CustomerController extends BaseController{
              //Add the payment details to the payment table
              Payment::create([
                  'tx_ref' => $tx_ref,
-                 'user_id' => customer()->user_id,
+                 'user_id' => $customer->customer_id,
                  'order_id' => $order_id,
                  'amount' => $amount,
                  'status' => $status,
+             ]);
+//             Notify the customer
+             Notification::create([
+                 'customer_id' => $customer->customer_id,
+                 'message' =>   `Your payment for order from {$vendor->biz_name} has been received successfully. Your order will be delivered soon`,
+                 'status' => true,
              ]);
              $result['delivery_fee'] = $delivery_fee;
              $result['total'] = $cartTotal;
              $result['grand_total'] = $cartTotal + $delivery_fee;
              $data = [
-                'to' => customer()->email,
+                'to' => $customer->email,
                 'subject' => 'Order confirmation from Gfood',
                 'view' => 'purchase',
-                'name' => customer()->firstname . ' ' . customer()->surname,
+                'name' => $customer->firstname . ' ' . $customer->surname,
                 'body' => $result
             ];
 
@@ -397,7 +405,6 @@ class CustomerController extends BaseController{
     }
 
     public function confirmOrder($result){
-        
         return view('user.confirmation', [ 'result' => $result]);
     }
 

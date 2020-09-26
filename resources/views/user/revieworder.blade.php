@@ -4,7 +4,7 @@
 @section('extrascript')
     <script src="/js/revieworder.js"></script>
 @endsection
-@include('includes.nav')
+@include('includes.head')
 
 <div class="wrapper">
     {{-- Navbar --}}

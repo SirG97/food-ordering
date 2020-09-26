@@ -29,4 +29,8 @@ class Vendor extends Model{
                                     'category_id'
             );
     }
+
+    public function orders(){
+        return $this->hasMany(Order::class, 'vendor_id', 'vendor_id');
+    }
 }

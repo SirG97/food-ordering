@@ -29,8 +29,6 @@
                 </span>
                     <span class="seperator">Min. Order - &#8358;{{$vendor->min_order}}</span>
                     <span class="seperator">Min. Delivery fee - &#8358;{{$vendor->min_delivery}}</span>
-                    <span class="seperator">Delivery time - </span>
-                    <span class="seperator">More info</span>
                 </div>
             </div>
         </div>
@@ -113,8 +111,8 @@
                                                             <p class="card-text">@{{ food.description }}</p>
                                                             <div class="d-flex justify-content-between">
                                                                 <div class="price d-flex flex-row justify-content-around align-items-center">
-                                                                    <div class="main-price">@{{ food.unit_price }}</div> &nbsp; &nbsp;
-                                                                    <div class="sales-price" style="text-decoration: line-through;">$5000</div>
+                                                                    <div class="main-price">&#8358;@{{ food.unit_price }}</div> &nbsp; &nbsp;
+                                                                    <div class="sales-price" style="text-decoration: line-through;"></div>
                                                                 </div>
                                                                 <div class="add-to-cart">
                                                                     <span class="btn theme-bg add-to-cart" @click.prevent="addToCart(food.food_id)">Add to Cart</span>
@@ -132,180 +130,38 @@
                                    <div class="row">
                                        <div class="col-md-12">
                                            <div class="review-container">
-                                                <h3>Customer Reviews(500)</h3>
+                                                <h3>Customer Reviews({{count($reviews)}})</h3>
                                                <div class="list-group list-group-flush mt-3">
-                                                   <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                                       <div class="d-flex w-100 justify-content-between">
-                                                           <div class="name-rating d-flex flex-row">
-                                                               <h6 class="mb-1">Emeka</h6>
-                                                               <div class="containerdiv d-inline-block ml-2">
-                                                                   <div>
-                                                                       <img src="/img/stars_blank.png" alt="img">
+                                                   @if(!empty($reviews) && count($reviews) > 0)
+                                                       @foreach($reviews as $review)
+                                                           <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                                               <div class="d-flex w-100 justify-content-between">
+                                                                   <div class="name-rating d-flex flex-row">
+                                                                       <h6 class="mb-1">{{$review->customer['firstname']}} {{$review->customer['surname']}}</h6>
+                                                                       <div class="containerdiv d-inline-block ml-2">
+                                                                           <div>
+                                                                               <img src="/img/stars_blank.png" alt="img">
+                                                                           </div>
+                                                                           <div class="cornerimage" style="width:{{($review->rating * 100)/5 }}%;">
+                                                                               <img src="/img/stars_full.png" alt="">
+                                                                           </div>
+                                                                       </div>
                                                                    </div>
-                                                                   <div class="cornerimage" style="width:calc(100%);">
-                                                                       <img src="/img/stars_full.png" alt="">
-                                                                   </div>
+
+                                                                   <small>{{$review->created_at->DiffForHumans()}}</small>
                                                                </div>
+                                                               <p class="mb-1">{{$review->feedback}}</p>
+
+                                                           </a>
+                                                       @endforeach
+                                                   @else
+                                                       <a href="#" class="list-group-item list-group-item-action flex-column align-items-center">
+                                                           <div class="d-flex justify-content-center flex-column align-items-center">
+                                                               <div class="align-items-center"><i class="fas fa-fw fa-shipping-fast fa-2x"></i></div>
+                                                               <div>You have no Reviews yet</div>
                                                            </div>
-
-                                                           <small>3 days ago</small>
-                                                       </div>
-                                                       <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-
-                                                   </a>
-                                                   <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                                       <div class="d-flex w-100 justify-content-between">
-                                                           <div class="name-rating d-flex flex-row">
-                                                               <h6 class="mb-1">Emeka</h6>
-                                                               <div class="containerdiv d-inline-block ml-2">
-                                                                   <div>
-                                                                       <img src="/img/stars_blank.png" alt="img">
-                                                                   </div>
-                                                                   <div class="cornerimage" style="width:calc(100%);">
-                                                                       <img src="/img/stars_full.png" alt="">
-                                                                   </div>
-                                                               </div>
-                                                           </div>
-
-                                                           <small>3 days ago</small>
-                                                       </div>
-                                                       <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-
-                                                   </a>
-                                                   <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                                       <div class="d-flex w-100 justify-content-between">
-                                                           <div class="name-rating d-flex flex-row">
-                                                               <h6 class="mb-1">Emeka</h6>
-                                                               <div class="containerdiv d-inline-block ml-2">
-                                                                   <div>
-                                                                       <img src="/img/stars_blank.png" alt="img">
-                                                                   </div>
-                                                                   <div class="cornerimage" style="width:calc(100%);">
-                                                                       <img src="/img/stars_full.png" alt="">
-                                                                   </div>
-                                                               </div>
-                                                           </div>
-
-                                                           <small>3 days ago</small>
-                                                       </div>
-                                                       <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-
-                                                   </a>
-                                                   <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                                       <div class="d-flex w-100 justify-content-between">
-                                                           <div class="name-rating d-flex flex-row">
-                                                               <h6 class="mb-1">Emeka</h6>
-                                                               <div class="containerdiv d-inline-block ml-2">
-                                                                   <div>
-                                                                       <img src="/img/stars_blank.png" alt="img">
-                                                                   </div>
-                                                                   <div class="cornerimage" style="width:calc(100%);">
-                                                                       <img src="/img/stars_full.png" alt="">
-                                                                   </div>
-                                                               </div>
-                                                           </div>
-
-                                                           <small>3 days ago</small>
-                                                       </div>
-                                                       <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-
-                                                   </a>
-                                                   <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                                       <div class="d-flex w-100 justify-content-between">
-                                                           <div class="name-rating d-flex flex-row">
-                                                               <h6 class="mb-1">Emeka</h6>
-                                                               <div class="containerdiv d-inline-block ml-2">
-                                                                   <div>
-                                                                       <img src="/img/stars_blank.png" alt="img">
-                                                                   </div>
-                                                                   <div class="cornerimage" style="width:calc(100%);">
-                                                                       <img src="/img/stars_full.png" alt="">
-                                                                   </div>
-                                                               </div>
-                                                           </div>
-
-                                                           <small>3 days ago</small>
-                                                       </div>
-                                                       <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-
-                                                   </a>
-                                                   <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                                       <div class="d-flex w-100 justify-content-between">
-                                                           <div class="name-rating d-flex flex-row">
-                                                               <h6 class="mb-1">Emeka</h6>
-                                                               <div class="containerdiv d-inline-block ml-2">
-                                                                   <div>
-                                                                       <img src="/img/stars_blank.png" alt="img">
-                                                                   </div>
-                                                                   <div class="cornerimage" style="width:calc(100%);">
-                                                                       <img src="/img/stars_full.png" alt="">
-                                                                   </div>
-                                                               </div>
-                                                           </div>
-
-                                                           <small>3 days ago</small>
-                                                       </div>
-                                                       <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-
-                                                   </a>
-                                                   <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                                       <div class="d-flex w-100 justify-content-between">
-                                                           <div class="name-rating d-flex flex-row">
-                                                               <h6 class="mb-1">Emeka</h6>
-                                                               <div class="containerdiv d-inline-block ml-2">
-                                                                   <div>
-                                                                       <img src="/img/stars_blank.png" alt="img">
-                                                                   </div>
-                                                                   <div class="cornerimage" style="width:calc(100%);">
-                                                                       <img src="/img/stars_full.png" alt="">
-                                                                   </div>
-                                                               </div>
-                                                           </div>
-
-                                                           <small>3 days ago</small>
-                                                       </div>
-                                                       <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-
-                                                   </a>
-                                                   <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                                       <div class="d-flex w-100 justify-content-between">
-                                                           <div class="name-rating d-flex flex-row">
-                                                               <h6 class="mb-1">Emeka</h6>
-                                                               <div class="containerdiv d-inline-block ml-2">
-                                                                   <div>
-                                                                       <img src="/img/stars_blank.png" alt="img">
-                                                                   </div>
-                                                                   <div class="cornerimage" style="width:calc(100%);">
-                                                                       <img src="/img/stars_full.png" alt="">
-                                                                   </div>
-                                                               </div>
-                                                           </div>
-
-                                                           <small>3 days ago</small>
-                                                       </div>
-                                                       <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-
-                                                   </a>
-                                                   <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                                       <div class="d-flex w-100 justify-content-between">
-                                                           <div class="name-rating d-flex flex-row">
-                                                               <h6 class="mb-1">Emeka</h6>
-                                                               <div class="containerdiv d-inline-block ml-2">
-                                                                   <div>
-                                                                       <img src="/img/stars_blank.png" alt="img">
-                                                                   </div>
-                                                                   <div class="cornerimage" style="width:calc(100%);">
-                                                                       <img src="/img/stars_full.png" alt="">
-                                                                   </div>
-                                                               </div>
-                                                           </div>
-
-                                                           <small>3 days ago</small>
-                                                       </div>
-                                                       <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-
-                                                   </a>
-
+                                                       </a>
+                                                   @endif
                                                </div>
                                            </div>
                                        </div>
@@ -315,42 +171,35 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="info-container">
-                                                <h3>Johnny Rockets</h3>
-                                                <div class="list-group list-group-flush mt-3">
+                                                <h3>{{$vendor->biz_name}}</h3>
+                                                <ul class="list-group list-group-flush mt-3">
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Minimum order amount
-                                                        <span class="">$200</span>
+                                                        <span class="">&#8358;{{$vendor->min_order}}</span>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Delivery hours
-                                                        <span class="">8:00 am to 10:00pm</span>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        Delivery time
-                                                        <span class="">10 mins</span>
-                                                    </li>
-
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        Pre-order
-                                                        <span class="">Yes</span>
+                                                        <span class="">{{ date("g:i a", strtotime($vendor->opening_time))}} to {{date("g:i a", strtotime($vendor->closing_time))}}</span>
                                                     </li>
 
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Ratings
-                                                        <span class="">Very Good (4.0)</span>
+                                                        <span class=""> <div class="containerdiv d-inline-block ml-2">
+                                                                           <div>
+                                                                               <img src="/img/stars_blank.png" alt="img">
+                                                                           </div>
+                                                                           <div class="cornerimage" style="width:{{($rating * 100)/5 }}%;">
+                                                                               <img src="/img/stars_full.png" alt="">
+                                                                           </div>
+                                                                       </div>({{$rating}})</span>
                                                     </li>
 
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         Cuisines
-                                                        <span class="">African, Local</span>
+                                                        <span class="">{{$vendor->tags}}</span>
                                                     </li>
 
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        Payment
-                                                        <span class="">Online</span>
-                                                    </li>
-
-                                                </div>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -404,7 +253,7 @@
                                                 </div>
                                                 <a href="/revieworder" :disabled="true" v-if="authenticated" class="btn btn-block theme-bg checkout-btn">Proceed to Checkout</a>
                                                 <span v-else>
-                                                    <a href="/customer/login" class="btn btn-block btn-danger text-uppercase">Proceed to Checkout</a>
+                                                    <a href="/customer/login" class="btn btn-block theme-bg checkout-btn">Login & Checkout</a>
                                                 </span>
                                             </div>
                                         </div>

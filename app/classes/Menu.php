@@ -12,4 +12,12 @@ class Menu{
         }
         return '';
     }
+
+    public static function sidebar($menuItem){
+        $uri = $_SERVER['REQUEST_URI'];
+        if($uri === $menuItem){
+            return 'active';
+        }
+        return '';
+    }
 }

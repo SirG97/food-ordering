@@ -146,9 +146,9 @@
         <div class="restaurant-content">
             <div class="row">
                 @foreach($vendors as $vendor)
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="card featured-card" style="">
-                            <img class="card-img-top" src="{{$vendor['banner']}}" alt="Card image cap" style="height: 216px">
+                            <img class="card-img-top" src="{{$vendor['banner']}}" alt="Card image cap" style="height: 160px">
                             <div class="card-body">
                                 <h6 class="card-title">{{$vendor['biz_name']}}</h6>
                                 <div class="meta d-flex flex-row align-items-center">

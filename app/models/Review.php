@@ -15,7 +15,7 @@ class Review extends Model{
 
     public $timestamps = true;
     protected $dates = ['deleted_at'];
-    protected $fillable = ['user_id', 'vendor_id', 'review_id',  'rating', 'feedback'];
+    protected $fillable = ['customer_id', 'vendor_id', 'review_id',  'rating', 'feedback'];
 
     public function rider(){
         return $this->hasOneThrough(User::class, Rider::class, 'user_id', 'rider_id', 'user_id', 'rider_id');
@@ -26,9 +26,13 @@ class Review extends Model{
         return $this->hasOne(Vendor::class, 'vendor_id', 'vendor_id');
     }
 
-    public function orderItem(){
-        return $this->hasMany(OrderItem::class, 'order_id', 'order_id');
+    public function customer(){
+        return $this->hasOne(Customer::class, 'customer_id', 'customer_id');
     }
+
+//    public function orderItem(){
+//        return $this->hasMany(OrderItem::class, 'order_id', 'order_id');
+//    }
 
 
     public function transform($data){

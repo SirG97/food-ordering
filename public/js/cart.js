@@ -92,6 +92,8 @@ let app = new Vue({
                         }else if(response.data.items !== undefined){
                             app.items = response.data.items;
                             app.cartTotal = response.data.cartTotal;
+                            app.grandTotal = response.data.grandTotal;
+                            app.delivery_fee = response.data.delivery_fee;
                             console.log(response.data.items);
                             app.cartLoading = false;
                             app.disableCheckoutBtn = false;

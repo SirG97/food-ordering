@@ -22,7 +22,7 @@ use App\Models\Review;
 
 class ReviewController extends BaseController{
     public function showReviews(){
-        $reviews = Review::where('user_id', Session::get('SESSION_USER_ID'))->with('vendor')->get();
+        $reviews = Review::where('customer_id', Session::get('SESSION_USER_ID'))->with('vendor')->get();
     
         return view('customer.review', ['reviews' => $reviews]);
     }
@@ -51,7 +51,7 @@ class ReviewController extends BaseController{
             
                 //Add the user
                 $details = [
-                    'user_id' => customer()->user_id,
+                    'customer_id' => customer()->customer_id,
                     'vendor_id' => $request->vendor_id,
                     'review_id' => Random::generateId(16),
                     'rating' => $request->rating,

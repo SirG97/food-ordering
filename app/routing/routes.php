@@ -60,7 +60,7 @@ $router->map('GET', '/order/[:order_id]', $_ .'CustomerController@showOrder', 'c
 
 $router->map('POST', '/verifytransaction', $_ .'CustomerController@verifyTransaction', 'verifyTransaction');
 $router->map('GET', '/confirmation', $_ .'CustomerController@confirmOrder', 'confirmOrder');
-$router->map('GET', '/customer/notifications', $_ .'CustomerController@notifications', 'Notifications');
+$router->map('GET', '/customer/notifications', $_ .'NotificationController@get', 'Notifications');
 $router->map('GET', '/customer/account', $_ .'CustomerController@showAccount', 'customerAccount');
 $router->map('POST', '/customer/edit', $_ .'CustomerController@editAccount', 'editAccount');
 $router->map('GET', '/customer/vendors', $_ .'CustomerController@showVendors', 'customerVendors');

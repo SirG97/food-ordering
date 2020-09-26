@@ -5,12 +5,14 @@ use App\Classes\CSRFToken;
 use App\Classes\Mail;
 use App\Classes\Redirect;
 use App\Models\Vendor;
+use App\Models\Review;
 use App\Models\Customer;
 
 class IndexController extends BaseController{
     public function index(){
         $vendors = Vendor::all();
-
+        $vendors = Vendor::with('orders')->get();
+        dd($vendors);
         return view('user.index', ['vendors' => $vendors]);
     }
 
@@ -24,8 +26,11 @@ class IndexController extends BaseController{
         $vendor_id = $id['uid'];
         $token = CSRFToken::_token();
         $vendor = Vendor::where('vendor_id', $vendor_id)->first();
-
-        return view('user.restaurant', ['vendor' => $vendor, 'token' => $token]);
+        $reviews = Review::where('vendor_id', $vendor_id)->with('customer')->get();
+        $r = Review::where('vendor_id', $vendor_id)->sum('rating');
+        $rating = round(($r / count($reviews)),1 );
+//        dd($reviews[0]->customer['firstname']);
+        return view('user.restaurant', ['vendor' => $vendor, 'reviews'=> $reviews,'rating' => $rating, 'token' => $token]);
     }
 
     public function getMenu($id){
