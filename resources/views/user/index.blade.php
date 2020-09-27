@@ -4,17 +4,12 @@
     @include('includes.nav')
 
     {{--Hero section--}}
-    <div class="arc"></div>
-    <div class="hero d-flex justify-content-start">
-        <div class="hero-text d-flex align-items-center justify-content-start">
-            <div class="d-flex flex-column hero-inner-text">
-                <h3>Eat fresh and healthy food</h3>
-                <p>Get Delicious, healthy meal Prepared by best resturants and delivered to your doorstep. We also deliver fresh foods. What are you waiting for, place your order now!</p>
-                <a class="btn theme-bg action-btn">Order now</a>
-            </div>
-            <div class="hero-img d-flex flex-row">
-                <img class="himg1" src="/img/food2.png" alt="">
-                <img class="himg2" src="/img/foodimg.png" alt="">
+    <div class="hero d-flex justify-content-center">
+        <div class="hero-text d-flex align-items-center justify-content-center">
+            <div class="d-flex flex-column hero-inner-text text-center ">
+                <h3 class="text-white">Eat fresh and healthy food</h3>
+                <p class="text-white">Get Delicious, healthy meal Prepared by best resturants and delivered to your doorstep. We also deliver fresh foods. What are you waiting for, place your order now!</p>
+
             </div>
         </div>
 
@@ -168,7 +163,7 @@
                                         </div>
                                     </div>
                                     <div class="justify-content-center">
-                                        <div class="total-order mr-1 btn-outline-secondary">400 Orders</div>
+{{--                                        <div class="total-order mr-1 btn-outline-secondary">400 Orders</div>--}}
                                     </div>
                                 </div>
                                 <p class="card-text">{{$vendor['description']}}</p>

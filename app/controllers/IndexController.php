@@ -11,8 +11,6 @@ use App\Models\Customer;
 class IndexController extends BaseController{
     public function index(){
         $vendors = Vendor::all();
-        $vendors = Vendor::with('orders')->get();
-        dd($vendors);
         return view('user.index', ['vendors' => $vendors]);
     }
 

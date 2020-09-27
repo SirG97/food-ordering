@@ -15,7 +15,7 @@
  <div class="row">
  <div class="col-12">
  <div class="login-wrapper d-flex justify-content-center .align-items-center flex-column">
- <h3 class="text-center font-weight-bold text-logo">Updelser</h3>
+ <h3 class="text-center font-weight-bold text-logo">Admin</h3>
 
  <div class="login-box align-items-center">
  <?php echo $this->runChild('includes\message'); ?>

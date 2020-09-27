@@ -164,7 +164,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                        
                       axios.post('/verifytransaction', postData).then((response) => {
                           $("#toast").css("display", "block").html(response.data.success);
-                          window.location.href = "/confirmation";
+                          // window.location.href = "/confirmation";
+                          console.log(response.data);
                           setTimeout((e)=>{
                               $("#toast").css("display", "none")
                           }, 2500);

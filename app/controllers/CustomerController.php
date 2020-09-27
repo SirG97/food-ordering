@@ -25,7 +25,9 @@ use mysql_xdevapi\Exception;
 
 class CustomerController extends BaseController{
     public function getLogin(){
-        // Session::add('referer', $_SERVER['HTTP_REFERER'] || false);
+        if($_SERVER['HTTP_REFERER']){
+            Session::add('referer', $_SERVER['HTTP_REFERER']);
+        }
         return view('customer.authenticate');
     }
 
@@ -90,7 +92,6 @@ class CustomerController extends BaseController{
 
     public function showAccount(){
         $customer = Customer::where('customer_id', Session::get('SESSION_USER_ID'))->first();
-
         $address = Address::where('customer_id', Session::get('SESSION_USER_ID'))->first();
 
         return view('customer.profile', ['customer' => $customer, 'address' => $address]);
@@ -293,7 +294,8 @@ class CustomerController extends BaseController{
                         $status = $response->data->status;
                         
                    $saveOrder =  self::storePaymentAndOrder($tx_ref, $amount, $status);
-
+                    echo json_encode([ 'result' => $saveOrder]);
+                    exit;
                    if($saveOrder['status'] == 'success'){
                         // return view('user.confirmation', ['result' => $saveOrder]);
                           echo json_encode([ 'result' => $saveOrder['data']]);
@@ -405,6 +407,7 @@ class CustomerController extends BaseController{
     }
 
     public function confirmOrder($result){
+        dd($result);
         return view('user.confirmation', [ 'result' => $result]);
     }
 
