@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 console.log(app.txref);
                 console.log($("#properties").data('customer-email'));
                 console.log($("#properties").data('public-key'));
-                FlutterwaveCheckout({
+                let x = FlutterwaveCheckout({
                     public_key: $("#properties").data('public-key'),
                     tx_ref: app.txref,
                     amount: app.rawTotal,
@@ -155,17 +155,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     callback: function (data) { // specified callback function
                       console.log(data);
                       let token = $('#root').data('token');
+                      console.log($('#address').val());
                       let postData = $.param({tx_ref: data.tx_ref,
                                                 transaction_id: data.transaction_id,
                                                  amount: data.amount, 
                                                  rawTotal: app.rawTotal,
-                                                 status: data.status, 
+                                                 status: data.status,
+                                                 address: $('#address').val(),
                                                  token: token});
                        
                       axios.post('/verifytransaction', postData).then((response) => {
                           $("#toast").css("display", "block").html(response.data.success);
                           // window.location.href = "/confirmation";
                           console.log(response.data);
+                          x.close();
                           setTimeout((e)=>{
                               $("#toast").css("display", "none")
                           }, 2500);

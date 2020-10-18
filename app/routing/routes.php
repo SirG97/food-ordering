@@ -9,7 +9,7 @@ $_ = '\App\Controllers\\';
 $router->map('GET', '/', $_ .'IndexController@index', 'home');
 $router->map('GET', '/restaurants', $_ .'IndexController@restaurants', 'restaurants');
 $router->map('GET', '/restaurant/[:uid]', $_ .'IndexController@restaurant', 'restaurant');
-$router->map('GET', '/revieworder', $_ .'IndexController@revieworder', 'review_order');
+$router->map('GET', '/revieworder/[:uid]', $_ .'IndexController@revieworder', 'review_order');
 
 //Vue Restaurant route
 $router->map('GET', '/menu/[:uid]', $_ .'IndexController@getMenu', 'getmenu');
@@ -65,6 +65,7 @@ $router->map('GET', '/customer/account', $_ .'CustomerController@showAccount', '
 $router->map('POST', '/customer/edit', $_ .'CustomerController@editAccount', 'editAccount');
 $router->map('GET', '/customer/vendors', $_ .'CustomerController@showVendors', 'customerVendors');
 $router->map('GET', '/customer/address', $_ .'CustomerController@showAddress', 'customerAddress');
+$router->map('POST', '/address/save', $_ .'CustomerController@saveAddress', 'saveAddress');
 $router->map('GET', '/customer/reviews', $_ .'ReviewController@showReviews', 'customerReviews');
 $router->map('POST', '/review/save', $_ .'ReviewController@saveReview', 'saveCustomerReview');
 $router->map('GET', '/customer/settings', $_ .'CustomerController@showSettings', 'customerSettings');

@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Classes\CSRFToken;
 use App\Classes\Mail;
 use App\Classes\Redirect;
+use App\Classes\Session;
 use App\Models\Vendor;
 use App\Models\Review;
 use App\Models\Customer;
@@ -16,6 +17,8 @@ class IndexController extends BaseController{
 
     public function restaurants(){
         $vendors = Vendor::all();
+//        $v = Vendor::with('orders')->withCount('orders')->get();
+//        dd($v);
         return view('user.restaurants', ['vendors' => $vendors]);
 
     }
@@ -39,10 +42,13 @@ class IndexController extends BaseController{
         exit();
     }
 
-    public function revieworder(){
+    public function revieworder($id){
         $token = CSRFToken::_token();
-
-        return view('user.revieworder', ['token' => $token]);
+        $vendor_id = $id['uid'];
+        $vendor = Vendor::where('vendor_id', $id)->first();
+        $customer = Customer::where('customer_id', Session::get('SESSION_USER_ID'))->with('addresses')->first();
+//        dd($customer->addresses[0]);
+        return view('user.revieworder', ['token' => $token, 'vendor' => $vendor, 'customer' => $customer]);
     }
 
 

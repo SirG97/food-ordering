@@ -15,7 +15,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
                     <li class="breadcrumb-item"><a href="/restaurants">Restaurant</a></li>
-                    <li class="breadcrumb-item"><a href="/restaurant/">Johnny</a></li>
+                    <li class="breadcrumb-item"><a href="/restaurant/{{$vendor->vendor_id}}">{{$vendor->biz_name}}</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Checkout</li>
                 </ol>
             </nav>
@@ -35,7 +35,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="o-sum-title ">
-                                            <h6 class="pl-3">Amala Shitta</h6>
+                                            <h6 class="pl-3">{{$vendor->biz_name}}</h6>
                                         </div>
 
                                     </div>
@@ -81,11 +81,20 @@
                 </div>
                 <div class="revieworder-card">
                     <div class="card">
-                        <h5 class="card-header">Delivery address</h5>
+                        <h5 class="card-header d-fle">Delivery address</h5>
                         <div class="card-body">
                             <div class="review-address">
-                                Johnny Wills | No 16 Shilla Ekond Street, Off Portharcourt Rood | +2348569708544
+                                <select class="custom-select" id="address" name="address" required>
+                                    @if(!empty($customer->addresses) && count($customer->addresses) > 0)
+                                        @foreach($customer->addresses as $address)
+                                            <option value={{$address['address_id']}}> {{$address['address']}} | {{$address->area}}</option>
+                                        @endforeach
+                                    @else
+                                        <option value="" disabled selected>No address yet</option>
+                                    @endif
+                                </select>
                             </div>
+                            <button class="btn btn-sm btn-secondary m-2 float-right" data-toggle="modal" data-target="#exampleModalCenter" >add</button>
                         </div>
                     </div>
                 </div>
@@ -125,7 +134,6 @@
                                             <span id="properties"
                                                   data-customer-email="{{ customer()->email }}"
                                                   data-public-key="{{ \App\Classes\Session::get('public_key') }}"
-
                                             ></span>
                                             <button type="submit" v-if="authenticated" :disabled="disableCheckoutBtn"  @click.prevent="checkout" class="btn btn-block theme-bg checkout-btn">Place Order</button>
                                             <span v-else>
@@ -145,7 +153,43 @@
     </div>
 </div>
 
-
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Address</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="form" action="/address/save" method="POST">
+                <div class="modal-body">
+                        <input type="hidden" class="" name="customer_id" value="{{ customer()->customer_id }}">
+                        <input type="hidden" class="" name="token" value="{{\App\Classes\CSRFToken::_token() }}">
+                        <div class="form-group">
+                            <label for="address" class="">Address</label>
+                            <input type="text" class="form-control form-control-lg" placeholder="Address" value="" name="address">
+                        </div>
+                        <div class="form-row mb-2">
+                            <div class="col">
+                                <label for="town" class="">Town</label>
+                                <input type="text" class="form-control" placeholder="Town" value="" id="town" name="town">
+                            </div>
+                            <div class="col">
+                                <label for="area" class="">Area</label>
+                                <input type="text" class="form-control" placeholder="Area" value="" id="area" name="area">
+                            </div>
+                        </div>
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="save-review">Save address</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {{--footer--}}
 @include('includes.footer')
 

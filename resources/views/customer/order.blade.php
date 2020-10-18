@@ -42,7 +42,6 @@
                                                 <td>&#8358;{{ $item['unit_price'] }}</td>
                                                 <td>{{ $item['quantity'] }}</td>
                                                 <td >&#8358;{{ $item['total'] }}</td>
-                                                
                                             </tr>
                                         @endforeach
                                         <tr>
@@ -83,38 +82,38 @@
     </div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Review</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div id="msg" class="d-flex"></div>
-        <div class="">
-            <i class="fa fa-star" data-index="0"></i>
-            <i class="fa fa-star" data-index="1"></i>
-            <i class="fa fa-star" data-index="2"></i>
-            <i class="fa fa-star" data-index="3"></i>
-            <i class="fa fa-star" data-index="4"></i>
-            <span id="star-text"></span>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Review</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-        <div class="" id="vendor" data-vendor="{{ $order->vendor->vendor_id }}"></div>
-        <div class="" id="token" data-token="{{\App\Classes\CSRFToken::_token() }}"></div>
-        <div class="form-group">
-            <label for="exampleFormControlTextarea1">Feedback</label>
-            <textarea class="form-control" id="rating_feedback" rows="3"></textarea>
+        <div class="modal-body">
+            <div id="msg" class="d-flex"></div>
+            <div class="">
+                <i class="fa fa-star" data-index="0"></i>
+                <i class="fa fa-star" data-index="1"></i>
+                <i class="fa fa-star" data-index="2"></i>
+                <i class="fa fa-star" data-index="3"></i>
+                <i class="fa fa-star" data-index="4"></i>
+                <span id="star-text"></span>
+            </div>
+            <div class="" id="vendor" data-vendor="{{ $order->vendor->vendor_id }}"></div>
+            <div class="" id="token" data-token="{{\App\Classes\CSRFToken::_token() }}"></div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Feedback</label>
+                <textarea class="form-control" id="rating_feedback" rows="3"></textarea>
+            </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="save-review">Save review</button>
-      </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="save-review">Save review</button>
+        </div>
+        </div>
     </div>
-  </div>
-</div>
+    </div>
 @endsection()

@@ -11,7 +11,6 @@
     <div class="alert alert-danger  alert-dismissible" role="alert">
         {{ App\Classes\Session::flash('error') }}
     </div>
-
 @endif
 
 

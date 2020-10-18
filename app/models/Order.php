@@ -15,7 +15,7 @@ class Order extends Model{
 
     public $timestamps = true;
     protected $dates = ['deleted_at'];
-    protected $fillable = ['user_id', 'vendor_id', 'order_id',  'rider_id', 'delivery_fee', 'status', 'total', 'grand_total'];
+    protected $fillable = ['user_id', 'vendor_id', 'order_id',  'rider_id', 'address_id', 'delivery_fee', 'status', 'total', 'grand_total'];
 
     public function rider(){
         return $this->hasOneThrough(User::class, Rider::class, 'user_id', 'rider_id', 'user_id', 'rider_id');
@@ -23,7 +23,7 @@ class Order extends Model{
 
 
     public function vendor(){
-        return $this->hasOne(Vendor::class, 'vendor_id', 'vendor_id');
+        return $this->belongsTo(Vendor::class, 'vendor_id', 'vendor_id');
     }
 
     public function orderItem(){

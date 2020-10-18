@@ -62,8 +62,8 @@
             <div class="container-fluid">
                 <div class="row">
                     @foreach($vendors as $vendor)
-                        <div class="col-md-6 col-xl-3">
-                            <div class="card featured-card" style="">
+                        <div class="col-md-6 col-xl-3 mb-2">
+                            <div class="card featured-card my-2" style="">
                                 <img class="card-img-top" src="{{$vendor['banner']}}" alt="Card image cap" style="height: 216px">
                                 <div class="card-body">
                                     <h6 class="card-title">{{$vendor['biz_name']}}</h6>

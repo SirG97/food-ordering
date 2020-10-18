@@ -63,8 +63,15 @@ class CustomerController extends BaseController{
 
                         if(Session::has('referer')){
                             $url = Session::get('referer');
-                            Session::remove('referer');
-                            Redirect::to($url);
+                            if($url == 'http://localhost:4000/customer/register' or
+                                $url =='http://food.ononiru.com/customer/register' or
+                                $url =='https://food.ononiru.com/customer/register'){
+                                Session::remove('referer');
+                                Redirect::to('/');
+                            }else{
+                                Redirect::to($url);
+                            }
+
                         }else{
                             Redirect::to('/');
                         }
@@ -121,8 +128,6 @@ class CustomerController extends BaseController{
                     return view('customer.profile', ['errors' => $errors, 'customer' => $customer, 'address' => $address]);
                 }
                 $customer = Customer::findOrFail($request->customer_id);
-//                $address = Address::findOrFail($request->customer_id);
-
                 $customer->surname = $request->surname;
                 $customer->firstname = $request->firstname;
                 $customer->phone = $request->phone;
@@ -130,18 +135,58 @@ class CustomerController extends BaseController{
                 $address->address = $request->address;
                 $address->town = $request->town;
                 $address->area = $request->area;
-               try{
+                try{
                    $customer->save();
                    $address->save();
                    Session::add('success', 'Details updated successfully');
                    Redirect::to('/customer/account');
 
-               }catch (\Exception $e){
+                }catch (\Exception $e){
                    Session::add('error', 'Operation failed');
                    Redirect::to('/customer/account');
-               }
+                }
+            }
 
+            throw new \Exception('Token mismatch');
+        }
+    }
 
+    public function saveAddress(){
+        if(Request::has('post')){
+            $request = Request::get('post');
+            if(CSRFToken::verifyCSRFToken($request->token)){
+                $address = Address::where('customer_id', Session::get('SESSION_USER_ID'))->first();
+                $rules = [
+                    'customer_id' => ['required' => true,],
+                    'address' => ['mixed' => true, 'maxLength' => 200],
+                    'town' => ['mixed' => true, 'maxLength' => 50],
+                    'area' => ['mixed' => true, 'maxLength' => 50],
+                ];
+                $validation = new Validation();
+                $validation->validate($_POST, $rules);
+                if($validation->hasError()){
+                    $errors = $validation->getErrorMessages();
+                    $customer = Customer::where('customer_id', Session::get('SESSION_USER_ID'))->with('addresses')->first();
+                    return view('user.revieworder', ['errors' => $errors, 'customer' => $customer]);
+                }
+
+                try{
+                    Address::create([
+                        'address_id' => Random::generateId(16),
+                        'customer_id' => $request->customer_id,
+                        'address' => $request->address,
+                        'town' => $request->town,
+                        'area' => $request->area,
+                    ]);
+
+                    Request::refresh();
+                    Session::add('success', 'Address added successfully');
+                    Redirect::back();
+
+                }catch (\Exception $e){
+                    Session::add('error', 'Operation failed');
+                    Redirect::back();
+                }
 
             }
 
@@ -279,12 +324,10 @@ class CustomerController extends BaseController{
                     "Authorization: Bearer FLWSECK_TEST-e3fdf45b85e810308d36def3d0b52541-X"
                 ),
                 ));
-        
                 $response = curl_exec($curl);
                 $response = json_decode($response);
                 curl_close($curl);
 
-            
                 if($response->status === 'success' and 
                     $response->data->status === 'successful' and 
                     $response->data->amount >= $request->rawTotal and
@@ -293,11 +336,11 @@ class CustomerController extends BaseController{
                         $tx_ref = $response->data->tx_ref;
                         $status = $response->data->status;
                         
-                   $saveOrder =  self::storePaymentAndOrder($tx_ref, $amount, $status);
-                    echo json_encode([ 'result' => $saveOrder]);
-                    exit;
+                   $saveOrder =  self::storePaymentAndOrder($tx_ref, $amount, $status, $request->address);
+
                    if($saveOrder['status'] == 'success'){
-                        // return view('user.confirmation', ['result' => $saveOrder]);
+                       Session::add('success', 'Your order has been confirmed and will arrive shortly');
+    //                         return view('user.confirmation', ['result' => $saveOrder['data']]);
                           echo json_encode([ 'result' => $saveOrder['data']]);
                           exit;
                         // Redirect::to('/conformation');
@@ -319,7 +362,7 @@ class CustomerController extends BaseController{
 
     }
 
-    public function storePaymentAndOrder($tx_ref, $amount, $status){
+    public function storePaymentAndOrder($tx_ref, $amount, $status, $address){
         try{
             $order_id = strtoupper(uniqid());
             $result['product'] = array();
@@ -334,7 +377,7 @@ class CustomerController extends BaseController{
      
                  $totalPrice = (int)$item->unit_price * $quantity;
                  $vendor_id = $item->vendor_id;
-                 $vendor = Vendor::where('vendor_id', $vendor_id)->first()->min_delivery;
+                 $vendor = Vendor::where('vendor_id', $vendor_id)->first();
                  $delivery_fee = $vendor->min_delivery;
                  $cartTotal = $totalPrice + $cartTotal;
                 //  $totalPrice = number_format($totalPrice, 2);
@@ -366,6 +409,7 @@ class CustomerController extends BaseController{
                 'vendor_id' => $vendor_id,
                 'order_id' => $order_id,
                 'rider_id' => '',
+                'address_id' => $address,
                 'delivery_fee' => $delivery_fee,
                 'total' => $cartTotal,
                 'grand_total' => $cartTotal + $delivery_fee,
@@ -379,10 +423,10 @@ class CustomerController extends BaseController{
                  'amount' => $amount,
                  'status' => $status,
              ]);
-//             Notify the customer
+        //             Notify the customer
              Notification::create([
                  'customer_id' => $customer->customer_id,
-                 'message' =>   `Your payment for order from {$vendor->biz_name} has been received successfully. Your order will be delivered soon`,
+                 'message' =>   'Your payment for order from ' . $vendor->biz_name . ' has been received successfully. Your order will be delivered soon',
                  'status' => true,
              ]);
              $result['delivery_fee'] = $delivery_fee;
@@ -396,7 +440,7 @@ class CustomerController extends BaseController{
                 'body' => $result
             ];
 
-            self::sendMail($data);
+    //            self::sendMail($data);
             Cart::clear();
              return ['status' => 'success', 'data' => $result];
 

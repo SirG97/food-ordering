@@ -83,7 +83,7 @@
                                     <div class="row" v-cloak v-for="menu in menus">
                                         <div class="col-md-6" v-if="menu.food.length !== 0" v-for="food in menu.food">
                                             <div class="">
-                                                <div class="" >
+                                                <div class=" my-2" >
                                                     <div class="card featured-card" style="">
                                                         <img class="card-img-top" :src="'/' + food.image" alt="food.name + 'picture'" style="height: 216px">
                                                         <div class="card-body">
@@ -251,7 +251,7 @@
                                                     <div class="total-title grand-title font-weight-bold">Grand total</div>
                                                     <div id="grand" class="font-weight-bold total-value">&#8358;@{{ grandTotal }}</div>
                                                 </div>
-                                                <a href="/revieworder" :disabled="true" v-if="authenticated" class="btn btn-block theme-bg checkout-btn">Proceed to Checkout</a>
+                                                <a href="/revieworder/{{$vendor->vendor_id}}" :disabled="true" v-if="authenticated" class="btn btn-block theme-bg checkout-btn">Proceed to Checkout</a>
                                                 <span v-else>
                                                     <a href="/customer/login" class="btn btn-block theme-bg checkout-btn">Login & Checkout</a>
                                                 </span>

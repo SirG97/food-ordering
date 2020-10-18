@@ -18,6 +18,10 @@ class Customer extends Model{
         return $this->hasMany(Order::class, 'user_id', 'user_id');
     }
 
+    public function addresses(){
+        return $this->hasMany(Address::class, 'customer_id', 'customer_id');
+    }
+
     public function transform($data){
         $routes = [];
         foreach ($data as $item){

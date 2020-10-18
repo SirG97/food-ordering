@@ -42,10 +42,10 @@ class VendorController extends BaseController{
                     'alt_mobile' => ['number' => true, 'maxLength' => 15],
                     'opening_time' => ['required' => true, ],
                     'closing_time' => ['required' => true,],
-//                    'sat_opening'=> [ 'mixed' => true],
-//                    'sat_close'=> [ 'mixed' => true],
-//                    'sun_opening'=> [ 'mixed' => true],
-//                    'sun_close'=> [ 'mixed' => true]
+                    //                    'sat_opening'=> [ 'mixed' => true],
+                    //                    'sat_close'=> [ 'mixed' => true],
+                    //                    'sun_opening'=> [ 'mixed' => true],
+                    //                    'sun_close'=> [ 'mixed' => true]
                 ];
                 $validation = new Validation();
                 $validation->validate($_POST, $rules);
@@ -55,7 +55,7 @@ class VendorController extends BaseController{
                     return view('user.registervendor', ['errors' => $errors]);
                 }
 
-//                $tags = explode(',', $request->tags);
+                       //                $tags = explode(',', $request->tags);
                 $tags = implode(',', $request->tags);
 
                 //Add the user
@@ -142,10 +142,10 @@ class VendorController extends BaseController{
                     'alt_mobile' => ['number' => true, 'maxLength' => 15],
                     'opening_time' => ['required' => true, ],
                     'closing_time' => ['required' => true,],
-//                    'sat_opening'=> [ 'mixed' => true],
-//                    'sat_close'=> [ 'mixed' => true],
-//                    'sun_opening'=> [ 'mixed' => true],
-//                    'sun_close'=> [ 'mixed' => true]
+                    //                    'sat_opening'=> [ 'mixed' => true],
+                    //                    'sat_close'=> [ 'mixed' => true],
+                    //                    'sun_opening'=> [ 'mixed' => true],
+                    //                    'sun_close'=> [ 'mixed' => true]
                 ];
                 $validation = new Validation();
                 $validation->validate($_POST, $rules);

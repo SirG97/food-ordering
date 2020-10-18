@@ -17,7 +17,7 @@
     </div>
 
     {{--Search Bar section--}}
-    <div class="d-flex justify-content-center hero-search-container">
+    <div class="d-flex justify-content-center hero-search-container mx-2">
         <section class="hero-search" style="">
             <div class="container-fluid">
                 <div class="row">
@@ -46,8 +46,8 @@
                         </div>
 
                     </div>
-                    <div class="col-md-2 theme-bg search-btn">
-                        <div class="d-flex justify-content-center">
+                    <div class="col-md-2 theme-bg search-btn d-flex justify-content-center">
+                        <div class="d-flex justify-content-center align-items-center py-2">
                             <div class="align-items-center theme-bg">
                                 <a href="/restaurant" class="theme-bg" id="m-srch-btn">PLACE ORDER</a>
                             </div>
@@ -141,31 +141,31 @@
         <div class="restaurant-content">
             <div class="row">
                 @foreach($vendors as $vendor)
-                    <div class="col-md-3">
+                    <div class="col-md-3 mb-3">
                         <div class="card featured-card" style="">
                             <img class="card-img-top" src="{{$vendor['banner']}}" alt="Card image cap" style="height: 160px">
                             <div class="card-body">
                                 <h6 class="card-title">{{$vendor['biz_name']}}</h6>
-                                <div class="meta d-flex flex-row align-items-center">
-                                    <div class="justify-content-center">
-                                        <div class="rating-badge badge-secondary px-2 mr-2">
-                                            4.0
-                                        </div>
-                                    </div>
-                                    <div class="justify-content-center">
-                                        <div class="containerdiv d-inline-block mr-2">
-                                            <div>
-                                                <img src="/img/stars_blank.png" alt="img">
-                                            </div>
-                                            <div class="cornerimage" style="width:calc(100%);">
-                                                <img src="/img/stars_full.png" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="justify-content-center">
+{{--                                <div class="meta d-flex flex-row align-items-center">--}}
+{{--                                    <div class="justify-content-center">--}}
+{{--                                        <div class="rating-badge badge-secondary px-2 mr-2">--}}
+{{--                                            4.0--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="justify-content-center">--}}
+{{--                                        <div class="containerdiv d-inline-block mr-2">--}}
+{{--                                            <div>--}}
+{{--                                                <img src="/img/stars_blank.png" alt="img">--}}
+{{--                                            </div>--}}
+{{--                                            <div class="cornerimage" style="width:calc(100%);">--}}
+{{--                                                <img src="/img/stars_full.png" alt="">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="justify-content-center">--}}
 {{--                                        <div class="total-order mr-1 btn-outline-secondary">400 Orders</div>--}}
-                                    </div>
-                                </div>
+{{--                                    </div>--}}
+{{--                                </div>--}}
                                 <p class="card-text">{{$vendor['description']}}</p>
                                 <a href="/restaurant/{{$vendor['vendor_id']}}" class="btn btn-block theme-bg view-more">View more</a>
                             </div>
